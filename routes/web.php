@@ -24,4 +24,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::inertia('/test', 'Test');
+Route::inertia('/prime', 'Prime');
+
+
+Route::inertia('/sales', 'Sales');
+
+// Customer
+Route::inertia('/customer/register', 'customer/Register');
+
+
+
 require __DIR__.'/auth.php';
