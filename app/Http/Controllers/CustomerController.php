@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Customer;
-use App\Http\Controllers\Controller;
+use App\Models\Address;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CustomerController extends Controller
 {
@@ -13,7 +15,13 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        // get all customer list 
+        $customers = $this->fetchCustomers();
+        // dd($customers);
+    
+        return Inertia::render('Customer', [
+            'customers' => $customers,
+        ]);
     }
 
     /**
@@ -62,5 +70,12 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         //
+    }
+
+    public function fetchCustomers() {
+        $customers = Customer::with('address')->orderBy('created_at', 'desc')->get();
+        // dd($customers);
+
+        return $customers;
     }
 }
