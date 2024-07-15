@@ -15,7 +15,7 @@ import Card from 'primevue/card';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Badge from 'primevue/badge';
-
+import Menubar from 'primevue/menubar';
 
 
 import { createApp, h, DefineComponent } from 'vue';
@@ -47,6 +47,7 @@ createInertiaApp({
         app.component('DataTable', DataTable);
         app.component('Column', Column);
         app.component('Badge', Badge);
+        app.component('Menubar', Menubar);
 
         app.directive('ripple', Ripple);
         

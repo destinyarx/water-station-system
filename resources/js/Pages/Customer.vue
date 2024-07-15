@@ -8,6 +8,10 @@
     </div> -->
     <!-- end -->
 
+    <Header />
+
+    <br>
+
     <Card>
         <template #title>Customers</template>
         <template #subtitle>
@@ -46,8 +50,7 @@
 
 <script setup>
 import { defineProps } from 'vue'
-
-                  
+import Header from '../Components/Layout/Header.vue';
 
 
 const props = defineProps({
