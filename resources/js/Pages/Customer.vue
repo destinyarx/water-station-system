@@ -1,4 +1,13 @@
 <template>
+
+    <!-- start -->
+    <!-- <div class="sidebar min-h-screen w-[3.35rem] overflow-hidden border-r hover:w-56 hover:bg-white hover:shadow-lg">
+        <div class="flex h-screen flex-col justify-between pt-2 pb-6">
+            <div>Sidebar</div>
+        </div>
+    </div> -->
+    <!-- end -->
+
     <Card>
         <template #title>Customers</template>
         <template #subtitle>
@@ -38,13 +47,7 @@
 <script setup>
 import { defineProps } from 'vue'
 
-import Button from 'primevue/button';
-import Card from 'primevue/card';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import Badge from 'primevue/badge';
-import ColumnGroup from 'primevue/columngroup';  
-import Row from 'primevue/row';                   
+                  
 
 
 const props = defineProps({

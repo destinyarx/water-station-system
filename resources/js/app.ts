@@ -9,6 +9,13 @@ import 'primeicons/primeicons.css'
 // import 'primevue/resources/themes/lara-dark-teal/theme.css';
 // import 'primevue/resources/themes/aura-dark-green/theme.css';
 
+// Primevue components
+import Button from 'primevue/button';
+import Card from 'primevue/card';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import Badge from 'primevue/badge';
+
 
 
 import { createApp, h, DefineComponent } from 'vue';
@@ -24,15 +31,26 @@ createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob<DefineComponent>('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
-            .use(plugin)
+        const app = createApp({ render: () => h(App, props) })
+
+            app.use(plugin)
             .use(ZiggyVue)
             .use(PrimeVue, {
                 unstyled: true,
                 pt: Lara,
                 ripple: true
             })
-            .mount(el);
+
+        // Register PrimeVue components globally
+        app.component('Button', Button);
+        app.component('Card', Card);
+        app.component('DataTable', DataTable);
+        app.component('Column', Column);
+        app.component('Badge', Badge);
+
+        app.directive('ripple', Ripple);
+        
+        app.mount(el);
     },
     progress: {
         color: '#4B5563',
