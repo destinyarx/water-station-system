@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class DeliveryHistory extends Model
 {
     use HasFactory;
+
+    public function deliverySchedule() {
+        return $this->hasOne(DeliverySchedule::class);
+    }
 }

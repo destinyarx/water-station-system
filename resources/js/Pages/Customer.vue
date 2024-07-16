@@ -52,7 +52,6 @@
 import { defineProps } from 'vue'
 import Header from '../Components/Layout/Header.vue';
 
-
 const props = defineProps({
     customers: {
         type: Array,

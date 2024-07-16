@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class DeliverySchedule extends Model
 {
     use HasFactory;
+
+    public function customer() {
+        return $this->hasOne(Customer::class);
+    }
+
+    public function deliveryHistory() {
+        return $this->hasMany(DeliveryHistory::class);
+    }
 }

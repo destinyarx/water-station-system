@@ -12,4 +12,12 @@ class Customer extends Model
     public function address() {
         return $this->hasOne(Address::class);
     }
+
+    public function sales() {
+        return $this->hasMany(Sales::class);
+    }
+
+    public function delivery_history() {
+        return $this->hasMany(DeliverySchedule::class);
+    }
 }
