@@ -16,11 +16,11 @@ class CustomerController extends Controller
     public function index()
     {
         // get all customer list 
-        $customers = $this->fetchCustomers();
+        // $customers = $this->fetchCustomers();
         // dd($customers);
     
         return Inertia::render('Customer', [
-            'customers' => $customers,
+            'data' => [],
         ]);
     }
 
@@ -72,9 +72,13 @@ class CustomerController extends Controller
         //
     }
 
-    public function fetchCustomers() {
+    // public function fetchCustomers(Request $request) {
+    public function fetchCustomers(Request $request) {
+        $filter = json_decode($request->filter);
+        // dd($filter->status);
+        // dd($filter->deliver_schedule);
+        
         $customers = Customer::with('address')->orderBy('created_at', 'desc')->get();
-        // dd($customers);
 
         return $customers;
     }

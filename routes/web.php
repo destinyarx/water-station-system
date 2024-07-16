@@ -27,8 +27,8 @@ Route::middleware('auth')->group(function () {
 });
 
 // customer
-Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
-
+Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
+Route::get('/get/customers/{filter}', [CustomerController::class, 'fetchCustomers'])->name('customer.get');
 
 // sales
 Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');

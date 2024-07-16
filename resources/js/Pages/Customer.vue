@@ -49,17 +49,18 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
+import { ref, defineProps, onMounted } from 'vue'
 import Header from '../Components/Layout/Header.vue';
 
 const props = defineProps({
-    customers: {
+    data: {
         type: Array,
         required: true
     },
 })
 
 // customer table data
+let customers = ref([]);
 const customerHeaders = [
     { field: 'name', header: 'Name', sortable: true }, 
     { field: 'address.municipality', header: 'Address', sortable: true }, 
@@ -68,10 +69,30 @@ const customerHeaders = [
     { field: 'status', header: 'Status', sortable: true }, 
 ]
 
-
+// customer methods
 const addCustomer = () => {
     console.log('customer created')
+    fetchCustomer()
 }
+
+const fetchCustomer = async () => {
+    const filter = {
+        status: 'ACTIVE',
+        deliver_schedule: 'today',
+    }
+
+    axios.get("/get/customers/" + JSON.stringify(filter))
+        .then(response => {
+            customers.value = response.data
+        })
+        .catch(exception => {
+          console.error(exception)
+        });
+}
+
+onMounted(() => {
+    fetchCustomer()
+})
 
 </script>
 
