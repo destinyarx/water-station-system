@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductsController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -27,11 +28,24 @@ Route::middleware('auth')->group(function () {
 });
 
 // customer
-Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
-Route::get('/get/customers/{filter}', [CustomerController::class, 'fetchCustomers'])->name('customer.get');
+
+
+// customer
+Route::controller(CustomerController::class)->prefix('customer')->group(function () {
+    Route::get('/', 'index')->name('customer.index');
+    Route::get('/get/{filter}', 'fetchCustomers')->name('customer.get');});
+
+// products
+Route::controller(ProductsController::class)->prefix('products')->group(function () {
+    Route::get('/', 'index')->name('sales.index');
+    Route::get('/get/{filter}', 'fetchProducts')->name('sales.get');
+});
 
 // sales
-Route::get('/sales', [SalesController::class, 'index'])->name('sales.index');
+Route::controller(SalesController::class)->prefix('sales')->group(function () {
+    Route::get('/', 'index')->name('sales.index');
+});
+
 
 // Customer test
 Route::inertia('/customer/register', 'customer/Register');

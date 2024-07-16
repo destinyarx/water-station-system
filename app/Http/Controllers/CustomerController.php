@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Customer;
-use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,10 +14,6 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        // get all customer list 
-        // $customers = $this->fetchCustomers();
-        // dd($customers);
-    
         return Inertia::render('Customer', [
             'data' => [],
         ]);
@@ -72,12 +67,11 @@ class CustomerController extends Controller
         //
     }
 
-    // public function fetchCustomers(Request $request) {
     public function fetchCustomers(Request $request) {
         $filter = json_decode($request->filter);
         // dd($filter->status);
         // dd($filter->deliver_schedule);
-        
+
         $customers = Customer::with('address')->orderBy('created_at', 'desc')->get();
 
         return $customers;

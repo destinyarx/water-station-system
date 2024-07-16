@@ -22,7 +22,7 @@
         </template>
         <template #content>
             <div class="card">
-                <DataTable :value="customers" class="w-auto"
+                <DataTable :value="customers" class="w-auto" :loading="loading"
                     stripedRows size="normal" tableStyle="min-width: 50rem"
                     paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
                     <Column v-for="col of customerHeaders" class="dark:text-zinc-50"
@@ -60,7 +60,8 @@ const props = defineProps({
 })
 
 // customer table data
-let customers = ref([]);
+let loading = ref(false)
+let customers = ref([])
 const customerHeaders = [
     { field: 'name', header: 'Name', sortable: true }, 
     { field: 'address.municipality', header: 'Address', sortable: true }, 
@@ -76,14 +77,17 @@ const addCustomer = () => {
 }
 
 const fetchCustomer = async () => {
+    loading.value = true
+
     const filter = {
         status: 'ACTIVE',
         deliver_schedule: 'today',
     }
 
-    axios.get("/get/customers/" + JSON.stringify(filter))
+    axios.get("/customer/get/" + JSON.stringify(filter))
         .then(response => {
             customers.value = response.data
+            loading.value = false
         })
         .catch(exception => {
           console.error(exception)

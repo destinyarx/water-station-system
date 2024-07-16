@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Products;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProductsController extends Controller
 {
@@ -13,7 +14,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Products');
     }
 
     /**
@@ -62,5 +63,12 @@ class ProductsController extends Controller
     public function destroy(Products $products)
     {
         //
+    }
+
+    public function fetchProducts(Request $request) {
+        $filter = json_decode($request->filter);
+        // dd($filter->status);
+
+        return Products::all();
     }
 }
