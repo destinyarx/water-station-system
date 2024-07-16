@@ -69,6 +69,6 @@ class ProductsController extends Controller
         $filter = json_decode($request->filter);
         // dd($filter->status);
 
-        return Products::all();
+        return Products::with('created_by')->get()->dd();
     }
 }

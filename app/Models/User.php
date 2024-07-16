@@ -44,4 +44,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    
+    /**
+     * return list of created products of the user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products() {
+        return $this->hasMany(Products::class, 'created_by');
+    }
 }
