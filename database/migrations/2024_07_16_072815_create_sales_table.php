@@ -13,7 +13,21 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+
+            $table->smallInteger('customer_id')->unsigned()->nullable(); 
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+
+            $table->smallInteger('deliver_history_id')->unsigned()->nullable(); 
+            $table->foreign('deliver_history_id')->references('id')->on('delivery_history')->onDelete('cascade');
+            
+            $table->smallInteger('created_by')->unsigned(); 
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+
+            $table->smallInteger('total')->unsigned(); 
+            $table->smallInteger('qty')->unsigned(); 
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();        
+            $table->timestamp('deleted_at')->nullable(); 
         });
     }
 
