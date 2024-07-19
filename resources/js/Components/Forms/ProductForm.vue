@@ -10,11 +10,11 @@
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label class="font-semibold w-24">Price</label>
-                <InputNumber v-model="form.price" inputId="integeronly" fluid />
+                <InputNumber v-model="form.price" inputId="integeronly" />
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label class="font-semibold w-24">Quantity</label>
-                <InputNumber v-model="form.qty" inputId="integeronly" fluid />
+                <InputNumber v-model="form.qty" inputId="integeronly" />
             </div>
         <slot></slot>
     </div>
