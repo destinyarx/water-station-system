@@ -30,7 +30,14 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        return Products::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'qty' => $request->qty,
+            'created_by' => 1,
+        ]);
     }
 
     /**
@@ -54,7 +61,14 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Products $products)
     {
-        //
+        // dd((int) $request->id);
+        return Products::where('id', (int) $request->id)
+            ->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'price' => $request->price,
+                'qty' => $request->qty,
+            ]);
     }
 
     /**
@@ -69,6 +83,6 @@ class ProductsController extends Controller
         $filter = json_decode($request->filter);
         // dd($filter->status);
 
-        return Products::with('created_by')->get()->dd();
+        return Products::with('created_by')->orderBy('created_at', 'desc')->get();
     }
 }

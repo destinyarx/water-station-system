@@ -16,6 +16,16 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Badge from 'primevue/badge';
 import Menubar from 'primevue/menubar';
+import Dialog from 'primevue/dialog';
+import InputText from 'primevue/inputtext';
+import InputNumber from 'primevue/inputnumber';
+import Textarea from 'primevue/textarea';
+import Image from 'primevue/image';
+
+
+
+
+
 
 
 import { createApp, h, DefineComponent } from 'vue';
@@ -48,7 +58,12 @@ createInertiaApp({
         app.component('Column', Column);
         app.component('Badge', Badge);
         app.component('Menubar', Menubar);
-
+        app.component('Dialog', Dialog);
+        app.component('InputText', InputText);
+        app.component('InputNumber', InputNumber);
+        app.component('Textarea', Textarea);
+        app.component('Image', Image);
+        
         app.directive('ripple', Ripple);
         
         app.mount(el);
