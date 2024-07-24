@@ -21,10 +21,8 @@ import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
 import Textarea from 'primevue/textarea';
 import Image from 'primevue/image';
-
-
-
-
+import ToggleButton from 'primevue/togglebutton';
+import FloatLabel from 'primevue/floatlabel';
 
 
 
@@ -63,6 +61,9 @@ createInertiaApp({
         app.component('InputNumber', InputNumber);
         app.component('Textarea', Textarea);
         app.component('Image', Image);
+        app.component('ToggleButton', ToggleButton);
+        app.component('FloatLabel', FloatLabel);
+        
         
         app.directive('ripple', Ripple);
         

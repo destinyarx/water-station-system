@@ -28,9 +28,6 @@ Route::middleware('auth')->group(function () {
 });
 
 // customer
-
-
-// customer
 Route::controller(CustomerController::class)->prefix('customer')->group(function () {
     Route::get('/', 'index')->name('customer.index');
     Route::get('/get/{filter}', 'fetchCustomers')->name('customer.get');});
@@ -39,7 +36,7 @@ Route::controller(CustomerController::class)->prefix('customer')->group(function
 Route::controller(ProductsController::class)->prefix('products')->group(function () {
     Route::get('/', 'index')->name('products.index');
     Route::post('/add', 'store')->name('products.add');
-    Route::put('/update/{id}', 'update')->name('products.update');
+    Route::put('/update', 'update')->name('products.update');
     Route::get('/get/{filter}', 'fetchProducts')->name('products.get');
 });
 
