@@ -17,7 +17,7 @@
         <template #subtitle>
             <div class="flex justify-between">
                 <span>Active customer list</span>
-                <Button type="button" label="Add" icon="pi pi-plus" @click="addCustomer" />
+                <Button type="button" label="Add" icon="pi pi-plus" @click="showCustomerForm" />
             </div>
         </template>
         <template #content>
@@ -46,11 +46,25 @@
         </template>
     </Card>
 
+    <Dialog :visible="showForm" modal header="Add Customer" :style="{ width: '50rem'}">
+        <form @submit.prevent="submit">
+            <CustomerForm :form="customerForm" :action="action">
+                <div class="flex justify-end gap-2">
+                    <Button @click="showForm = false" type="button" label="Cancel" severity="danger"></Button>
+                    <Button @click="showForm = false"type="submit" label="Save" severity="info"></Button>
+                </div>
+            </CustomerForm>
+        </form>
+    </Dialog>
+
 </template>
 
 <script setup>
 import { ref, defineProps, onMounted } from 'vue'
 import Header from '../Components/Layout/Header.vue';
+import { useForm } from "@inertiajs/vue3";
+
+import CustomerForm from '@/Components/Forms/CustomerForm.vue'
 
 const props = defineProps({
     data: {
@@ -92,6 +106,34 @@ const fetchCustomer = async () => {
         .catch(exception => {
           console.error(exception)
         });
+}
+
+// customer form
+const customerForm = useForm({
+    'id': null,
+    'name': '',
+    'cellphone_number': null,
+    'email': '',
+    'messenger_name': '',
+    'status': false,
+});
+
+const showForm = ref(false);
+const action = ref('');
+
+const showCustomerForm = () => {
+    resetForm();
+    action.value = 'store';
+    showForm.value = true;
+}
+
+const resetForm = () => {
+    customerForm['id'] = '';
+    customerForm['name'] = '';
+    customerForm['cellphone_number'] = null;
+    customerForm['email'] = '';
+    customerForm['messenger_name'] = '';
+    customerForm['status'] = true;
 }
 
 onMounted(() => {

@@ -41,7 +41,6 @@
 
     <!-- Add or update product modal -->
     <Dialog :visible="visible" modal :header="action === 'store' ? 'Add New Product' : 'Update Product'" :style="{ width: 'auto' }">
-
         <form @submit.prevent="submit">
             <ProductForm :form="productForm" :action="action">
                 <div class="flex justify-end gap-2">
@@ -50,7 +49,6 @@
                 </div>
             </ProductForm>
         </form>
-
     </Dialog>
 </template>
 
@@ -114,13 +112,14 @@ const showUpdateProductForm = (index) => {
     productForm['description'] = products.value[index]['description'];
     productForm['price'] = products.value[index]['price'];
     productForm['qty'] = products.value[index]['qty'];
+    productForm['id'] = products.value[index]['id'];
     visible.value = true;
 
     updateProduct(products.value[index]['id']);
 }
 
-const updateProduct = (id) => {
-    axios.put('/products/update/' + id, productForm)
+const updateProduct = () => {
+    axios.put('/products/update/', productForm)
         .then(response => {
             console.log(response);
             fetchProducts();
