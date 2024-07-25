@@ -52,6 +52,7 @@ Route::inertia('/customer/register', 'customer/Register');
 // test playground
 Route::inertia('/test', 'Test');
 Route::inertia('/prime', 'Prime');
+Route::inertia('/playground', 'Playground');
 
 
 

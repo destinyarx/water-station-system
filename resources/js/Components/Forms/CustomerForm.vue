@@ -9,7 +9,7 @@
 
     <div class="card flex justify-content-center">
         <Stepper linear>
-            <StepperPanel header="Header I">
+            <StepperPanel header="Details">
                 <template #content="{ nextCallback }">
                     <div>                    
                         <!-- Customer Details Form -->
@@ -31,8 +31,8 @@
                             <div class="mb-2 mt-4">Facebook <small>Optional</small></div>
                             <InputText v-model="props.form.name" class="w-full" autocomplete="off"/>
 
-                            <div class="mb-2 mt-4">Status</div>
-                            <ToggleButton v-model="checked" onLabel="Active" offLabel="Inactive" />
+                            <!-- <div class="mb-2 mt-4">Status</div>
+                            <ToggleButton v-model="checked" onLabel="Active" offLabel="Inactive" /> -->
 
                             <div class="float-right">
                                 <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="nextCallback" />
@@ -42,7 +42,7 @@
                 </template>
             </StepperPanel>
 
-            <StepperPanel header="Header II">
+            <StepperPanel header="Address">
                 <template #content="{ prevCallback, nextCallback }">
                     <div class="flex flex-column h-12rem">
                         <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
@@ -54,7 +54,7 @@
                 </template>
             </StepperPanel>
 
-            <StepperPanel header="Header III">
+            <StepperPanel header="Delivery Schedule">
                 <template #content="{ prevCallback }">
                     <div class="flex flex-column h-12rem">
                         <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
