@@ -54,6 +54,4 @@ Route::inertia('/test', 'Test');
 Route::inertia('/prime', 'Prime');
 Route::inertia('/playground', 'Playground');
 
-
-
 require __DIR__.'/auth.php';

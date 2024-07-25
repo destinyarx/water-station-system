@@ -1,35 +1,32 @@
 <template>
-    <!-- <div class="flex flex-row flex-wrap w-full h-60">
-        <div class="w-1/4  bg-teal-400 p-5 text-center">Element 1</div>
-        <div class="w-1/4 self-center hover:self-center bg-rose-400 p-5 text-center">Element 2</div>
-        <div class="w-1/4 hover:self-end bg-orange-400 p-5 text-center">Element 3</div>
-        <div class="w-1/4 self-center hover:self-stretch bg-cyan-400 p-5 text-center">Element 4</div>
-    </div> -->
+    <Layout>
+        <Card class="min-h-screen">
+            <template #title>
+                <div class="text-center">
+                    Code Playground
+                </div>
+            </template>
+            <template #content>
+                <div class="text-center">
+                    <InputText v-model="inputStudent" />
+                    <Button @click="addNewStudent" v-model="inputStudent" class="ml-2" label="Add Student" icon="pi pi-plus" />
+                    <ul class="mt-5">
+                        <li v-for="(student, index) in students" :key="index">
+                            {{ student }}
+                        </li>
+                    </ul>
+                </div>
 
-    <Card class="h-96">
-        <template #title>
-            <div class="text-center">
-                Code Playground
-            </div>
-        </template>
-        <template #content>
-            <div class="text-center">
-                <InputText v-model="inputStudent" />
-                <Button @click="addNewStudent" v-model="inputStudent" class="ml-2" label="Add Student" icon="pi pi-plus" />
-                <ul class="mt-5">
-                    <li v-for="(student, index) in students" :key="index">
-                        {{ student }}
-                    </li>
-                </ul>
-            </div>
-
-            <TestForm class="mt-2" @submit="handleSubmit" />
-        </template>
-    </Card>
+                <TestForm class="mt-2" @submit="handleSubmit" />
+            </template>
+        </Card>
+    </Layout>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
+import Header from '@/Layouts/Header.vue'
+import Layout from '@/Layouts/Layout.vue'
 
 // components
 import TestForm from '@/Components/Forms/TestForm.vue'

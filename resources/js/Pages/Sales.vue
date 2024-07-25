@@ -8,7 +8,7 @@
 
 <script setup>
 import { defineProps } from 'vue';
-import Header from '../Components/Layout/Header.vue'
+import Header from '../Layouts/Header.vue'
 
 
 

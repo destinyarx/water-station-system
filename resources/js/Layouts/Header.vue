@@ -1,5 +1,8 @@
 <template>
     <Menubar :model="items" class="p-shadow-4">
+      <template #start>
+        <div class="min-w-48"></div>
+      </template>
       <template #item="{item}">
         <Link :href="item.route">
           <div class="mx-4">
@@ -11,8 +14,8 @@
 
       <template #end>
         <h2 class="p-mr-2">Navigation Header</h2>
+        <div class="w-1/4"></div>
       </template>
-
     </Menubar>
   </template>
   
