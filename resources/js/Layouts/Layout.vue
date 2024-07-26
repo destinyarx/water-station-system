@@ -4,15 +4,18 @@
         <Header />
 
         <div class="w-full flex flex-row">
-            <div class="fixed top-0 left-0 z-50 h-full w-[5.1rem] text-white bg-gray-800 transition-all duration-300 ease-in-out hover:w-[15.2rem]">
+            <div class="fixed top-0 left-0 z-50 h-full w-[5.1rem] group text-white bg-gray-800 transition-all duration-300 ease-in-out hover:w-[15.2rem]">
                 <div class="text-cyan-200 mt-5 mb-10">
-                    Logo Here
+                    <i class="pi pi-amazon ml-6" style="font-size: 2.5rem"></i>
+                    <span class="text-xl text-zinc-50 opacity-0 group-hover:opacity-100 ml-2">Amazon</span>
                 </div>
                 <ul>
-                    <li v-for="item in sidebarItems" class="my-4">
+                    <li v-for="item in sidebarItems" class="my-10">
                         <Link :href="item.route">
-                            <i :class="item.icon" class="mr-1 self-center"></i>
-                            {{ item.label }}
+                            <i :class="item.icon" class="mr-1 ml-6 self-center" style="font-size: 1.5rem"></i>
+                            <span class="ml-2 hidden group-hover:inline-block">
+                                {{ item.label }}
+                            </span>
                         </Link>
                     </li>
                 </ul>
@@ -47,7 +50,7 @@ const sidebarItems = ref([
     },
     { 
       label: 'Products',
-      icon: 'pi-shopping-cart',
+      icon: 'pi pi-shopping-bag',
       route: '/products'
     },
     { 

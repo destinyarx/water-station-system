@@ -25,11 +25,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import Header from '@/Layouts/Header.vue'
 import Layout from '@/Layouts/Layout.vue'
+import { useCounterStore } from '@/stores/test.js'
 
 // components
 import TestForm from '@/Components/Forms/TestForm.vue'
+
+const storeCounter = useCounterStore()
 
 type people = {
     name: string

@@ -24,16 +24,16 @@ import Image from 'primevue/image';
 import ToggleButton from 'primevue/togglebutton';
 import FloatLabel from 'primevue/floatlabel';
 
-
-
 import { createApp, h, DefineComponent } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config';
 import Lara from '@/Presets/lara'; 
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const pinia = createPinia()
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -43,6 +43,7 @@ createInertiaApp({
 
             app.use(plugin)
             .use(ZiggyVue)
+            .use(pinia)
             .use(PrimeVue, {
                 unstyled: true,
                 pt: Lara,

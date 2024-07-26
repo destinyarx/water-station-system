@@ -1,14 +1,14 @@
 <template>
+    <Layout>
+        <div class="min-h-screen min-w-full dark:bg-slate-800 ">
 
-    <Header />
-
-    <div> {{ page }}</div>
-
+        </div>
+    </Layout>
 </template>
 
 <script setup>
 import { defineProps } from 'vue';
-import Header from '../Layouts/Header.vue'
+import Layout from '../Layouts/Layout.vue'
 
 
 
