@@ -39,7 +39,7 @@
     </Layout>
 
     <!-- Add or update product modal -->
-    <Dialog v-model:visible="visible" modal :header="action === 'store' ? 'Add New Product' : 'Update Product'" :style="{ width: 'auto' }">
+    <Dialog v-model:visible="visible" modal :header="action === 'store' ? 'Add New Product' : 'Update Product'" :style="{ width: '40rem' }">
         <form @submit.prevent="submit">
             <ProductForm :form="productForm" :action="action">
                 <div class="flex justify-end gap-2">
