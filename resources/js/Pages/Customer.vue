@@ -36,12 +36,12 @@
        </Card>
    </Layout>
 
-    <Dialog :visible="showForm" modal header="Add Customer" :style="{ width: '50rem'}">
+    <Dialog v-model:visible="visible" modal header="Add Customer" :style="{ width: '50rem'}">
         <form @submit.prevent="submit">
             <CustomerForm :form="customerForm" :action="action">
                 <div class="flex justify-end gap-2">
-                    <Button @click="showForm = false" type="button" label="Cancel" severity="danger"></Button>
-                    <Button @click="showForm = false"type="submit" label="Save" severity="info"></Button>
+                    <Button @click="visible = false" type="button" label="Cancel" severity="danger"></Button>
+                    <Button @click="visible = false"type="submit" label="Save" severity="info"></Button>
                 </div>
             </CustomerForm>
         </form>
@@ -108,13 +108,13 @@ const customerForm = useForm({
     'status': false,
 });
 
-const showForm = ref(false);
+const visible = ref(false);
 const action = ref('');
 
 const showCustomerForm = () => {
     resetForm();
     action.value = 'store';
-    showForm.value = true;
+    visible.value = true;
 }
 
 const resetForm = () => {
