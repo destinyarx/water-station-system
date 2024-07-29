@@ -17,6 +17,10 @@
                     </ul>
                 </div>
 
+                <div class="h-24 border-2">
+                    {{ storeCounter.doubleCount }}
+                </div>
+
                 <TestForm class="mt-2" @submit="handleSubmit" />
             </template>
         </Card>
@@ -53,6 +57,7 @@ const isValid = (name: String) : String => {
 const addNewStudent = (): void => {
     students.value.push(inputStudent.value);
     inputStudent.value = '';
+    storeCounter.increment(2)
 }
 
 const handleSubmit = (data: Object) => {

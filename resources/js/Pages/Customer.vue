@@ -40,8 +40,8 @@
         <form @submit.prevent="submit">
             <CustomerForm :form="customerForm" :action="action">
                 <div class="flex justify-end gap-2">
-                    <Button @click="visible = false" type="button" label="Cancel" severity="danger"></Button>
-                    <Button @click="visible = false"type="submit" label="Save" severity="info"></Button>
+                    <!-- <Button @click="visible = false" type="button" label="Cancel" severity="danger"></Button> -->
+                    <Button @click="visible = false"type="submit" label="Save" severity="success"></Button>
                 </div>
             </CustomerForm>
         </form>
