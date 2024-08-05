@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DeliveryScheduleController;
 use App\Http\Controllers\ProductsController;
 
 Route::get('/', function () {
@@ -27,12 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// customer
 Route::controller(CustomerController::class)->prefix('customer')->group(function () {
     Route::get('/', 'index')->name('customer.index');
     Route::get('/get/{filter}', 'fetchCustomers')->name('customer.get');});
 
-// products
 Route::controller(ProductsController::class)->prefix('products')->group(function () {
     Route::get('/', 'index')->name('products.index');
     Route::post('/add', 'store')->name('products.add');
@@ -40,10 +39,15 @@ Route::controller(ProductsController::class)->prefix('products')->group(function
     Route::get('/get/{filter}', 'fetchProducts')->name('products.get');
 });
 
-// sales
 Route::controller(SalesController::class)->prefix('sales')->group(function () {
     Route::get('/', 'index')->name('sales.index');
 });
+
+Route::controller(DeliveryScheduleController::class)->prefix('delivery-schedule')->group(function () {
+    Route::get('', 'index');
+});
+
+Route::inertia('/dashboard', 'Dashboard');
 
 
 // Customer test
