@@ -15,7 +15,7 @@
                         <div class="flex items-center justify-center border border-1 rounded-full w-12 h-12 p-2">
                             <i class="pi pi-user" style="font-size: 1.8rem"/>
                         </div>
-                        <span>Details</span>
+                        <span class="font-bold">Details</span>
                     </button>
                 </template>
                 <template #content="{ nextCallback }">
@@ -54,45 +54,12 @@
                         <div class="flex items-center justify-center border border-1 rounded-full w-12 h-12 p-2">
                             <i class="pi pi-home" style="font-size: 1.8rem"/>
                         </div>
-                        <span>Address</span>
+                        <span class="font-bold">Address</span>
                     </button>
                 </template>
-
-                <!-- Address Form -->
                 <template #content="{ prevCallback, nextCallback }">
-                    <div class="w-100">
-                        <div class="mb-4">
-                            <div>House Description</div>
-                            <Textarea v-model="form.name" autoResize  rows="4" cols="30" class="w-full" />
-                        </div>
-
-                        <div class="grid grid-cols-5 gap-5 my-4">
-                            <div>
-                                <div>Unit</div>
-                                <InputText v-model="props.form.messenger_name" class="w-full" autocomplete="off"/>
-                            </div>
-
-                            <div class="col-span-2">
-                                <div>Street</div>
-                                <InputText v-model="props.form.messenger_name" class="w-full" autocomplete="off"/>
-                            </div>
-
-                            <div class="col-span-2">
-                                <div>Barangay</div>
-                                <InputText v-model="props.form.messenger_name" class="w-full" autocomplete="off"/>
-                            </div>
-                        </div>
-
-                        <div  class="grid grid-cols-2 gap-5 my-4">
-                            <div>
-                                <div>Municipality</div>
-                                <InputText v-model="props.form.messenger_name" class="w-full" autocomplete="off"/>
-                            </div>
-                            <div>
-                                <div>Province</div>
-                                <InputText v-model="props.form.messenger_name" class="w-full" autocomplete="off"/>
-                            </div>
-                        </div>
+                    <div class="flex flex-column h-12rem">
+                        <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
                     </div>
                     <div class="flex justify-between pt-4">
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="prevCallback" />
@@ -107,7 +74,7 @@
                         <div class="flex items-center justify-center border border-1 rounded-full w-12 h-12 p-2">
                             <i class="pi pi-truck" style="font-size: 1.8rem"/>
                         </div>
-                        <span>Delivery Schedule</span>
+                        <span class="font-bold">Delivery Schedule</span>
                     </button>
                 </template>
                 <template #content="{ prevCallback }">

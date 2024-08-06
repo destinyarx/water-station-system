@@ -36,7 +36,7 @@
        </Card>
    </Layout>
 
-    <Dialog v-model:visible="visible" modal header="Add Customer" :style="{ width: '50rem'}">
+    <Dialog v-model:visible="visible" modal header="Add Customer" :style="{ width: '60rem'}">
         <form @submit.prevent="submit">
             <CustomerForm :form="customerForm" :action="action">
                 <div class="flex justify-end gap-2">

@@ -3,7 +3,7 @@
         <Card class="dark:bg-slate-700 light:bg-gray-100">
             <template #title>
                 <div class="flex justify-end mt-5 mb-2">
-                    <Button @click="showAddProductForm" type="button" label="Add Product" icon="pi pi-plus" class="text-size-md" />
+                    <Button @click="showAddProductForm" type="button" label="Add Product" icon="pi pi-plus" />
                 </div>
             </template>
             
