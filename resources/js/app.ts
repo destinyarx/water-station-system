@@ -23,6 +23,13 @@ import Textarea from 'primevue/textarea';
 import Image from 'primevue/image';
 import ToggleButton from 'primevue/togglebutton';
 import FloatLabel from 'primevue/floatlabel';
+import Stepper from 'primevue/stepper';
+import StepperPanel from 'primevue/stepperpanel';
+import CascadeSelect from 'primevue/cascadeselect';
+import Dropdown from 'primevue/dropdown';
+import SelectButton from 'primevue/selectbutton';
+import Calendar from 'primevue/calendar';
+
 
 import { createApp, h, DefineComponent } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
@@ -64,6 +71,12 @@ createInertiaApp({
         app.component('Image', Image);
         app.component('ToggleButton', ToggleButton);
         app.component('FloatLabel', FloatLabel);
+        app.component('Stepper', Stepper);
+        app.component('StepperPanel', StepperPanel);
+        app.component('CascadeSelect', CascadeSelect);
+        app.component('Dropdown', Dropdown);
+        app.component('SelectButton', SelectButton);
+        app.component('Calendar', Calendar );
         
         
         app.directive('ripple', Ripple);

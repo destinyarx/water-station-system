@@ -111,9 +111,7 @@
                     </button>
                 </template>
                 <template #content="{ prevCallback }">
-                    <div class="flex flex-column h-12rem">
-                        <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
-                    </div>
+                    <DeliveryScheduleForm :form="form"/>
                     <div class="flex pt-4 justify-between">
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="prevCallback" />
                         <div>
@@ -140,13 +138,7 @@
 
 <script setup>
 import { ref, onMounted, defineProps } from 'vue';
-
-
-
-import Stepper from 'primevue/stepper';
-import StepperPanel from 'primevue/stepperpanel';
-
-
+import DeliveryScheduleForm  from '@/Components/Forms/DeliveryScheduleForm.vue';
 
 const checked = ref(false);
 
