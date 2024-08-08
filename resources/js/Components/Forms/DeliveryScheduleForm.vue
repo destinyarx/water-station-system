@@ -9,7 +9,7 @@
             <div class="grid grid-cols-2 mb-4">
                 <div>
                     <div class="mb-1">Frequency</div>
-                    <Dropdown v-model="form.frequency" :options="frequency" optionLabel="name" placeholder="Delivery Frequency" class="mt-1 w-full"/>
+                    <Dropdown v-model="form.frequency" :options="frequency" optionLabel="name" placeholder="Select Delivery Frequency" class="mt-1 w-full"/>
                 </div>
                 <div v-if="form.frequency['name'] === 'Once'" class="ml-2">
                     <div class="mb-1">Date</div>

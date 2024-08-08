@@ -24,19 +24,19 @@
                         <div class="mb-2"> Name 
                             <span class="text-rose-800">*</span>
                         </div>
-                        <InputText v-model="props.form.customer.name" class="w-full" autocomplete="off"/>
+                        <InputText v-model="props.form.customer.name" class="w-full" placeholder="Enter Customer Name" autocomplete="off"/>
 
                         <div class="mb-2 mt-4">
                             Cellphone Number
                             <span class="text-rose-800">*</span>
                         </div>
-                        <InputNumber v-model="props.form.customer.cellphone_number" class="w-full" autocomplete="off"/>
+                        <InputNumber v-model="props.form.customer.cellphone_number" class="w-full" placeholder="Mobile Number" autocomplete="off"/>
 
                         <div class="mb-2 mt-4">Email <small>(Optional)</small></div>
-                        <InputText v-model="props.form.customer.email" class="w-full" autocomplete="off"/>
+                        <InputText v-model="props.form.customer.email" class="w-full" placeholder="Enter Email Address" autocomplete="off"/>
 
                         <div class="mb-2 mt-4">Facebook <small>Optional</small></div>
-                        <InputText v-model="props.form.customer.messenger_name" class="w-full" autocomplete="off"/>
+                        <InputText v-model="props.form.customer.messenger_name" class="w-full" placeholder="Facebook Messenger Username" autocomplete="off"/>
 
                         <!-- <div class="mb-2 mt-4">Status</div>
                         <ToggleButton v-model="props.form.customer.status" onLabel="Active" offLabel="Inactive" /> -->
@@ -63,34 +63,34 @@
                     <div class="w-100">
                         <div class="mb-4">
                             <div>House Description</div>
-                            <Textarea v-model="form.address.description" autoResize  rows="4" cols="30" class="w-full" />
+                            <Textarea v-model="form.address.description" autoResize  rows="4" cols="30" class="w-full" placeholder="Provide Description About the Delivery Address"/>
                         </div>
 
                         <div class="grid grid-cols-5 gap-5 my-4">
                             <div>
                                 <div>Unit</div>
-                                <InputText v-model="props.form.address.unit" class="w-full" autocomplete="off"/>
+                                <InputText v-model="props.form.address.unit" class="w-full" autocomplete="off" placeholder="Unit Number"/>
                             </div>
 
                             <div class="col-span-2">
                                 <div>Street</div>
-                                <InputText v-model="props.form.address.street" class="w-full" autocomplete="off"/>
+                                <InputText v-model="props.form.address.street" class="w-full" autocomplete="off" placeholder="Street Name"/>
                             </div>
 
                             <div class="col-span-2">
                                 <div>Barangay</div>
-                                <InputText v-model="props.form.address.barangay" class="w-full" autocomplete="off"/>
+                                <InputText v-model="props.form.address.barangay" class="w-full" autocomplete="off" placeholder="Barangay"/>
                             </div>
                         </div>
 
                         <div  class="grid grid-cols-2 gap-5 my-4">
                             <div>
                                 <div>Municipality</div>
-                                <InputText v-model="props.form.address.municipality" class="w-full" autocomplete="off"/>
+                                <InputText v-model="props.form.address.municipality" class="w-full" autocomplete="off" placeholder="Municipality"/>
                             </div>
                             <div>
                                 <div>Province</div>
-                                <InputText v-model="props.form.address.province" class="w-full" autocomplete="off"/>
+                                <InputText v-model="props.form.address.province" class="w-full" autocomplete="off" placeholder="Province"/>
                             </div>
                         </div>
                     </div>
