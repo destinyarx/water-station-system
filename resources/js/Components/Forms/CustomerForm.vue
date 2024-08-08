@@ -18,13 +18,13 @@
                                 <div class="mb-2"> Name 
                                     <span class="text-rose-800">*</span>
                                 </div>
-                                <InputText v-model="props.form.customer.name" class="w-full" placeholder="Enter Customer Name" autocomplete="off"/>
+                                <InputText v-model="props.form.customer.name" class="w-full" placeholder="Enter Customer Name" :invalid="!props.form.customer.name && isSubmitted" autocomplete="off"/>
 
                                 <div class="mb-2 mt-4">
                                     Cellphone Number
                                     <span class="text-rose-800">*</span>
                                 </div>
-                                <InputNumber v-model="props.form.customer.cellphone_number" class="w-full" placeholder="Mobile Number" autocomplete="off" />
+                                <InputNumber v-model="props.form.customer.cellphone_number" class="w-full" placeholder="Mobile Number" :invalid="!props.form.customer.cellphone_number && isSubmitted" autocomplete="off" />
 
                                 <div class="mb-2 mt-4">Email <small>(Optional)</small></div>
                                 <InputText v-model="props.form.customer.email" class="w-full" placeholder="Enter Email Address" autocomplete="off"/>
@@ -63,28 +63,28 @@
                                 <div class="grid grid-cols-5 gap-5 my-4">
                                     <div>
                                         <div>Unit</div>
-                                        <InputText v-model="props.form.address.unit" class="w-full" autocomplete="off" placeholder="Unit Number" required/>
+                                        <InputText v-model="props.form.address.unit" class="w-full" autocomplete="off" placeholder="Unit Number" :invalid="!props.form.address.unit && isSubmitted"/>
                                     </div>
 
                                     <div class="col-span-2">
                                         <div>Street</div>
-                                        <InputText v-model="props.form.address.street" class="w-full" autocomplete="off" placeholder="Street Name"/>
+                                        <InputText v-model="props.form.address.street" class="w-full" autocomplete="off" placeholder="Street Name" :invalid="!props.form.address.street && isSubmitted"/>
                                     </div>
 
                                     <div class="col-span-2">
                                         <div>Barangay</div>
-                                        <InputText v-model="props.form.address.barangay" class="w-full" autocomplete="off" placeholder="Barangay"/>
+                                        <InputText v-model="props.form.address.barangay" class="w-full" autocomplete="off" placeholder="Barangay" :invalid="!props.form.address.barangay && isSubmitted"/>
                                     </div>
                                 </div>
 
                                 <div  class="grid grid-cols-2 gap-5 my-4">
                                     <div>
                                         <div>Municipality</div>
-                                        <InputText v-model="props.form.address.municipality" class="w-full" autocomplete="off" placeholder="Municipality"/>
+                                        <InputText v-model="props.form.address.municipality" class="w-full" autocomplete="off" placeholder="Municipality" :invalid="!props.form.address.municipality && isSubmitted"/>
                                     </div>
                                     <div>
                                         <div>Province</div>
-                                        <InputText v-model="props.form.address.province" class="w-full" autocomplete="off" placeholder="Province"/>
+                                        <InputText v-model="props.form.address.province" class="w-full" autocomplete="off" placeholder="Province" :invalid="!props.form.address.province && isSubmitted"/>
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +137,9 @@ const props = defineProps({
     },
 });
 
+const isSubmitted = ref(false);
 const validateForm = (section ,nextCallback) => {
+    isSubmitted.value = true;
 
     if (section === 'customer') {
         if (!props.form.customer.name || !props.form.customer.cellphone_number) 
@@ -149,6 +151,7 @@ const validateForm = (section ,nextCallback) => {
         console.log('Validate delivery schedule')
     }
 
+    isSubmitted.value = false;
     nextCallback();
 }
 
