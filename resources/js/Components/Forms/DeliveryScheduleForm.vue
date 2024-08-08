@@ -9,20 +9,22 @@
             <div class="grid grid-cols-2 mb-4">
                 <div>
                     <div class="mb-1">Frequency</div>
-                    <Dropdown v-model="form.frequency" :options="frequency" optionLabel="name" placeholder="Deliver every" class="mt-1 w-full"/>
+                    <Dropdown v-model="form.frequency" :options="frequency" optionLabel="name" placeholder="Delivery Frequency" class="mt-1 w-full"/>
                 </div>
-                <div class="ml-2">
+                <div v-if="form.frequency['name'] === 'Once'" class="ml-2">
                     <div class="mb-1">Date</div>
                     <Calendar v-model="form.delivery_date" showIcon :showOnFocus="false" inputId="buttondisplay" class="w-full"/>
                 </div>
             </div>
-    
-            
-    
-            <div class="mb-1 mt-4">Days</div>
-            <div class="card flex justify-content-center w-full mb-4">
-                <SelectButton v-model="form.days" :options="days" optionLabel="name" multiple aria-labelledby="multiple"/>
-            </div>
+        
+            <template v-if="form.frequency['name'] !== 'Once'">
+                <div class="mb-1 mt-4">Days</div>
+                <div class="flex justify-center w-full">
+                    <div>
+                        <SelectButton v-model="form.days" :options="days" optionLabel="name" multiple aria-labelledby="multiple" class="w-full"/>
+                    </div>
+                </div>
+            </template>
     
             <div class="grid grid-cols-3 gap-5 my-4">
                 <div class="w-full">
@@ -35,18 +37,18 @@
                 </div>
                 <div class="w-full">
                     <div class="mb-1">Total Quantity</div>
-                    <InputNumber v-model="form.total_qty" class="w-full"/>
+                    <InputNumber v-model="form.total_qty" disabled class="w-full"/>
                 </div>
             </div>
     
             <div class="mb-1">Remarks</div>
-            <Textarea v-model="form.notes"autoResize  rows="3" class="w-full"/>
+            <Textarea v-model="form.remarks"autoResize  rows="3" class="w-full"/>
         </template>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, defineProps, defineEmits } from 'vue'
+import { ref, onMounted, computed, defineProps, defineEmits } from 'vue'
 
 const props = defineProps({
     form: {
@@ -54,8 +56,6 @@ const props = defineProps({
         required: true 
     },
 });
-
-const checked = ref<boolean>(false);
 
 const frequency = ref([
     {name: 'Once', code: 'O'},
@@ -76,6 +76,25 @@ const days = ref([
     {name: 'Saturday', code: 'sat'},
     {name: 'Sunday', code: 'sun'},
 ])
+
+type Frequency = {
+    name: string;
+    code: string;
+}
+
+// form data
+const checked = ref<boolean>(false);
+// const form_days = ref<object[]>([]);
+// const form_frequency = ref<Frequency>({name: '', code: ''});
+// const form_delivery_date = ref<Date>();
+// const form_slim_qty = ref<number>(0);
+// const form_round_qty = ref<number>(0);
+// const form_total_qty = ref<number>();
+
+
+const totalQuantity = computed(() => {
+    return props.form.slim_qty + props.form.round_qty;
+})
 
 </script>
 

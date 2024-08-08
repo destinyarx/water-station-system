@@ -100,12 +100,34 @@ const fetchCustomer = async () => {
 
 // customer form
 const customerForm = useForm({
-    'id': null,
-    'name': '',
-    'cellphone_number': null,
-    'email': '',
-    'messenger_name': '',
-    'status': false,
+    'customer': 
+        {
+            'id': null,
+            'name': '',
+            'cellphone_number': null,
+            'email': '',
+            'messenger_name': '',
+            'status': false,
+        },
+    'address': 
+        {
+            'description': null,
+            'unit': null,
+            'street': null,
+            'barangay': null,
+            'municipality': null,
+            'province': null,
+        },
+    'delivery': 
+        {
+            'days': null,
+            'frequency': {name: null, code: null},
+            'delivery_date': null,
+            'slim_qty': 0,
+            'round_qty': 0,
+            'total_qty': 0,
+            'remarks': null,
+        }
 });
 
 const visible = ref(false);
