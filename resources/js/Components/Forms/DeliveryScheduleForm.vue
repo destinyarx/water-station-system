@@ -37,7 +37,7 @@
                 </div>
                 <div class="w-full">
                     <div class="mb-1">Total Quantity</div>
-                    <InputNumber v-model="form.total_qty" disabled class="w-full"/>
+                    <InputNumber v-model="totalQuantity" disabled class="w-full"/>
                 </div>
             </div>
     
@@ -82,15 +82,7 @@ type Frequency = {
     code: string;
 }
 
-// form data
 const checked = ref<boolean>(false);
-// const form_days = ref<object[]>([]);
-// const form_frequency = ref<Frequency>({name: '', code: ''});
-// const form_delivery_date = ref<Date>();
-// const form_slim_qty = ref<number>(0);
-// const form_round_qty = ref<number>(0);
-// const form_total_qty = ref<number>();
-
 
 const totalQuantity = computed(() => {
     return props.form.slim_qty + props.form.round_qty;
