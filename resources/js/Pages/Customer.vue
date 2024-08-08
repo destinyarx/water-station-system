@@ -41,7 +41,7 @@
             <CustomerForm :form="customerForm" :action="action">
                 <div class="flex justify-end gap-2">
                     <!-- <Button @click="visible = false" type="button" label="Cancel" severity="danger"></Button> -->
-                    <Button @click="visible = false"type="submit" label="Save" icon="pi pi-check" iconPos="right"/>
+                    <Button @click="submitForm" type="submit" label="Save" icon="pi pi-check" iconPos="right"/>
                 </div>
             </CustomerForm>
         </form>
@@ -146,6 +146,11 @@ const resetForm = () => {
     customerForm['email'] = '';
     customerForm['messenger_name'] = '';
     customerForm['status'] = true;
+}
+
+const submitForm = () => {
+    visible.value = false;
+    console.log('Form Submitted');
 }
 
 onMounted(() => {
