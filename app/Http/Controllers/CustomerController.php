@@ -76,4 +76,8 @@ class CustomerController extends Controller
 
         return $customers;
     }
+
+    public function addCustomer(Request $request) {
+        dd($request->form);
+    }
 }
