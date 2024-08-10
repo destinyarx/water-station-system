@@ -1,4 +1,5 @@
 <template>
+   <Button label="Success" severity="success" @click="showSuccess" class="ml-17"/>
 
    <Layout>
        <Card>
@@ -36,6 +37,8 @@
        </Card>
    </Layout>
 
+
+
     <Dialog v-model:visible="visible" modal header="Add Customer" :style="{ width: '60rem'}">
         <form @submit.prevent="submit">
             <CustomerForm :form="customerForm" :action="action">
@@ -47,6 +50,7 @@
         </form>
     </Dialog>
 
+    <Toast />
 </template>
 
 <script setup>
@@ -54,7 +58,11 @@ import { ref, defineProps, onMounted, watch } from 'vue'
 import Layout from '@/Layouts/Layout.vue';
 import { useForm } from "@inertiajs/vue3";
 
+import CustomToast from '@/Components/Toast/CustomToast.vue'
 import CustomerForm from '@/Components/Forms/CustomerForm.vue'
+
+import { useToast } from 'primevue/usetoast';
+const toast = useToast();
 
 const props = defineProps({
     data: {
@@ -73,6 +81,14 @@ const customerHeaders = [
     { field: 'email', header: 'Email' }, 
     { field: 'status', header: 'Status', sortable: true }, 
 ]
+
+const showSuccess = () => {
+    toast.add({ severity: 'success', summary: 'Customer saved succesfully!', life: 3000 });
+};
+
+const showError = () => {
+    toast.add({ severity: 'danger', summary: 'An error occurred while saving customer details', life: 3000 });
+};
 
 // customer methods
 const addCustomer = () => {
@@ -159,22 +175,25 @@ const resetForm = () => {
 
 const submitForm = () => {
     visible.value = false;
-    console.log('Form Submitted');
 
     axios.post(route('customer.add'), customerForm)
         .then(response => {
-            console.log(response.data);
+            showSuccess();
+            fetchCustomer();
         })
         .catch(error => {
+            showError();
             console.log(error);
         })
 }
 
+// const notify = (message, severity) => {
+//   showToast(message, severity);
+// };
+
 watch(visible, (newValue, oldValue) => {
     if (!newValue) resetForm();
 })
-
-
 
 onMounted(() => {
     fetchCustomer()

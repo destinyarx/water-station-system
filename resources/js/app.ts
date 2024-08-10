@@ -29,7 +29,8 @@ import CascadeSelect from 'primevue/cascadeselect';
 import Dropdown from 'primevue/dropdown';
 import SelectButton from 'primevue/selectbutton';
 import Calendar from 'primevue/calendar';
-
+import Toast from 'primevue/toast';
+import ToastService from 'primevue/toastservice';
 
 import { createApp, h, DefineComponent } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
@@ -56,6 +57,7 @@ createInertiaApp({
                 pt: Lara,
                 ripple: true
             })
+            .use(ToastService)
 
         // Register PrimeVue components globally
         app.component('Button', Button);
@@ -77,6 +79,7 @@ createInertiaApp({
         app.component('Dropdown', Dropdown);
         app.component('SelectButton', SelectButton);
         app.component('Calendar', Calendar );
+        app.component('Toast', Toast );
         
         
         app.directive('ripple', Ripple);

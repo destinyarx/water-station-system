@@ -90,7 +90,7 @@ class CustomerController extends Controller
 
     public function insertAddress($id, $form) {        
         return Address::create([
-            'customer_id' => null, 
+            'customer_id' => $id, 
             'description' => $form['description'], 
             'unit_number' => $form['unit'], 
             'street' => $form['street'], 
