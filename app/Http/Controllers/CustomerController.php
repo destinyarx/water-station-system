@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Customer;
+use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -77,7 +78,35 @@ class CustomerController extends Controller
         return $customers;
     }
 
+    public function insertCustomer($form) {
+        return Customer::create([
+            'name' => $form['name'], 
+            'cellphone_number' => $form['cellphone_number'], 
+            'email' => $form['email'], 
+            'messenger_name' => $form['messenger_name']
+        ]);
+    }
+
+    public function insertAddress($id, $form) {        
+        return Address::create([
+            'customer_id' => $id, 
+            'description' => $form['description'], 
+            'unit_number' => $form['unit'], 
+            'street' => $form['street'], 
+            'barangay' => $form['barangay'], 
+            'municipality' => $form['municipality'], 
+            'province' => $form['province']           
+        ]);
+    }
+
     public function addCustomer(Request $request) {
-        dd($request->form);
+        try {
+            $customer = $this->insertCustomer($request->details);
+            $this->insertAddress($customer->id, $request->address);
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+
+        return true;
     }
 }

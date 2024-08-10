@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'cellphone_number',
+        'email',
+        'messenger_name',
+    ];
 
     public function address() {
         return $this->hasOne(Address::class);

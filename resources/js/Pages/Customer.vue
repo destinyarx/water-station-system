@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, onMounted } from 'vue'
+import { ref, defineProps, onMounted, watch } from 'vue'
 import Layout from '@/Layouts/Layout.vue';
 import { useForm } from "@inertiajs/vue3";
 
@@ -100,7 +100,7 @@ const fetchCustomer = async () => {
 
 // customer form
 const customerForm = useForm({
-    'customer': 
+    'details': 
         {
             'id': null,
             'name': '',
@@ -140,18 +140,41 @@ const showCustomerForm = () => {
 }
 
 const resetForm = () => {
-    customerForm['id'] = '';
-    customerForm['name'] = '';
-    customerForm['cellphone_number'] = null;
-    customerForm['email'] = '';
-    customerForm['messenger_name'] = '';
-    customerForm['status'] = true;
+    // customer
+    customerForm['details']['id'] = '';
+    customerForm['details']['name'] = '';
+    customerForm['details']['cellphone_number'] = null;
+    customerForm['details']['email'] = '';
+    customerForm['details']['messenger_name'] = '';
+    customerForm['details']['status'] = true;
+
+    // address
+    customerForm['address']['description'] = '';
+    customerForm['address']['unit'] = '';
+    customerForm['address']['street'] = '';
+    customerForm['address']['barangay'] = '';
+    customerForm['address']['municipality'] = '';
+    customerForm['address']['province'] = '';
 }
 
 const submitForm = () => {
     visible.value = false;
     console.log('Form Submitted');
+
+    axios.post(route('customer.add'), customerForm)
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }
+
+watch(visible, (newValue, oldValue) => {
+    if (!newValue) resetForm();
+})
+
+
 
 onMounted(() => {
     fetchCustomer()

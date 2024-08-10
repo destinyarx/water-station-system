@@ -30,7 +30,9 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(CustomerController::class)->prefix('customer')->group(function () {
     Route::get('/', 'index')->name('customer.index');
-    Route::get('/get/{filter}', 'fetchCustomers')->name('customer.get');});
+    Route::get('/get/{filter}', 'fetchCustomers')->name('customer.get');
+    Route::post('/add', 'addCustomer')->name('customer.add');
+});
 
 Route::controller(ProductsController::class)->prefix('products')->group(function () {
     Route::get('/', 'index')->name('products.index');
