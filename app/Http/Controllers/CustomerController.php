@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
-use App\Models\Customer;
 use App\Models\Address;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class CustomerController extends Controller
@@ -89,7 +90,7 @@ class CustomerController extends Controller
 
     public function insertAddress($id, $form) {        
         return Address::create([
-            'customer_id' => $id, 
+            'customer_id' => null, 
             'description' => $form['description'], 
             'unit_number' => $form['unit'], 
             'street' => $form['street'], 
@@ -100,10 +101,14 @@ class CustomerController extends Controller
     }
 
     public function addCustomer(Request $request) {
+        DB::beginTransaction();
+
         try {
             $customer = $this->insertCustomer($request->details);
             $this->insertAddress($customer->id, $request->address);
+            DB::commit();
         } catch (Exception $e) {
+            DB::rollback();
             echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
 
