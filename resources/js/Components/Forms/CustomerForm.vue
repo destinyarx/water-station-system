@@ -18,22 +18,22 @@
                                 <div class="mb-2"> Name 
                                     <span class="text-rose-800">*</span>
                                 </div>
-                                <InputText v-model="props.form.customer.name" class="w-full" placeholder="Enter Customer Name" :invalid="!props.form.customer.name && isSubmitted" autocomplete="off"/>
+                                <InputText v-model="props.form.details.name" class="w-full" placeholder="Enter Customer Name" :invalid="!props.form.details.name && isSubmitted" autocomplete="off"/>
 
                                 <div class="mb-2 mt-4">
                                     Cellphone Number
                                     <span class="text-rose-800">*</span>
                                 </div>
-                                <InputNumber v-model="props.form.customer.cellphone_number" class="w-full" placeholder="Mobile Number" :invalid="!props.form.customer.cellphone_number && isSubmitted" autocomplete="off" />
+                                <InputNumber v-model="props.form.details.cellphone_number" class="w-full" placeholder="Mobile Number" :invalid="!props.form.details.cellphone_number && isSubmitted" autocomplete="off" />
 
                                 <div class="mb-2 mt-4">Email <small>(Optional)</small></div>
-                                <InputText v-model="props.form.customer.email" class="w-full" placeholder="Enter Email Address" autocomplete="off"/>
+                                <InputText v-model="props.form.details.email" class="w-full" placeholder="Enter Email Address" autocomplete="off"/>
 
                                 <div class="mb-2 mt-4">Facebook <small>Optional</small></div>
-                                <InputText v-model="props.form.customer.messenger_name" class="w-full" placeholder="Facebook Messenger Username" autocomplete="off"/>
+                                <InputText v-model="props.form.details.messenger_name" class="w-full" placeholder="Facebook Messenger Username" autocomplete="off"/>
 
                                 <!-- <div class="mb-2 mt-4">Status</div>
-                                <ToggleButton v-model="props.form.customer.status" onLabel="Active" offLabel="Inactive" /> -->
+                                <ToggleButton v-model="props.form.details.status" onLabel="Active" offLabel="Inactive" /> -->
 
                                 <div class="flex justify-end mt-5">
                                     <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="validateForm('customer', nextCallback)" />
@@ -142,14 +142,16 @@ const validateForm = (section ,nextCallback) => {
     isSubmitted.value = true;
 
     if (section === 'customer') {
-        if (!props.form.customer.name || !props.form.customer.cellphone_number) 
+        if (!props.form.details.name || !props.form.details.cellphone_number) 
             return
-    } else if (section === 'address') {
-        if (!props.form.address.unit || !props.form.address.street || !props.form.address.barangay || !props.form.address.municipality || !props.form.address.province) 
-            return
-    } else {
-        console.log('Validate delivery schedule')
-    }
+    } 
+    
+    // else if (section === 'address') {
+    //     if (!props.form.address.unit || !props.form.address.street || !props.form.address.barangay || !props.form.address.municipality || !props.form.address.province) 
+    //         return
+    // } else {
+    //     console.log('Validate delivery schedule')
+    // }
 
     isSubmitted.value = false;
     nextCallback();
