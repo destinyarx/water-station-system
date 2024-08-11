@@ -1,4 +1,6 @@
 <template>
+    <Head title="Products" />
+
     <Layout>
         <Card class="dark:bg-slate-700 light:bg-gray-100">
             <template #title>

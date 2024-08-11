@@ -1,4 +1,6 @@
 <template>
+    <Head title="Sales" />
+
     <Layout>
         <div class="min-h-screen min-w-full dark:bg-slate-800 ">
 
@@ -8,6 +10,7 @@
 
 <script setup>
 import { defineProps } from 'vue';
+import { Head } from "@inertiajs/vue3";
 import Layout from '../Layouts/Layout.vue'
 
 

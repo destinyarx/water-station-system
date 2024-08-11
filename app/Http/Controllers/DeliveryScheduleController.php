@@ -66,4 +66,8 @@ class DeliveryScheduleController extends Controller
     {
         //
     }
+
+    public function getDeliverySchedule(Request $request) {
+        dd(auth()->id());
+    }
 }

@@ -47,6 +47,7 @@ Route::controller(SalesController::class)->prefix('sales')->group(function () {
 
 Route::controller(DeliveryScheduleController::class)->prefix('delivery-schedule')->group(function () {
     Route::get('', 'index');
+    Route::get('/get', 'getDeliverySchedule')->name('delivery-schedule.get');
 });
 
 Route::inertia('/dashboard', 'Dashboard');

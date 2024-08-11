@@ -1,4 +1,6 @@
 <template>
+    <Head title="Customers" />
+
     <Layout>
         <Card>
             <template #title>
@@ -64,7 +66,7 @@
 <script setup>
 import { ref, defineProps, onMounted, watch } from 'vue'
 import Layout from '@/Layouts/Layout.vue';
-import { useForm } from "@inertiajs/vue3";
+import { useForm, Head } from "@inertiajs/vue3";
 
 import CustomToast from '@/Components/Toast/CustomToast.vue'
 import CustomerForm from '@/Components/Forms/CustomerForm.vue'
