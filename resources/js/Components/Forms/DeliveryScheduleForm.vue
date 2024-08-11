@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col w-full mb-2">
         <div class="flex justify-end">
-            <ToggleButton v-model="checked" onLabel="Skip for now" offLabel="Skip for now" class="w-9rem" aria-label="Do you confirm" />
+            <ToggleButton v-model="form.skip_delivery" onLabel="Skip for now" offLabel="Skip for now" class="w-9rem" aria-label="Do you confirm" />
         </div>
 
         <template v-if="!checked">

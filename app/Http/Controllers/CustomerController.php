@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Address;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Models\DeliverySchedule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -71,8 +72,6 @@ class CustomerController extends Controller
 
     public function fetchCustomers(Request $request) {
         $filter = json_decode($request->filter);
-        // dd($filter->status);
-        // dd($filter->deliver_schedule);
 
         $customers = Customer::with('address')->orderBy('created_at', 'desc')->get();
 
@@ -84,7 +83,8 @@ class CustomerController extends Controller
             'name' => $form['name'], 
             'cellphone_number' => $form['cellphone_number'], 
             'email' => $form['email'], 
-            'messenger_name' => $form['messenger_name']
+            'messenger_name' => $form['messenger_name'],
+            'created_by' => auth()->id()
         ]);
     }
 
@@ -100,12 +100,27 @@ class CustomerController extends Controller
         ]);
     }
 
+    public function insertDeliverySchedule($id, $form) {
+        return DeliverySchedule::create([
+            'customer_id' => $id,
+            'notes' => $form['remarks'],
+            'slim_qty' => $form['slim_qty'],
+            'round_qty' => $form['round_qty'],
+            'product_qty' => $form['total_qty'],
+            'frequency_type' => $form['frequency']['name'],
+            'frequency_value' => 'none',
+            'created_by' => auth()->id(),
+            'exact_date' => $form['delivery_date']
+        ]);
+    }
+
     public function addCustomer(Request $request) {
         DB::beginTransaction();
-
+        
         try {
             $customer = $this->insertCustomer($request->details);
             $this->insertAddress($customer->id, $request->address);
+            $this->insertDeliverySchedule($customer->id, $request->delivery);
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();

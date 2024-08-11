@@ -1,9 +1,14 @@
 <template>
-   <Button label="Success" severity="success" @click="showSuccess" class="ml-17"/>
-
    <Layout>
        <Card>
-           <template #title>Customers</template>
+           <template #title>
+                <div class="flex justify-between">
+                    <div>Customers</div>
+                    <div>
+                       <!-- add button here -->
+                    </div>
+                </div>
+            </template>
            <template #subtitle>
                <div class="flex justify-between">
                    <span>Active customer list</span>
@@ -13,7 +18,7 @@
            <template #content>
                <div class="card">
                    <DataTable :value="customers" class="w-auto" :loading="loading"
-                       stripedRows size="normal" tableStyle="min-width: 50rem"
+                       stripedRows tableStyle="min-width: 50rem"
                        paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
                        <Column v-for="col of customerHeaders" class="dark:text-zinc-50"
                            :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable">
@@ -136,6 +141,7 @@ const customerForm = useForm({
         },
     'delivery': 
         {
+            'skip_delivery': false,
             'days': null,
             'frequency': {name: null, code: null},
             'delivery_date': null,
@@ -171,6 +177,17 @@ const resetForm = () => {
     customerForm['address']['barangay'] = '';
     customerForm['address']['municipality'] = '';
     customerForm['address']['province'] = '';
+
+    // delivery schedule
+    customerForm['delivery']['skip_delivery'] = false;
+    customerForm['delivery']['days'] = '';
+    customerForm['delivery']['frequency'] = {name: null, code: null};
+    customerForm['delivery']['delivery_date'] = null;
+    customerForm['delivery']['slim_qty'] = 0;
+    customerForm['delivery']['round_qty'] = 0;
+    customerForm['delivery']['total_qty'] = 0;
+    customerForm['delivery']['remarks'] = '';
+
 }
 
 const submitForm = () => {

@@ -146,12 +146,12 @@ const validateForm = (section ,nextCallback) => {
             return
     } 
     
-    // else if (section === 'address') {
-    //     if (!props.form.address.unit || !props.form.address.street || !props.form.address.barangay || !props.form.address.municipality || !props.form.address.province) 
-    //         return
-    // } else {
-    //     console.log('Validate delivery schedule')
-    // }
+    else if (section === 'address') {
+        if (!props.form.address.unit || !props.form.address.street || !props.form.address.barangay || !props.form.address.municipality || !props.form.address.province) 
+            return
+    } else {
+        console.log('Validate delivery schedule')
+    }
 
     isSubmitted.value = false;
     nextCallback();

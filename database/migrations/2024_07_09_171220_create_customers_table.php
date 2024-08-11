@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('email', 75);
             $table->string('messenger_name', 50);
             $table->enum('status', ['0', '1'])->default('1')->nullable(false);
+            $table->smallInteger('created_by')->unsigned(); 
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();

@@ -30,13 +30,12 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         return Products::create([
             'title' => $request->title,
             'description' => $request->description,
             'price' => $request->price,
             'qty' => $request->qty,
-            'created_by' => 1,
+            'created_by' => auth()->id(),
         ]);
     }
 
