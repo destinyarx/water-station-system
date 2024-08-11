@@ -52,7 +52,6 @@
         <form @submit.prevent="submit">
             <CustomerForm :form="customerForm" :action="action">
                 <div class="flex justify-end gap-2">
-                    <!-- <Button @click="visible = false" type="button" label="Cancel" severity="danger"></Button> -->
                     <Button @click="submitForm" type="submit" label="Save" icon="pi pi-check" iconPos="right"/>
                 </div>
             </CustomerForm>
