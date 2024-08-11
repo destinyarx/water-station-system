@@ -31,6 +31,8 @@ import SelectButton from 'primevue/selectbutton';
 import Calendar from 'primevue/calendar';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
+import SplitButton from 'primevue/splitbutton';
+
 
 import { createApp, h, DefineComponent } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
@@ -80,6 +82,7 @@ createInertiaApp({
         app.component('SelectButton', SelectButton);
         app.component('Calendar', Calendar );
         app.component('Toast', Toast );
+        app.component('SplitButton', SplitButton );
         
         
         app.directive('ripple', Ripple);

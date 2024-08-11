@@ -1,46 +1,50 @@
 <template>
-   <Layout>
-       <Card>
-           <template #title>
+    <Layout>
+        <Card>
+            <template #title>
                 <div class="flex justify-between">
                     <div>Customers</div>
                     <div>
-                       <!-- add button here -->
+                        <!-- add button here -->
                     </div>
                 </div>
             </template>
-           <template #subtitle>
-               <div class="flex justify-between">
-                   <span>Active customer list</span>
-                   <Button type="button" label="Add" icon="pi pi-plus" @click="showCustomerForm" />
-               </div>
-           </template>
-           <template #content>
-               <div class="card">
-                   <DataTable :value="customers" class="w-auto" :loading="loading"
-                       stripedRows tableStyle="min-width: 50rem"
-                       paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
-                       <Column v-for="col of customerHeaders" class="dark:text-zinc-50"
-                           :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable">
-   
-                           <template v-if="col.field === 'address.municipality'" #body="slotProps">
-                               {{ slotProps.data.address.unit_number ? slotProps.data.address.unit_number + ' ' : '' }}
-                               {{ slotProps.data.address.street ? slotProps.data.address.street + ' ' : '' }}
-                               {{ slotProps.data.address.baranggay ? slotProps.data.address.baranggay + ' ' : '' }}
-                               {{ slotProps.data.address.municipality ? slotProps.data.address.municipality + ' ' : '' }}
-                               {{ slotProps.data.address.province ? slotProps.data.address.province + ' ' : '' }}
-                           </template>
-   
-                           <template v-if="col.field === 'status'" #body="slotProps">
-                               <Badge v-if="slotProps.data.status === '1'" value="ACTIVE" severity="success"></Badge>
-                               <Badge v-else value="INACTIVE" severity="danger"></Badge>
-                           </template>
-                       </Column>
-                   </DataTable>
-               </div>
-           </template>
-       </Card>
-   </Layout>
+            <template #subtitle>
+                <div class="flex justify-between">
+                    <span>Active customer list</span>
+                    <Button type="button" label="Add" icon="pi pi-plus" @click="showCustomerForm" />
+                </div>
+            </template>
+            <template #content>
+                <div class="card">
+                    <DataTable :value="customers" class="w-auto" :loading="loading"
+                        stripedRows tableStyle="min-width: 50rem"
+                        paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
+                        <Column v-for="col of customerHeaders" class="dark:text-zinc-50"
+                            :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable">
+
+                            <template v-if="col.field === 'address.municipality'" #body="slotProps">
+                                    {{ slotProps.data.address.unit_number ? slotProps.data.address.unit_number + ' ' : '' }}
+                                    {{ slotProps.data.address.street ? slotProps.data.address.street + ' ' : '' }}
+                                    {{ slotProps.data.address.baranggay ? slotProps.data.address.baranggay + ' ' : '' }}
+                                    {{ slotProps.data.address.municipality ? slotProps.data.address.municipality + ' ' : '' }}
+                                    {{ slotProps.data.address.province ? slotProps.data.address.province + ' ' : '' }}
+                            </template>
+
+                            <template v-if="col.field === 'action'" #body="slotProps">
+                                <SplitButton label="Actions" :model="actionItems" severity="info" rounded/>
+                            </template>
+
+                            <!-- <template v-if="col.field === 'status'" #body="slotProps">
+                                <Badge v-if="slotProps.data.status === '1'" value="ACTIVE" severity="success"></Badge>
+                                <Badge v-else value="INACTIVE" severity="danger"></Badge>
+                            </template> -->
+                        </Column>
+                    </DataTable>
+                </div>
+            </template>
+        </Card>
+    </Layout>
 
 
 
@@ -84,7 +88,28 @@ const customerHeaders = [
     { field: 'address.municipality', header: 'Address', sortable: true }, 
     { field: 'cellphone_number', header: 'Contact Number' }, 
     { field: 'email', header: 'Email' }, 
-    { field: 'status', header: 'Status', sortable: true }, 
+    { field: 'action', header: 'Action', sortable: true }, 
+]
+
+const actionItems = [
+    {
+        label: 'Update',
+        command: () => {
+            console.log('Update');
+        },
+    },
+    {
+        label: 'Delete',
+        command: () => {
+            console.log('Delete');
+        }
+    },
+    {
+        label: 'Add Delivery Schedule',
+        command: () => {
+            console.log('Add Delivery Schedule');
+        }
+    }
 ]
 
 const showSuccess = () => {
