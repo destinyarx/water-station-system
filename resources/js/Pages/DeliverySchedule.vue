@@ -1,4 +1,6 @@
 <template>
+    <Head title="Delivery Schedule" />
+
     <Layout>
         <Card class="h-screen">
             <template #title>
@@ -13,8 +15,6 @@
                 stripedRows tableStyle="min-width: 50rem" class="w-full"
                 paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
 
-                    
-
                 </DataTable>
             </template>
         </Card>
@@ -24,7 +24,9 @@
 <script setup lang="ts">
 import { ref, defineProps, onMounted } from 'vue';
 import Layout from '@/Layouts/Layout.vue';
-import { useForm } from "@inertiajs/vue3";
+import { useForm, Head } from "@inertiajs/vue3";
+import axios from 'axios';
+
 
 const props = defineProps<{
     title: string
@@ -45,6 +47,15 @@ const fetchData = () => {
     console.log("Fetching Data");
 
     deliverySchedules.value = [];
+
+    axios.get(route('delivery-schedule.get'))
+        .then(response => {
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
 }
 
 onMounted(() => {
