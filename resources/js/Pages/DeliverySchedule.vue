@@ -8,8 +8,8 @@
             </template>
 
             <template #content>
-                <div class="flex justify-end">
-                    <Button type="button" label="Add" icon="pi pi-plus" />
+                <div class="flex justify-end mb-2">
+                    <Button @click="showForm('store')" type="button" label="Add" icon="pi pi-plus" />
                 </div>
                 <DataTable :value="deliverySchedules" :loading="loading"
                 stripedRows tableStyle="min-width: 50rem" class="w-full"
@@ -41,6 +41,12 @@
             </template>
         </Card>
     </Layout>
+
+    <Dialog v-model:visible="visible" modal header="Add Delivery Schedule">
+        <Card>
+            <h2>This is a form</h2>
+        </Card>
+    </Dialog>
 </template>
 
 <script setup lang="ts">
@@ -78,6 +84,15 @@ const fetchData = () => {
         .catch(error => {
             console.log(error)
         })
+}
+
+// form variable
+const visible = ref<boolean>(false);
+
+// form methods
+const showForm = (action: string) => {
+    visible.value = true;
+    console.log(action);
 }
 
 onMounted(() => {
