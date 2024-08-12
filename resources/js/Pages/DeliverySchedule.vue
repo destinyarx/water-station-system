@@ -33,7 +33,8 @@
                         </template>
                         
                         <template v-if="col.field === 'frequency_type'" #body="slotProps">
-                            {{ slotProps.data.frequency_type }}
+                            <div>{{ slotProps.data.frequency_type }}</div>
+                            <div v-if="slotProps.data.frequency_type === 'Once'">{{ moment(slotProps.data.exact_date).format('MMMM D, YYYY') }}</div>
                         </template>
                     </Column>
                 </DataTable>
@@ -47,6 +48,7 @@ import { ref, defineProps, onMounted } from 'vue';
 import Layout from '@/Layouts/Layout.vue';
 import { useForm, Head } from "@inertiajs/vue3";
 import axios from 'axios';
+import moment from 'moment';
 
 
 const props = defineProps<{
@@ -54,11 +56,11 @@ const props = defineProps<{
 }>();
 
 const headers = [
-    { field: 'name', header: 'Name', width: '20%' },
+    { field: 'name', header: 'Name', width: '17%' },
     { field: 'full_address', header: 'Address', width: '20%' },
-    { field: 'frequency_type', header: 'Schedule' },
+    { field: 'frequency_type', header: 'Schedule', width: '15%' },
     { field: 'order_quantity', header: 'Order Quantity', width: '10%' },
-    { field: 'created_at', header: 'Date Added', sortable: true },
+    { field: 'created_at', header: 'Date Added', sortable: true, width: '15%' },
     { field: 'notes', header: 'Remarks' },
 ]
 
@@ -79,7 +81,6 @@ const fetchData = () => {
 }
 
 onMounted(() => {
-    console.log('Component Mounted');
     fetchData();
 })
 

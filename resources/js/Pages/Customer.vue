@@ -63,10 +63,11 @@
     <Toast />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, defineProps, onMounted, watch } from 'vue'
 import Layout from '@/Layouts/Layout.vue';
 import { useForm, Head } from "@inertiajs/vue3";
+import axios from 'axios';
 
 import CustomToast from '@/Components/Toast/CustomToast.vue'
 import CustomerForm from '@/Components/Forms/CustomerForm.vue'
@@ -118,7 +119,7 @@ const showSuccess = () => {
 };
 
 const showError = () => {
-    toast.add({ severity: 'danger', summary: 'An error occurred while saving customer details', life: 3000 });
+    toast.add({ severity: 'error', summary: 'An error occurred while saving customer details', life: 3000 });
 };
 
 // customer methods
@@ -141,7 +142,7 @@ const fetchCustomer = async () => {
             loading.value = false
         })
         .catch(exception => {
-          console.error(exception)
+            console.error(exception)
         });
 }
 
@@ -189,7 +190,7 @@ const showCustomerForm = () => {
 
 const resetForm = () => {
     // customer
-    customerForm['details']['id'] = '';
+    customerForm['details']['id'] = null;
     customerForm['details']['name'] = '';
     customerForm['details']['cellphone_number'] = null;
     customerForm['details']['email'] = '';
@@ -197,23 +198,27 @@ const resetForm = () => {
     customerForm['details']['status'] = true;
 
     // address
-    customerForm['address']['description'] = '';
-    customerForm['address']['unit'] = '';
-    customerForm['address']['street'] = '';
-    customerForm['address']['barangay'] = '';
-    customerForm['address']['municipality'] = '';
-    customerForm['address']['province'] = '';
+    customerForm['address']['description'] = null;
+    customerForm['address']['unit'] = null;
+    customerForm['address']['street'] = null;
+    customerForm['address']['barangay'] = null;
+    customerForm['address']['municipality'] = null;
+    customerForm['address']['province'] = null;
 
     // delivery schedule
     customerForm['delivery']['skip_delivery'] = false;
-    customerForm['delivery']['days'] = '';
+    customerForm['delivery']['days'] = null;
     customerForm['delivery']['frequency'] = {name: null, code: null};
     customerForm['delivery']['delivery_date'] = null;
     customerForm['delivery']['slim_qty'] = 0;
     customerForm['delivery']['round_qty'] = 0;
     customerForm['delivery']['total_qty'] = 0;
-    customerForm['delivery']['remarks'] = '';
+    customerForm['delivery']['remarks'] = null;
 
+}
+
+const submit = () => {
+    console.log('Prevent form reload');
 }
 
 const submitForm = () => {

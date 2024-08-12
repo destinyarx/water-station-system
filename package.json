@@ -26,6 +26,7 @@
         "@fortawesome/free-regular-svg-icons": "^6.5.1",
         "@fortawesome/free-solid-svg-icons": "^6.5.1",
         "@fortawesome/vue-fontawesome": "^3.0.6",
+        "moment": "^2.30.1",
         "pinia": "^2.1.7",
         "primeicons": "^6.0.1",
         "primevue": "^3.53.0"
