@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\DeliverySchedule;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class DeliveryScheduleController extends Controller
@@ -67,7 +68,22 @@ class DeliveryScheduleController extends Controller
         //
     }
 
-    public function getDeliverySchedule(Request $request) {
-        dd(auth()->id());
+    public function getDeliverySchedule() {
+        return DB::table('delivery_schedules as d')
+            ->leftJoin('customers as c', 'd.customer_id', 'c.id')
+            ->leftJoin('address as a', 'c.id', 'a.customer_id')
+            ->where('d.created_by', auth()->id())
+            ->whereNull('d.deleted_at')
+            ->select(
+                'c.name',
+                'd.notes',
+                'd.frequency_type',
+                'd.exact_date',
+                'd.created_at',
+                'd.slim_qty',
+                'd.round_qty',
+                'd.total_qty',
+                DB::raw("CONCAT(a.description, ' ', a.street, ' ', a.unit_number, ' ', a.barangay, ' ', a.municipality, ' ', a.province) as full_address")
+            )->get();
     }
 }

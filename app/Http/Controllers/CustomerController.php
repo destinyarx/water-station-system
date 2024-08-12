@@ -106,7 +106,7 @@ class CustomerController extends Controller
             'notes' => $form['remarks'],
             'slim_qty' => $form['slim_qty'],
             'round_qty' => $form['round_qty'],
-            'product_qty' => $form['total_qty'],
+            'total_qty' => $form['total_qty'],
             'frequency_type' => $form['frequency']['name'],
             'frequency_value' => 'none',
             'created_by' => auth()->id(),

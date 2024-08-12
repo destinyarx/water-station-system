@@ -14,7 +14,28 @@
                 <DataTable :value="deliverySchedules" :loading="loading"
                 stripedRows tableStyle="min-width: 50rem" class="w-full"
                 paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
+                    <Column v-for="col of headers" class="dark:text-zinc-50"
+                    :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable" :style="{ width: col.width }">
+                        <template v-if="col.field === 'frequency_type'" #body="slotProps">
+                            {{ slotProps.data.frequency_type }}
+                        </template>
 
+                        <template v-if="col.field === 'order_quantity'" #body="slotProps">
+                            <div>
+                                Slim: {{ slotProps.data.slim_qty }}
+                            </div>
+                            <div>
+                                Round: {{ slotProps.data.round_qty }}
+                            </div>
+                            <div>
+                                Total: {{ slotProps.data.total_qty }}
+                            </div>
+                        </template>
+                        
+                        <template v-if="col.field === 'frequency_type'" #body="slotProps">
+                            {{ slotProps.data.frequency_type }}
+                        </template>
+                    </Column>
                 </DataTable>
             </template>
         </Card>
@@ -33,10 +54,11 @@ const props = defineProps<{
 }>();
 
 const headers = [
-    { field: 'name', header: 'Name' },
+    { field: 'name', header: 'Name', width: '20%' },
+    { field: 'full_address', header: 'Address', width: '20%' },
     { field: 'frequency_type', header: 'Schedule' },
-    { field: 'order_quantity', header: 'Order Quantity' },
-    { field: 'created_at', header: 'Date Added' },
+    { field: 'order_quantity', header: 'Order Quantity', width: '10%' },
+    { field: 'created_at', header: 'Date Added', sortable: true },
     { field: 'notes', header: 'Remarks' },
 ]
 
@@ -44,18 +66,16 @@ const loading = ref(false);
 const deliverySchedules = ref<Object[]>([]);
 
 const fetchData = () => {
-    console.log("Fetching Data");
+    loading.value = true;
 
-    deliverySchedules.value = [];
-
-    axios.get(route('delivery-schedule.get'))
+    axios.get(route('delivery-schedules.get'))
         .then(response => {
-            console.log(response.data)
+            deliverySchedules.value = response.data;
+            loading.value = false;
         })
         .catch(error => {
             console.log(error)
         })
-
 }
 
 onMounted(() => {

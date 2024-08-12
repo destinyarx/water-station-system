@@ -18,7 +18,7 @@ class DeliverySchedule extends Model
         'exact_date',
         'slim_qty',
         'round_qty',
-        'product_qty',
+        'total_qty',
         'created_by',
         'updated_at',
         'updated_by',

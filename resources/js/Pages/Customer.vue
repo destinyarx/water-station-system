@@ -135,7 +135,7 @@ const fetchCustomer = async () => {
         deliver_schedule: 'today',
     }
 
-    axios.get("/customer/get/" + JSON.stringify(filter))
+    axios.get("/customers/get/" + JSON.stringify(filter))
         .then(response => {
             customers.value = response.data
             loading.value = false

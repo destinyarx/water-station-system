@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::controller(CustomerController::class)->prefix('customer')->group(function () {
+Route::controller(CustomerController::class)->prefix('customers')->group(function () {
     Route::get('/', 'index')->name('customer.index');
     Route::get('/get/{filter}', 'fetchCustomers')->name('customer.get');
     Route::post('/add', 'addCustomer')->name('customer.add');
@@ -45,9 +45,9 @@ Route::controller(SalesController::class)->prefix('sales')->group(function () {
     Route::get('/', 'index')->name('sales.index');
 });
 
-Route::controller(DeliveryScheduleController::class)->prefix('delivery-schedule')->group(function () {
+Route::controller(DeliveryScheduleController::class)->prefix('delivery-schedules')->group(function () {
     Route::get('', 'index');
-    Route::get('/get', 'getDeliverySchedule')->name('delivery-schedule.get');
+    Route::get('/get', 'getDeliverySchedule')->name('delivery-schedules.get');
 });
 
 Route::inertia('/dashboard', 'Dashboard');

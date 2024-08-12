@@ -41,7 +41,7 @@ const sidebarItems = ref([
     { 
       label: 'Customer',
       icon: 'pi pi-user',
-      route: '/customer'
+      route: '/customers'
     },
     { 
       label: 'Sales',
@@ -56,7 +56,7 @@ const sidebarItems = ref([
     { 
       label: 'Delivery Schedule',
       icon: 'pi pi-calendar-times',
-      route: '/delivery-schedule' 
+      route: '/delivery-schedules' 
     },
     { 
       label: 'Expenses',
