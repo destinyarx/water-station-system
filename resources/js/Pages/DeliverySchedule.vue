@@ -28,7 +28,7 @@
                                 Round: {{ slotProps.data.round_qty }}
                             </div>
                             <div>
-                                Total: {{ slotProps.data.total_qty }}
+                                Total: {{ slotProps.data.slim_qty + slotProps.data.round_qty}}
                             </div>
                         </template>
                         
