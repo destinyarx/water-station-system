@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col w-full mb-2">
         <div class="flex justify-end">
-            <ToggleButton v-model="form.skip_delivery" onLabel="Skip for now" offLabel="Skip for now" class="w-9rem" aria-label="Do you confirm" />
+            <ToggleButton v-if="!hideSkip" v-model="checked" onLabel="Skip for now" offLabel="Skip for now" class="w-9rem" aria-label="Do you confirm" />
         </div>
 
         <template v-if="!checked">
@@ -45,6 +45,7 @@
             <Textarea v-model="form.remarks"autoResize  rows="3" class="w-full"/>
         </template>
     </div>
+    <slot name="actions"/>
 </template>
 
 <script setup lang="ts">
@@ -55,6 +56,11 @@ const props = defineProps({
         type: Object,
         required: true 
     },
+    hideSkip: {
+        type: Boolean,
+        required: false 
+    },
+
 });
 
 const frequency = ref([

@@ -8,9 +8,10 @@
             </template>
 
             <template #content>
-                <div class="flex justify-end mb-2">
+                <!-- <div class="flex justify-end mb-2">
                     <Button @click="showForm('store')" type="button" label="Add" icon="pi pi-plus" />
-                </div>
+                </div> -->
+
                 <DataTable :value="deliverySchedules" :loading="loading"
                 stripedRows tableStyle="min-width: 50rem" class="w-full"
                 paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
@@ -36,15 +37,28 @@
                             <div>{{ slotProps.data.frequency_type }}</div>
                             <div v-if="slotProps.data.frequency_type === 'Once'">{{ moment(slotProps.data.exact_date).format('MMMM D, YYYY') }}</div>
                         </template>
+
+                        <template v-if="col.header === 'Action'" #body="slotProps">
+                            <SplitButton label="Actions" :model="actionItems" severity="info" rounded/>
+                        </template>
                     </Column>
                 </DataTable>
             </template>
         </Card>
     </Layout>
 
-    <Dialog v-model:visible="visible" modal header="Add Delivery Schedule">
+    <Dialog v-model:visible="visible" modal header="Add Delivery Schedule" :style="{ width: '60rem'}">
         <Card>
-            <h2>This is a form</h2>
+            <template #content>
+                <DeliveryScheduleForm :form="form" :hideSkip="true">
+                    <template #actions>
+                        <div class="flex justify-end gap-2">
+                            <Button @click="closeForm" label="Cancel" icon="pi pi-cross" iconPos="right" severity="danger"/>
+                            <Button @click="submitForm" type="submit" label="Save" severity="success"/>
+                        </div>
+                    </template>
+                </DeliveryScheduleForm>  
+            </template>
         </Card>
     </Dialog>
 </template>
@@ -55,6 +69,8 @@ import Layout from '@/Layouts/Layout.vue';
 import { useForm, Head } from "@inertiajs/vue3";
 import axios from 'axios';
 import moment from 'moment';
+
+import DeliveryScheduleForm from '@/Components/Forms/DeliveryScheduleForm.vue';
 
 
 const props = defineProps<{
@@ -68,6 +84,22 @@ const headers = [
     { field: 'order_quantity', header: 'Order Quantity', width: '10%' },
     { field: 'created_at', header: 'Date Added', sortable: true, width: '15%' },
     { field: 'notes', header: 'Remarks' },
+    { field: '', header: 'Action' },
+]
+
+const actionItems = [
+    {
+        label: 'Update',
+        command: () => {
+            console.log('Update');
+        },
+    },
+    {
+        label: 'Delete',
+        command: () => {
+            console.log('Delete');
+        }
+    }
 ]
 
 const loading = ref(false);
@@ -88,11 +120,43 @@ const fetchData = () => {
 
 // form variable
 const visible = ref<boolean>(false);
+const form = useForm({
+            'action': null,
+            'skip_delivery': false,
+            'days': null,
+            'frequency': {name: null, code: null},
+            'delivery_date': null,
+            'slim_qty': 0,
+            'round_qty': 0,
+            'total_qty': 0,
+            'remarks': null,
+        });
 
 // form methods
 const showForm = (action: string) => {
     visible.value = true;
     console.log(action);
+}
+
+const closeForm = () => {
+    resetForm();
+    visible.value = false;
+}
+
+const submitForm = ()=> {
+    console.log('Form submitted');
+}
+
+const resetForm = () => {
+    form['action'] = null;          
+    form['skip_delivery'] = false;
+    form['days'] = null;
+    form['frequency'] = {name: null, code: null};
+    form['delivery_date'] = null;
+    form['slim_qty'] = 0;
+    form['round_qty'] = 0;
+    form['total_qty'] = 0;
+    form['remarks'] = null;
 }
 
 onMounted(() => {
