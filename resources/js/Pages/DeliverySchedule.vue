@@ -91,12 +91,14 @@ const actionItems = [
     {
         label: 'Update',
         command: () => {
+            showForm('Update');
             console.log('Update');
         },
     },
     {
         label: 'Delete',
         command: () => {
+            showForm('Delete');
             console.log('Delete');
         }
     }
