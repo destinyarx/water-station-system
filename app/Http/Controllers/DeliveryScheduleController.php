@@ -55,9 +55,17 @@ class DeliveryScheduleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DeliverySchedule $deliverySchedule)
+    public function update(Request $request)
     {
-        //
+        return DeliverySchedule::where('id', $request->id)
+            ->update([
+                'frequency_type' => $request->frequency['code'],
+                'slim_qty' => $request->slim_qty,
+                'round_qty' => $request->round_qty,
+                'notes' => $request->remarks,
+                'exact_date' => $request->delivery_date,
+                'updated_at' => now(),
+            ]);
     }
 
     /**
@@ -76,14 +84,16 @@ class DeliveryScheduleController extends Controller
             ->whereNull('d.deleted_at')
             ->select(
                 'c.name',
+                'd.id',
                 'd.notes',
                 'd.frequency_type',
                 'd.exact_date',
                 'd.created_at',
                 'd.slim_qty',
                 'd.round_qty',
-                // 'd.total_qty',
                 DB::raw("CONCAT(a.description, ' ', a.street, ' ', a.unit_number, ' ', a.barangay, ' ', a.municipality, ' ', a.province) as full_address")
-            )->get();
+            )
+            ->orderBy('d.created_at', 'desc')
+            ->get();
     }
 }

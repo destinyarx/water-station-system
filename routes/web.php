@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(DeliveryScheduleController::class)->prefix('delivery-schedules')->group(function () {
         Route::get('', 'index');
         Route::get('/get', 'getDeliverySchedule')->name('delivery-schedules.get');
+        Route::put('/update', 'update')->name('delivery-schedules.update');
     });
 });
 

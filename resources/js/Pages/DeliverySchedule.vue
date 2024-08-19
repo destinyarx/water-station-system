@@ -39,7 +39,7 @@
                         </template>
 
                         <template v-if="col.header === 'Action'" #body="slotProps">
-                            <SplitButton label="Actions" :model="actionItems" severity="info" rounded/>
+                            <SplitButton label="Actions" :model="actionItems(slotProps.data)" severity="info" rounded/>
                         </template>
                     </Column>
                 </DataTable>
@@ -47,20 +47,22 @@
         </Card>
     </Layout>
 
-    <Dialog v-model:visible="visible" modal header="Add Delivery Schedule" :style="{ width: '60rem'}">
+    <Dialog v-model:visible="visible" modal header="Update Delivery Schedule" :style="{ width: '60rem'}">
         <Card>
             <template #content>
                 <DeliveryScheduleForm :form="form" :hideSkip="true">
                     <template #actions>
                         <div class="flex justify-end gap-2">
                             <Button @click="closeForm" label="Cancel" icon="pi pi-cross" iconPos="right" severity="danger"/>
-                            <Button @click="submitForm" type="submit" label="Save" severity="success"/>
+                            <Button @click="handleSubmit" type="submit" label="Update" severity="success"/>
                         </div>
                     </template>
                 </DeliveryScheduleForm>  
             </template>
         </Card>
     </Dialog>
+
+    <Toast />
 </template>
 
 <script setup lang="ts">
@@ -71,11 +73,22 @@ import axios from 'axios';
 import moment from 'moment';
 
 import DeliveryScheduleForm from '@/Components/Forms/DeliveryScheduleForm.vue';
+import { useToast } from 'primevue/usetoast';
+const toast = useToast();
 
 
 const props = defineProps<{
     title: string
 }>();
+
+type Schedule = {
+    id: number,
+    exact_date: Date,
+    frequency_type: string,
+    notes: string | null,
+    slim_qty: number,
+    round_qty: number,
+}
 
 const headers = [
     { field: 'name', header: 'Name', width: '17%' },
@@ -87,26 +100,12 @@ const headers = [
     { field: '', header: 'Action' },
 ]
 
-const actionItems = [
-    {
-        label: 'Update',
-        command: () => {
-            showForm('Update');
-            console.log('Update');
-        },
-    },
-    {
-        label: 'Delete',
-        command: () => {
-            showForm('Delete');
-            console.log('Delete');
-        }
-    }
-]
-
+// datatable data
 const loading = ref(false);
 const deliverySchedules = ref<Object[]>([]);
 
+
+// datatable methods
 const fetchData = () => {
     loading.value = true;
 
@@ -120,36 +119,68 @@ const fetchData = () => {
         })
 }
 
+const actionItems = (data: Schedule) => {
+    return [
+        {
+            label: 'Update',
+            command: () => {
+                showUpdateForm('update', data);
+                console.log('Update');
+            },
+        },
+        {
+            label: 'Delete',
+            command: () => {
+                deleteDeliverySchedule(data.id);
+                console.log('Delete');
+            }
+        }
+    ];
+}
+
 // form variable
 const visible = ref<boolean>(false);
 const form = useForm({
-            'action': null,
+            'id': 0 as number,
+            'action': null as string | null,
             'skip_delivery': false,
             'days': null,
-            'frequency': {name: null, code: null},
-            'delivery_date': null,
+            'frequency': {name: null as string|null, code: null as string|null},
+            'delivery_date': null as Date | null,
             'slim_qty': 0,
             'round_qty': 0,
             'total_qty': 0,
-            'remarks': null,
+            'remarks': null as string | null,
         });
 
 // form methods
-const showForm = (action: string) => {
-    visible.value = true;
-    console.log(action);
-}
-
 const closeForm = () => {
     resetForm();
     visible.value = false;
 }
 
-const submitForm = ()=> {
-    console.log('Form submitted');
+const handleSubmit = ()=> {
+    if (form['action'] === 'update') {
+        updateDeliverySchedule();
+    } else if (form['action'] === 'delete') {
+        console.log(form['action'])
+    }
+}
+
+const setFormValue = (action: string, data: Schedule) => {
+    form['id'] = data.id;          
+    form['action'] = action;          
+    form['days'] = null;
+    form['frequency'] = getFrequency(data.frequency_type);
+    form['delivery_date'] = data.exact_date;
+    form['slim_qty'] = data.slim_qty;
+    form['round_qty'] = data.round_qty;
+    form['total_qty'] = data.slim_qty + data.round_qty;
+    form['remarks'] = data.notes;
 }
 
 const resetForm = () => {
+    form['id'] = 0;          
     form['action'] = null;          
     form['skip_delivery'] = false;
     form['days'] = null;
@@ -160,6 +191,34 @@ const resetForm = () => {
     form['total_qty'] = 0;
     form['remarks'] = null;
 }
+
+const getFrequency = (frequencyCode: string) => {
+    return { name: 'Once', code: 'O' };
+}
+
+const showUpdateForm = (action: string, data: Schedule) => {
+    resetForm()
+    setFormValue(action, data);
+    visible.value = true;
+}
+
+const updateDeliverySchedule = () => {
+    axios.put(route('delivery-schedules.update', form['id']), form)
+    .then(response => {
+        resetForm();
+        visible.value = false;
+        showSuccess();
+        fetchData();
+    })
+}
+
+const deleteDeliverySchedule = (id: number) => {
+    console.log(`Delete record`);
+}
+
+const showSuccess = () => {
+    toast.add({ severity: 'success', summary: 'Customer saved succesfully!', life: 3000 });
+};
 
 onMounted(() => {
     fetchData();
