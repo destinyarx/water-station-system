@@ -28,26 +28,28 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::controller(CustomerController::class)->prefix('customers')->group(function () {
-    Route::get('/', 'index')->name('customer.index');
-    Route::get('/get/{filter}', 'fetchCustomers')->name('customers.get');
-    Route::post('/add', 'addCustomer')->name('customers.add');
-});
-
-Route::controller(ProductsController::class)->prefix('products')->group(function () {
-    Route::get('/', 'index')->name('products.index');
-    Route::post('/add', 'store')->name('products.add');
-    Route::put('/update', 'update')->name('products.update');
-    Route::get('/get/{filter}', 'fetchProducts')->name('products.get');
-});
-
-Route::controller(SalesController::class)->prefix('sales')->group(function () {
-    Route::get('/', 'index')->name('sales.index');
-});
-
-Route::controller(DeliveryScheduleController::class)->prefix('delivery-schedules')->group(function () {
-    Route::get('', 'index');
-    Route::get('/get', 'getDeliverySchedule')->name('delivery-schedules.get');
+Route::middleware('auth')->group(function () {
+    Route::controller(CustomerController::class)->prefix('customers')->group(function () {
+        Route::get('/', 'index')->name('customer.index');
+        Route::get('/get/{filter}', 'fetchCustomers')->name('customers.get');
+        Route::post('/add', 'addCustomer')->name('customers.add');
+    });
+    
+    Route::controller(ProductsController::class)->prefix('products')->group(function () {
+        Route::get('/', 'index')->name('products.index');
+        Route::post('/add', 'store')->name('products.add');
+        Route::put('/update', 'update')->name('products.update');
+        Route::get('/get/{filter}', 'fetchProducts')->name('products.get');
+    });
+    
+    Route::controller(SalesController::class)->prefix('sales')->group(function () {
+        Route::get('/', 'index')->name('sales.index');
+    });
+    
+    Route::controller(DeliveryScheduleController::class)->prefix('delivery-schedules')->group(function () {
+        Route::get('', 'index');
+        Route::get('/get', 'getDeliverySchedule')->name('delivery-schedules.get');
+    });
 });
 
 Route::inertia('/dashboard', 'Dashboard');

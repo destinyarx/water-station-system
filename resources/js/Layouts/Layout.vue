@@ -13,7 +13,7 @@
                     <li v-for="item in sidebarItems" class="my-10">
                         <Link :href="item.route">
                             <i :class="item.icon" class="mr-1 ml-6 self-center" style="font-size: 1.5rem"></i>
-                            <span class="ml-2 hidden group-hover:inline-block">
+                            <span class="whitespace-nowrap ml-2 hidden group-hover:inline-block">
                                 {{ item.label }}
                             </span>
                         </Link>
