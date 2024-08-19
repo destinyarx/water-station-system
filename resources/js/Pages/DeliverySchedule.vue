@@ -122,14 +122,14 @@ const fetchData = () => {
 const actionItems = (data: Schedule) => {
     return [
         {
-            label: 'Update',
+            label: 'Update Schedule',
             command: () => {
                 showUpdateForm('update', data);
                 console.log('Update');
             },
         },
         {
-            label: 'Delete',
+            label: 'Delete Schedule',
             command: () => {
                 deleteDeliverySchedule(data.id);
                 console.log('Delete');
