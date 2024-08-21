@@ -13,7 +13,7 @@
                 </div> -->
 
                 <DataTable :value="deliverySchedules" :loading="loading"
-                stripedRows tableStyle="min-width: 50rem" class="w-full"
+                stripedRows tableStyle="min-width: 50rem" size="small" class="w-full text-sm"
                 paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
                     <Column v-for="col of headers" class="dark:text-zinc-50"
                     :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable" :style="{ width: col.width }">
@@ -39,7 +39,7 @@
                         </template>
 
                         <template v-if="col.header === 'Action'" #body="slotProps">
-                            <SplitButton label="Actions" :model="actionItems(slotProps.data)" severity="info" rounded/>
+                            <SplitButton label="Actions" :model="actionItems(slotProps.data)" severity="info" rounded class="p-0"/>
                         </template>
                     </Column>
                 </DataTable>
@@ -225,3 +225,9 @@ onMounted(() => {
 })
 
 </script>
+
+<style lang="css">
+.p-splitbutton, .p-splitbutton-button {
+    padding: none;
+}
+</style>

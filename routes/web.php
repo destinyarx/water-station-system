@@ -19,7 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('/', function () {
-    return Inertia::render('Dashboard_2');
+    return Inertia::render('Dashboard');
+    // return Inertia::render('Dashboard_2');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

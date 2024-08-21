@@ -73,9 +73,11 @@ class CustomerController extends Controller
     public function fetchCustomers(Request $request) {
         $filter = json_decode($request->filter);
 
-        $customers = Customer::with('address')->orderBy('created_at', 'desc')->get();
-
-        return $customers;
+        return Customer::with('address')
+            ->with('delivery_schedule')
+            ->where('created_by', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 
     public function insertCustomer($form) {
@@ -106,7 +108,6 @@ class CustomerController extends Controller
             'notes' => $form['remarks'],
             'slim_qty' => $form['slim_qty'],
             'round_qty' => $form['round_qty'],
-            // 'total_qty' => $form['total_qty'],
             'frequency_type' => $form['frequency']['name'],
             'frequency_value' => 'none',
             'created_by' => auth()->id(),
@@ -115,15 +116,17 @@ class CustomerController extends Controller
     }
 
     public function addCustomer(Request $request) {
-        DB::beginTransaction();
+        // DB::beginTransaction();
         
         try {
             $customer = $this->insertCustomer($request->details);
             $this->insertAddress($customer->id, $request->address);
-            $this->insertDeliverySchedule($customer->id, $request->delivery);
-            DB::commit();
+
+            if ($request->delivery['frequency']['name'])
+                $this->insertDeliverySchedule($customer->id, $request->delivery);
+            // DB::commit();
         } catch (Exception $e) {
-            DB::rollback();
+            // DB::rollback();
             echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
 

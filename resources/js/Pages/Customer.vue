@@ -20,9 +20,9 @@
             <template #content>
                 <div class="card">
                     <DataTable :value="customers" class="w-auto" :loading="loading"
-                        stripedRows tableStyle="min-width: 50rem"
+                        stripedRows size="small" tableStyle="min-width: 50rem"
                         paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
-                        <Column v-for="col of customerHeaders" class="dark:text-zinc-50"
+                        <Column v-for="col of customerHeaders" class="dark:text-zinc-50 text-sm"
                             :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable">
 
                             <template v-if="col.field === 'address.municipality'" #body="slotProps">
@@ -34,7 +34,7 @@
                             </template>
 
                             <template v-if="col.field === 'action'" #body="slotProps">
-                                <SplitButton label="Actions" :model="actionItems" severity="info" rounded/>
+                                <SplitButton label="Actions" :model="actions(slotProps.data)" severity="info" rounded/>
                             </template>
 
                             <!-- <template v-if="col.field === 'status'" #body="slotProps">
@@ -93,26 +93,33 @@ const customerHeaders = [
     { field: 'action', header: 'Action', sortable: true }, 
 ]
 
-const actionItems = [
-    {
-        label: 'Update',
-        command: () => {
-            console.log('Update');
+const actions = (data: any) => {
+    let actions = [
+        {
+            label: 'Update',
+            command: () => {
+                console.log('Update');
+            },
         },
-    },
-    {
-        label: 'Delete',
-        command: () => {
-            console.log('Delete');
-        }
-    },
-    {
-        label: 'Add Delivery Schedule',
-        command: () => {
-            console.log('Add Delivery Schedule');
-        }
+        {
+            label: 'Delete',
+            command: () => {
+                console.log('Delete');
+            }
+        },
+    ]
+
+    if (!data.delivery_schedule) {
+        actions.push({
+            label: 'Add delivery schedule',
+            command: ()=> {
+                console.log('Add delivery schedule')
+            }
+        });
     }
-]
+
+    return actions;
+}
 
 const showSuccess = () => {
     toast.add({ severity: 'success', summary: 'Customer saved succesfully!', life: 3000 });
@@ -121,12 +128,6 @@ const showSuccess = () => {
 const showError = () => {
     toast.add({ severity: 'error', summary: 'An error occurred while saving customer details', life: 3000 });
 };
-
-// customer methods
-const addCustomer = () => {
-    console.log('customer created')
-    fetchCustomer()
-}
 
 const fetchCustomer = async () => {
     loading.value = true

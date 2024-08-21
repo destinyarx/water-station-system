@@ -4,24 +4,26 @@
     <Layout>
         <Card class="dark:bg-slate-700 light:bg-gray-100">
             <template #title>
-                <div class="flex justify-end mt-5 mb-2">
+                <div class="flex justify-end mt-5 mb-2 text-sm">
                     <Button @click="showAddProductForm" type="button" label="Add Product" icon="pi pi-plus" />
                 </div>
             </template>
             
             <template #content>
                 <div class="flex flex-wrap">
-                    <Card v-for="(product, index) in products" :key="product.id" class="w-full md:w-1/2 lg:w-1/5 dark:bg-slate-900 px-4 mb-4 mx-1 p-4">
+                    <Card v-for="(product, index) in products" :key="product.id" class="w-full md:w-1/2 lg:w-1/5 dark:bg-gray-600 dark:text-zinc-50 px-4 mb-4 mx-1 p-4">
                         <template #header>
-                            <strong>Item No. {{ index + 1 }}</strong>
+                            <div class="text-2xl font-medium">
+                                {{ product.description }} 
+                            </div>                       
                         </template>
                         <template #title>
-                            <div>{{ product.title }}</div>
+                            <!-- <div>{{ product.title }}</div> -->
                             <Image src="/image/round_gallon.jpg" alt="Image" width="auto" />
                         </template>
-                        <template #subtitle>
+                        <!-- <template #subtitle>
                             {{ product.description }}
-                        </template>
+                        </template> -->
                         <template #content>
                             <div>
                                 Quantity: {{ product.qty }}
@@ -31,7 +33,9 @@
                             </div>
                         </template>
                         <template #footer>
-                            <Button @click="showUpdateProductForm(index)" type="button" label="Update" icon="pi pi-pen-to-squares" />
+                            <div class="h-full flex justify-center">
+                                <Button @click="showUpdateProductForm(index)" type="button" label="Update" icon="pi pi-pen-to-squares" />
+                            </div>
                         </template>
                         {{ product.description }}
                     </Card>

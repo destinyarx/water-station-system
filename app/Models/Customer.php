@@ -19,6 +19,10 @@ class Customer extends Model
         return $this->hasOne(Address::class);
     }
 
+    public function delivery_schedule() {
+        return $this->hasOne(DeliverySchedule::class);
+    }
+
     public function sales() {
         return $this->hasMany(Sales::class);
     }
