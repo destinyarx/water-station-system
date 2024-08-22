@@ -65,9 +65,8 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
+    public function destroy(Request $request)
     {
-        //
     }
 
     public function fetchCustomers(Request $request) {
@@ -80,6 +79,7 @@ class CustomerController extends Controller
                 );
             }])
             ->with('delivery_schedule')
+            ->whereNull('deleted_at')
             ->where('created_by', auth()->id())
             ->orderBy('created_at', 'desc')
             ->get();

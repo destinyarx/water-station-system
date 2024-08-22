@@ -210,10 +210,21 @@ const updateDeliverySchedule = () => {
         showSuccess();
         fetchData();
     })
+    .catch(error => {
+        console.log(error);
+    })
 }
 
 const deleteDeliverySchedule = (id: number) => {
-    console.log(`Delete record`);
+    axios.put(route('delivery-schedules.delete', {id}))
+        .then(response => {
+            visible.value = false;
+            showSuccess();
+            fetchData();
+        })
+        .catch(error => {
+            console.log(error);
+        })
 }
 
 const showSuccess = () => {

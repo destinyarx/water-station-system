@@ -71,9 +71,10 @@ class DeliveryScheduleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DeliverySchedule $deliverySchedule)
+    public function destroy(Request $request)
     {
-        //
+        return DeliverySchedule::where('id', $request->id)
+            ->update(['deleted_at' => now()]);
     }
 
     public function getDeliverySchedule() {

@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
         Route::get('', 'index');
         Route::get('/get', 'getDeliverySchedule')->name('delivery-schedules.get');
         Route::put('/update', 'update')->name('delivery-schedules.update');
+        Route::put('/delete/{id}', 'destroy')->name('delivery-schedules.delete');
     });
 });
 
