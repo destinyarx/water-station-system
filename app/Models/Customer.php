@@ -13,6 +13,7 @@ class Customer extends Model
         'cellphone_number',
         'email',
         'messenger_name',
+        'created_by'
     ];
 
     public function address() {

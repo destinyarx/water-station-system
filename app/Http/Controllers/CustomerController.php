@@ -73,7 +73,12 @@ class CustomerController extends Controller
     public function fetchCustomers(Request $request) {
         $filter = json_decode($request->filter);
 
-        return Customer::with('address')
+        return Customer::with(['address' => function($query) {
+                $query->select(
+                    'customer_id',
+                    DB::raw("CONCAT(description, ' ', unit_number, ' ', street, ' St. Brgy.', barangay, ' ', municipality, ', ', province) as full_address")
+                );
+            }])
             ->with('delivery_schedule')
             ->where('created_by', auth()->id())
             ->orderBy('created_at', 'desc')

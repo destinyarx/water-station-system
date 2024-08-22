@@ -91,7 +91,7 @@ class DeliveryScheduleController extends Controller
                 'd.created_at',
                 'd.slim_qty',
                 'd.round_qty',
-                DB::raw("CONCAT(a.description, ' ', a.street, ' ', a.unit_number, ' ', a.barangay, ' ', a.municipality, ' ', a.province) as full_address")
+                DB::raw("CONCAT(a.description, ' ', a.unit_number, ' ', a.street, ' St. Brgy.', a.barangay, ' ', a.municipality, ', ', a.province) as full_address")
             )
             ->orderBy('d.created_at', 'desc')
             ->get();

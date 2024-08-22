@@ -25,13 +25,13 @@
                         <Column v-for="col of customerHeaders" class="dark:text-zinc-50 text-sm"
                             :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable">
 
-                            <template v-if="col.field === 'address.municipality'" #body="slotProps">
+                            <!-- <template v-if="col.field === 'address.municipality'" #body="slotProps">
                                     {{ slotProps.data.address.unit_number ? slotProps.data.address.unit_number + ' ' : '' }}
                                     {{ slotProps.data.address.street ? slotProps.data.address.street + ' ' : '' }}
                                     {{ slotProps.data.address.baranggay ? slotProps.data.address.baranggay + ' ' : '' }}
                                     {{ slotProps.data.address.municipality ? slotProps.data.address.municipality + ' ' : '' }}
                                     {{ slotProps.data.address.province ? slotProps.data.address.province + ' ' : '' }}
-                            </template>
+                            </template> -->
 
                             <template v-if="col.field === 'action'" #body="slotProps">
                                 <SplitButton label="Actions" :model="actions(slotProps.data)" severity="info" rounded/>
@@ -87,7 +87,7 @@ let loading = ref(false)
 let customers = ref([])
 const customerHeaders = [
     { field: 'name', header: 'Name', sortable: true }, 
-    { field: 'address.municipality', header: 'Address', sortable: true }, 
+    { field: 'address.full_address', header: 'Address', sortable: true }, 
     { field: 'cellphone_number', header: 'Contact Number' }, 
     { field: 'email', header: 'Email' }, 
     { field: 'action', header: 'Action', sortable: true }, 
@@ -112,7 +112,7 @@ const actions = (data: any) => {
     if (!data.delivery_schedule) {
         actions.push({
             label: 'Add delivery schedule',
-            command: ()=> {
+            command: () => {
                 console.log('Add delivery schedule')
             }
         });

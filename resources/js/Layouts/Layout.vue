@@ -20,7 +20,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="min-h-screen grow ml-20">
+            <div class="min-h-screen grow ml-20 dark:bg-slate-900">
                 <slot></slot>
             </div>
         </div>
