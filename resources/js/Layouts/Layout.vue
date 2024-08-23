@@ -10,14 +10,22 @@
                 </div>
                 <ul>
                     <li v-for="item in sidebarItems" class="my-10">
-                        <Link :href="item.route">
+                      <template v-if="item.route === 'none'">
+                        <div class="overflow-hidden opacity-0 group-hover:opacity-100 font-bold text-xl dark:text-white light:text-black ml-5 -mb-6">
+                          {{ item.label }}
+                        </div>
+                      </template>
+
+                        <Link v-if="item.route !== 'none'" :href="item.route">
                           <div class="w-full flex items-center">
-                            <i :class="item.icon" class="mr-1 ml-6 self-center" style="font-size: 1.5rem"></i>
+                            <i :class="item.icon" class="self-center ml-6 mr-2" style="font-size: 1.5rem"></i>
                             <span class="whitespace-nowrap inline-block overflow-hidden hidden group-hover:inline-block ml-2">
                               {{ item.label }}
                             </span>
                           </div>
                         </Link>
+
+                        <br v-if="item.label === 'Delivery History'">
                     </li>
                 </ul>
             </div>
@@ -50,19 +58,36 @@ const sidebarItems = ref([
       route: '/sales'
     },
     { 
+      label: 'Expenses',
+      icon: 'pi pi-money-bill',
+      route: '/expenses'
+    },
+    { 
       label: 'Products',
       icon: 'pi pi-shopping-bag',
       route: '/products'
     },
+    {
+      label: 'Delivery',
+      route: 'none',
+    },
+    { 
+      label: 'Daily Delivery',
+      icon: 'pi pi-calendar-times',
+      route: '/delivery-schedules',
+      group: 'delivery'
+    },
     { 
       label: 'Delivery Schedule',
       icon: 'pi pi-calendar-times',
-      route: '/delivery-schedules' 
+      route: '/delivery-schedules',
+      group: 'delivery'
     },
     { 
-      label: 'Expenses',
-      icon: 'pi pi-money-bill',
-      route: '/expenses'
+      label: 'Delivery History',
+      icon: 'pi pi-calendar-times',
+      route: '/delivery-history',
+      group: 'delivery'
     },
   ]);
 </script>

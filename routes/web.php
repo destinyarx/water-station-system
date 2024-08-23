@@ -1,13 +1,15 @@
 <?php
 
 use Inertia\Inertia;
+use App\Models\DeliveryHistory;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\DeliveryScheduleController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\DeliveryHistoryController;
+use App\Http\Controllers\DeliveryScheduleController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -52,6 +54,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/get', 'getDeliverySchedule')->name('delivery-schedules.get');
         Route::put('/update', 'update')->name('delivery-schedules.update');
         Route::put('/delete/{id}', 'destroy')->name('delivery-schedules.delete');
+    });
+
+    Route::controller(DeliveryHistoryController::class)->prefix('delivery-history')->group(function () {
+        Route::get('/', 'index')->name('delivery-history.index');
     });
 });
 

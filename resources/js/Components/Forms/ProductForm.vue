@@ -10,7 +10,7 @@
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label class="font-semibold w-24">Price</label>
-                <InputNumber v-model="form.price" inputId="integeronly" class="w-full ml-4" />
+                <InputNumber v-model="form.price" inputId="integeronly" mode="currency" currency="PHP" class="w-full ml-4" />
             </div>
             <div class="flex items-center gap-4 mb-4">
                 <label class="font-semibold w-24">Quantity</label>

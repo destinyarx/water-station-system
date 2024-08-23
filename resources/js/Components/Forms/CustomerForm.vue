@@ -24,7 +24,7 @@
                                     Cellphone Number
                                     <span class="text-rose-800">*</span>
                                 </div>
-                                <InputNumber v-model="props.form.details.cellphone_number" class="w-full" placeholder="Mobile Number" :invalid="!props.form.details.cellphone_number && isSubmitted" autocomplete="off" />
+                                <InputNumber v-model="props.form.details.cellphone_number" :useGrouping="false" class="w-full" placeholder="Mobile Number" :invalid="!props.form.details.cellphone_number && isSubmitted" autocomplete="off" />
 
                                 <div class="mb-2 mt-4">Email <small>(Optional)</small></div>
                                 <InputText v-model="props.form.details.email" class="w-full" placeholder="Enter Email Address" autocomplete="off"/>

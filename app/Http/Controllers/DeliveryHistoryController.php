@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+use Illuminate\Http\Request;
 use App\Models\DeliveryHistory;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class DeliveryHistoryController extends Controller
 {
@@ -13,7 +14,7 @@ class DeliveryHistoryController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('DeliveryHistory');
     }
 
     /**
