@@ -57,10 +57,10 @@
 
 <script setup lang="ts">
 import { ref, defineProps, onMounted, watch } from 'vue'
-import Layout from '@/Layouts/Layout.vue';
 import { useForm, Head } from "@inertiajs/vue3";
 import axios from 'axios';
 
+import Layout from '@/Layouts/Layout.vue';
 import CustomToast from '@/Components/Toast/CustomToast.vue'
 import CustomerForm from '@/Components/Forms/CustomerForm.vue'
 

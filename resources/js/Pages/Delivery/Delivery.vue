@@ -1,24 +1,23 @@
 <template>
-    <Head title="Delivery History" />
+    <Head title="Today's Delivery" />
 
     <Layout>
-        <Card class="w-full">
+        <Card>
             <template #title>
-                Delivery History
-            </template>
-            <template #content>
-                --- Enter Delivery History Here ---
+                This is the delivery
             </template>
         </Card>
     </Layout>
+    
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import Layout from '@/Layouts/Layout.vue';
 import { Head } from "@inertiajs/vue3";
 import axios from 'axios';
 import moment from 'moment';
+
+import Layout from '@/Layouts/Layout.vue';
 
 import { useToast } from 'primevue/usetoast';
 const toast = useToast();

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DeliveryHistoryController;
 use App\Http\Controllers\DeliveryScheduleController;
@@ -58,6 +59,10 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(DeliveryHistoryController::class)->prefix('delivery-history')->group(function () {
         Route::get('/', 'index')->name('delivery-history.index');
+    });
+
+    Route::controller(DeliveryController::class)->prefix('delivery')->group(function () {
+        Route::get('/', 'index')->name('delivery');
     });
 });
 

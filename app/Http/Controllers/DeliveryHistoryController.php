@@ -14,7 +14,7 @@ class DeliveryHistoryController extends Controller
      */
     public function index()
     {
-        return Inertia::render('DeliveryHistory');
+        return Inertia::render('Delivery/DeliveryHistory');
     }
 
     /**

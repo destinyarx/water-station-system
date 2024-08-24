@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\delivery;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DeliveryController extends Controller
 {
@@ -13,7 +14,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Delivery/Delivery');
     }
 
     /**

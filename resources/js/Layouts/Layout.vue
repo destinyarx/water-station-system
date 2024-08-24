@@ -11,7 +11,7 @@
                 <ul>
                     <li v-for="item in sidebarItems" class="my-10">
                       <template v-if="item.route === 'none'">
-                        <div class="overflow-hidden opacity-0 group-hover:opacity-100 font-bold text-xl dark:text-white light:text-black ml-5 -mb-6">
+                        <div class="overflow-hidden opacity-0 group-hover:opacity-100 font-medium text-xl dark:text-white light:text-black ml-5 -mb-6">
                           {{ item.label }}
                         </div>
                       </template>
@@ -74,7 +74,7 @@ const sidebarItems = ref([
     { 
       label: 'Daily Delivery',
       icon: 'pi pi-calendar-times',
-      route: '/pending-deliveries',
+      route: '/delivery',
       group: 'delivery'
     },
     { 

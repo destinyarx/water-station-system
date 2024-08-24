@@ -15,7 +15,7 @@ class DeliveryScheduleController extends Controller
      */
     public function index()
     {
-        return Inertia::render('DeliverySchedule', [
+        return Inertia::render('Delivery/DeliverySchedule', [
             'title' => 'Delivery Schedule'
         ]);
     }
