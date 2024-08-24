@@ -74,7 +74,7 @@ const sidebarItems = ref([
     { 
       label: 'Daily Delivery',
       icon: 'pi pi-calendar-times',
-      route: '/delivery-schedules',
+      route: '/pending-deliveries',
       group: 'delivery'
     },
     { 

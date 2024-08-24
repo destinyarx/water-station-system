@@ -11,7 +11,7 @@
             
             <template #content>
                 <div class="flex flex-wrap">
-                    <Card v-for="(product, index) in products" :key="product.id" class="w-full md:w-1/2 lg:w-1/5 dark:bg-gray-600 dark:text-zinc-50 px-4 mb-4 mx-1 p-4">
+                    <Card v-for="(product, index) in products" :key="product.id" class="w-full md:w-1/2 lg:w-1/5 dark:bg-gray-500 dark:text-zinc-50 px-4 mb-4 mx-1 p-4">
                         <template #header>
                             <div class="text-2xl font-medium">
                                 {{ product.description }} 
@@ -25,19 +25,22 @@
                             {{ product.description }}
                         </template> -->
                         <template #content>
-                            <div>
-                                Quantity: {{ product.qty }}
-                            </div>
-                            <div>
-                                Price: {{ product.price }}
+                            <div class="bg-green-500 h-full flex flex-col justify-between">
+                                <div>
+                                    <div>
+                                        Quantity: {{ product.qty }}
+                                    </div>
+                                    <div>
+                                        Price: {{ product.price }}
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-center">
+                                    <Button @click="showUpdateProductForm(index)" type="button" label="Update" icon="pi pi-pen-to-squares" class="self-end"/>
+                                </div>
                             </div>
                         </template>
-                        <template #footer>
-                            <div class="h-full flex justify-center">
-                                <Button @click="showUpdateProductForm(index)" type="button" label="Update" icon="pi pi-pen-to-squares" />
-                            </div>
-                        </template>
-                        {{ product.description }}
+    
                     </Card>
                 </div>
             </template>
