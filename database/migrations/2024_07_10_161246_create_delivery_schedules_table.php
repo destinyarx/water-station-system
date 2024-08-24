@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('notes', 100)->nullable();
             $table->string('frequency_type', 20);
             $table->string('frequency_value', 20);
+            $table->date('exact_date')->nullable();
+            $table->smallInteger('slim_qty')->unsigned()->nullable(); 
+            $table->smallInteger('round_qty')->unsigned()->nullable(); 
             $table->smallInteger('created_by')->unsigned(); 
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade'); 
             $table->timestamp('created_at')->useCurrent();

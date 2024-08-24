@@ -19,14 +19,13 @@ return new class extends Migration
             $table->foreign('schedule_id')->references('id')->on('users')->onDelete('cascade');
             $table->smallInteger('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamp('target_date')->nullable();
-            $table->timestamp('next_delivery_date')->nullable();
+            $table->date('target_date')->nullable();
+            $table->date('next_delivery_date')->nullable();
             $table->smallInteger('price')->unsigned()->nullable(); 
             $table->smallInteger('total_qty')->unsigned(); 
             $table->enum('status', ['0', '1'])->default('1')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
         });
     }
 
