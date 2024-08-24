@@ -34,8 +34,16 @@
                         </template>
                         
                         <template v-if="col.field === 'frequency_type'" #body="slotProps">
-                            <div>{{ slotProps.data.frequency_type }}</div>
-                            <div v-if="slotProps.data.frequency_type === 'Once'">{{ moment(slotProps.data.exact_date).format('MMMM D, YYYY') }}</div>
+                            <div v-if="slotProps.data.frequency_type !== 'O'">
+                                {{ frequency_value[slotProps.data.frequency_type] }}
+                            </div>
+                            <div v-else>
+                                Deliver on: {{ moment(slotProps.data.exact_date).format('MMMM D, YYYY') }}
+                            </div>
+                        </template>
+
+                        <template v-if="col.field === 'created_at'" #body="slotProps">
+                            <div>{{ moment(slotProps.data.created_at).format('MMMM D, YYYY hh:mm:a') }}</div>
                         </template>
 
                         <template v-if="col.header === 'Action'" #body="slotProps">
@@ -77,9 +85,11 @@ import { useToast } from 'primevue/usetoast';
 const toast = useToast();
 
 
-const props = defineProps<{
-    title: string
-}>();
+const props = defineProps({
+    title: { type: String },
+    frequency: { type: Array },
+    frequency_value: { type: Array }
+});
 
 type Schedule = {
     id: number,

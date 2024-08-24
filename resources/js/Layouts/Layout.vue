@@ -9,14 +9,14 @@
                     <span class="whitespace-nowrap inline-block overflow-hidden hidden group-hover:inline-block text-xl text-zinc-50 ml-2">Amazon</span>
                 </div>
                 <ul>
-                    <li v-for="item in sidebarItems" class="my-10">
+                    <li v-for="item in sidebarItems" class="my-8">
                       <template v-if="item.route === 'none'">
                         <div class="overflow-hidden opacity-0 group-hover:opacity-100 font-medium text-xl dark:text-white light:text-black ml-5 -mb-6">
                           {{ item.label }}
                         </div>
                       </template>
 
-                        <Link v-if="item.route !== 'none'" :href="item.route">
+                        <Link v-else-if="item.route !== 'none'" :href="item.route">
                           <div class="w-full flex items-center">
                             <i :class="item.icon" class="self-center ml-6 mr-2" style="font-size: 1.5rem"></i>
                             <span class="whitespace-nowrap inline-block overflow-hidden hidden group-hover:inline-block ml-2">

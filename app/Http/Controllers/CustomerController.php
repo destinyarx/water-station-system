@@ -114,14 +114,13 @@ class CustomerController extends Controller
             'slim_qty' => $form['slim_qty'],
             'round_qty' => $form['round_qty'],
             'frequency_type' => $form['frequency']['name'],
-            'frequency_value' => 'none',
             'created_by' => auth()->id(),
             'exact_date' => $form['delivery_date']
         ]);
     }
 
     public function addCustomer(Request $request) {
-        // DB::beginTransaction();
+        DB::beginTransaction();
         
         try {
             $customer = $this->insertCustomer($request->details);
@@ -129,9 +128,10 @@ class CustomerController extends Controller
 
             if ($request->delivery['frequency']['name'])
                 $this->insertDeliverySchedule($customer->id, $request->delivery);
-            // DB::commit();
+            
+            DB::commit();
         } catch (Exception $e) {
-            // DB::rollback();
+            DB::rollback();
             echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
 

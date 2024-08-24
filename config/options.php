@@ -11,8 +11,13 @@ return [
         ['name' => 'Weekly (once a week)', 'code' => 'W1'],
         ['name' => 'Every two weeks', 'code' => '2Wk'],
     ],
+
+    'frequency_value' => [
+        'O' => 'Once',
+        'EOD' => 'Every other Day',
+    ],
     
-    'scheduleGaps' => [
+    'frequency_gap' => [
         'D' => 1,      // Daily
         'EOD' => 2,    // Every other Day
         '1W' => 7,     // Once a week

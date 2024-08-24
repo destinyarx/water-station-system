@@ -11,20 +11,11 @@
                     <div class="mb-1">Frequency</div>
                     <Dropdown v-model="form.frequency" :options="frequency" optionLabel="name" placeholder="Select Delivery Frequency" class="mt-1 w-full"/>
                 </div>
-                <div v-if="form.frequency['name'] === 'Once'" class="ml-2">
-                    <div class="mb-1">Date</div>
-                    <Calendar v-model="form.delivery_date" showIcon :showOnFocus="false" inputId="buttondisplay" class="w-full"/>
+                <div class="ml-2">
+                    <div class="mb-1">{{ form.frequency['name'] === 'Once' ? 'Date' : 'Starting Date:'}}</div>
+                    <Calendar v-model="form.delivery_date" dateFormat="MM d, yy" showIcon :showOnFocus="true" variant="filled" inputId="buttondisplay" class="w-full"/>
                 </div>
             </div>
-        
-            <template v-if="form.frequency['name'] !== 'Once'">
-                <div class="mb-1 mt-4">Days</div>
-                <div class="flex justify-center w-full">
-                    <div>
-                        <SelectButton v-model="form.days" :options="days" optionLabel="name" multiple aria-labelledby="multiple" class="w-full"/>
-                    </div>
-                </div>
-            </template>
     
             <div class="grid grid-cols-3 gap-5 my-4">
                 <div class="w-full">
@@ -66,27 +57,23 @@ const props = defineProps({
 const frequency = ref([
     {name: 'Once', code: 'O'},
     {name: 'Daily', code: 'D'},
-    {name: 'Every other Day', code: 'S'},
-    {name: 'Twice a week', code: '2x'},
-    {name: 'Three times a week', code: '3x'},
-    {name: 'Weekly (once a week)', code: 'S'},
-    {name: 'Every two weeks', code: 'S'},
-])
+    {name: 'Every other Day', code: 'EOD'},
+    {name: 'Once a week', code: '1W'},
+    {name: 'Twice a week', code: '2W'},
+    {name: 'Three times a week', code: '3W'},
+    {name: 'Weekly (once a week)', code: 'W1'},
+    {name: 'Every two weeks', code: '2Wk'},
+]);
 
-const days = ref([
-    {name: 'Monday', code: 'mon'},
-    {name: 'Tuesday', code: 'tue'},
-    {name: 'Wednesday', code: 'wed'},
-    {name: 'Thursday', code: 'thur'},
-    {name: 'Friday', code: 'fri'},
-    {name: 'Saturday', code: 'sat'},
-    {name: 'Sunday', code: 'sun'},
-])
-
-type Frequency = {
-    name: string;
-    code: string;
-}
+const scheduleGaps = {
+    'D': 1,      // Daily
+    'EOD': 2,    // Every other Day
+    '1W': 7,     // Once a week
+    '2W': 3,     // Twice a week (assuming a 3-day gap)
+    '3W': 2,     // Three times a week (assuming a 2-day gap)
+    'W1': 7,     // Weekly (once a week)
+    '2Wk': 14,   // Every two weeks
+};
 
 const checked = ref<boolean>(false);
 
@@ -95,7 +82,3 @@ const totalQuantity = computed(() => {
 })
 
 </script>
-
-<style scoped>
-
-</style>

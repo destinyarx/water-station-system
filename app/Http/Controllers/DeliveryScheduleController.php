@@ -16,7 +16,9 @@ class DeliveryScheduleController extends Controller
     public function index()
     {
         return Inertia::render('Delivery/DeliverySchedule', [
-            'title' => 'Delivery Schedule'
+            'title' => 'Delivery Schedule',
+            'frequency' => config('options.frequency'),
+            'frequency_value' => config('options.frequency_value')
         ]);
     }
 

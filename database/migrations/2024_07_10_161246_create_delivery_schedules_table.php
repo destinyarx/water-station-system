@@ -18,7 +18,6 @@ return new class extends Migration
             $table->enum('status', ['0', '1'])->default('1');
             $table->string('notes', 100)->nullable();
             $table->string('frequency_type', 20);
-            $table->string('frequency_value', 20);
             $table->date('exact_date')->nullable();
             $table->smallInteger('slim_qty')->unsigned()->nullable(); 
             $table->smallInteger('round_qty')->unsigned()->nullable(); 
