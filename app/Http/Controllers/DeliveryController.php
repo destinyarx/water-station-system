@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Inertia\Inertia;
 use App\Models\Delivery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class DeliveryController extends Controller
@@ -64,6 +65,25 @@ class DeliveryController extends Controller
     public function destroy(delivery $delivery)
     {
         //
+    }
+
+    public function fetchData() {
+        return DB::table('deliveries as d')
+            ->where('d.created_by', auth()->id())
+            ->leftJoin('customers as c', 'd.customer_id', 'c.id')
+            ->leftJoin('address as a', 'c.id', 'd.customer_id')
+            ->whereNull('d.status')
+            ->orderBy('d.created_at', 'asc')
+            ->select(
+                'd.target_date',
+                'd.next_delivery_date',
+                'd.total_qty',
+                'd.price',
+                'd.total_qty',
+                'c.name',
+                DB::raw("CONCAT(a.description, ' ', a.unit_number, ' ', a.street, ' St. Brgy.', a.barangay, ' ', a.municipality, ', ', a.province) as full_address")
+            )
+            ->get();
     }
 
     

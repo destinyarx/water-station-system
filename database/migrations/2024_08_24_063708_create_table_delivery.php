@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('next_delivery_date')->nullable();
             $table->smallInteger('price')->unsigned()->nullable(); 
             $table->smallInteger('total_qty')->unsigned(); 
-            $table->enum('status', ['0', '1'])->default('1')->nullable();
+            $table->enum('status', ['0', '1'])->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });

@@ -4,7 +4,10 @@
     <Layout>
         <Card>
             <template #title>
-                This is the delivery
+                Pending Deliveries
+            </template>
+            <template #content>
+                <DeliveryDT :filter="filter" />
             </template>
         </Card>
     </Layout>
@@ -18,8 +21,8 @@ import axios from 'axios';
 import moment from 'moment';
 
 import Layout from '@/Layouts/Layout.vue';
+import DeliveryDT from '@/Components/Datatables/DeliveryDT.vue'
 
 import { useToast } from 'primevue/usetoast';
 const toast = useToast();
-
 </script>

@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(DeliveryController::class)->prefix('delivery')->group(function () {
         Route::get('/', 'index')->name('delivery');
+        Route::get('/fetch', 'fetchData')->name('delivery.fetch');
     });
 });
 
