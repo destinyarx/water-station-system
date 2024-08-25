@@ -13,7 +13,7 @@
                 </div>
                 <div class="ml-2">
                     <div class="mb-1">{{ form.frequency['name'] === 'Once' ? 'Date' : 'Starting Date:'}}</div>
-                    <Calendar v-model="form.delivery_date" dateFormat="MM d, yy" showIcon :showOnFocus="true" variant="filled" inputId="buttondisplay" class="w-full"/>
+                    <Calendar v-model="form.delivery_date" :minDate="new Date(Date.now())" dateFormat="MM d, yy" showIcon :showOnFocus="true" variant="filled" inputId="buttondisplay" class="w-full"/>
                 </div>
             </div>
     
@@ -79,6 +79,11 @@ const checked = ref<boolean>(false);
 
 const totalQuantity = computed(() => {
     return props.form.slim_qty + props.form.round_qty;
+})
+
+onMounted(() => {
+    // format form date upon loading
+    props.form.delivery_date = props.form.delivery_date ? new Date(props.form.delivery_date) : '';
 })
 
 </script>

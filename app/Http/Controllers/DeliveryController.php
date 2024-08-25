@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Inertia\Inertia;
 use App\Models\Delivery;
 use Illuminate\Http\Request;
@@ -30,17 +31,19 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $frequencyGap = config('options.frequency_gap');
+
+        $nextDeliveryDate = calculate_next_date('22/08/24', $frequencyGap['1W']);
+        dd($nextDeliveryDate);
 
         return Delivery::create([
             'customer_id' => $request->data,
             'schedule_id' => $request->data,
-
             'target_date' => $request->data,
             'next_delivery_date' => $request->data,
             'price' => $request->data,
             'total_qty' => $request->data,
-            // 'status' => $request->data,
+            'created_by' => auth()->id(),
         ]);
     }
 
@@ -75,4 +78,8 @@ class DeliveryController extends Controller
     {
         //
     }
+
+    
 }
+
+

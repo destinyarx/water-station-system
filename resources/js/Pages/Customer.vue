@@ -176,6 +176,7 @@ const visible = ref(false);
 const action = ref('');
 
 const showCustomerForm = () => {
+    addDelivery();
     resetForm();
     action.value = 'store';
     visible.value = true;
@@ -225,6 +226,13 @@ const submitForm = () => {
         .catch(error => {
             showError();
             console.log(error);
+        })
+}
+
+const addDelivery = () => {
+    axios.post(route('delivery.store'))
+        .then(response => {
+            console.log(response.data)
         })
 }
 
