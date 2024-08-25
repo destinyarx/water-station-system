@@ -9,17 +9,22 @@ use Illuminate\Http\Request;
 use App\Models\DeliverySchedule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Services\DeliveryService;
 
 class CustomerController extends Controller
 {
+    public function __construct(
+        protected DeliveryService $delivery,
+    ) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Customer', [
-            'data' => [],
-        ]);
+        return Inertia::render('Customer', 
+            ['frequency' => config('options.frequency')]
+        );
     }
 
     /**
@@ -120,6 +125,7 @@ class CustomerController extends Controller
     }
 
     public function addCustomer(Request $request) {
+
         DB::beginTransaction();
         
         try {
@@ -127,7 +133,11 @@ class CustomerController extends Controller
             $this->insertAddress($customer->id, $request->address);
 
             if ($request->delivery['frequency']['name'])
-                $this->insertDeliverySchedule($customer->id, $request->delivery);
+                $deliverySchedule = $this->insertDeliverySchedule($customer->id, $request->delivery);
+
+            if ($deliverySchedule->id) {
+                $this->delivery->addDelivery($customer->id, $deliverySchedule->id, $request);
+            }
             
             DB::commit();
         } catch (Exception $e) {

@@ -27,7 +27,7 @@ return [
         '1W' => 7,     // Once a week
         '2W' => 3,     // Twice a week (assuming a 3-day gap)
         '3W' => 2,     // Three times a week (assuming a 2-day gap)
-        '2Wk' => 14    // Every two weeks
+        '2WK' => 14    // Every two weeks
     ],
 
 ];

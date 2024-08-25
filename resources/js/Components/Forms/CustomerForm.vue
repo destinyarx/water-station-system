@@ -105,7 +105,7 @@
                             </button>
                         </template>
                         <template #content="{ prevCallback }">
-                            <DeliveryScheduleForm :form="form.delivery"/>
+                            <DeliveryScheduleForm :form="form.delivery" :frequency="frequency"/>
                             <div class="flex pt-4 justify-between">
                                 <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="prevCallback" />
                                 <div>
@@ -133,6 +133,10 @@ const props = defineProps({
     },
     action: {
         type: String,
+        required: true
+    },
+    frequency: {
+        type: Array,
         required: true
     },
 });

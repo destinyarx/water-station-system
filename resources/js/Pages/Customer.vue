@@ -44,7 +44,7 @@
 
     <Dialog v-model:visible="visible" modal header="Add Customer" :style="{ width: '60rem'}">
         <form @submit.prevent="submit">
-            <CustomerForm :form="customerForm" :action="action">
+            <CustomerForm :form="customerForm" :frequency="frequency" :action="action">
                 <div class="flex justify-end gap-2">
                     <Button @click="submitForm" type="submit" label="Save" icon="pi pi-check" iconPos="right"/>
                 </div>
@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, onMounted, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useForm, Head } from "@inertiajs/vue3";
 import axios from 'axios';
 
@@ -68,7 +68,7 @@ import { useToast } from 'primevue/usetoast';
 const toast = useToast();
 
 const props = defineProps({
-    data: {
+    frequency: {
         type: Array,
         required: true
     },
@@ -176,8 +176,7 @@ const visible = ref(false);
 const action = ref('');
 
 const showCustomerForm = () => {
-    addDelivery();
-    resetForm();
+    // resetForm();
     action.value = 'store';
     visible.value = true;
 }
@@ -226,13 +225,6 @@ const submitForm = () => {
         .catch(error => {
             showError();
             console.log(error);
-        })
-}
-
-const addDelivery = () => {
-    axios.post(route('delivery.store'))
-        .then(response => {
-            console.log(response.data)
         })
 }
 

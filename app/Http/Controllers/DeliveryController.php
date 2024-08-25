@@ -31,20 +31,7 @@ class DeliveryController extends Controller
      */
     public function store(Request $request)
     {
-        $frequencyGap = config('options.frequency_gap');
-
-        $nextDeliveryDate = calculate_next_date('22/08/24', $frequencyGap['1W']);
-        dd($nextDeliveryDate);
-
-        return Delivery::create([
-            'customer_id' => $request->data,
-            'schedule_id' => $request->data,
-            'target_date' => $request->data,
-            'next_delivery_date' => $request->data,
-            'price' => $request->data,
-            'total_qty' => $request->data,
-            'created_by' => auth()->id(),
-        ]);
+        
     }
 
     /**
