@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('delivery_history', function (Blueprint $table) {
             $table->id();
+            $table->smallInteger('customer_id')->unsigned(); 
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->smallInteger('schedule_id')->unsigned(); 
             $table->foreign('schedule_id')->references('id')->on('delivery_schedules')->onDelete('cascade'); 
             $table->string('status', 10);

@@ -64,19 +64,38 @@ const actions = (data: any) => {
         {
             label: 'Mark as Delivered',
             command: () => {
+                deliveryStatus(true, 'delivery_id', 'nextDeliveryDate');
                 console.log('Success Delivery');
             },
         },
         {
             label: 'Mark as Failed',
             command: () => {
+                deliveryStatus(false, 'delivery_id', 'nextDeliveryDate');
                 console.log('Failed Delivery');
+            }
+        },
+        {
+            label: 'Stop Delivery',
+            command: () => {
+                stopDelivery('id');
+                console.log('Delivery Stop');
             }
         },
     ]
 
     return actions;
 }
+
+const deliveryStatus = (status, delivery_id, nextDeliveryDate) => {
+
+}
+
+const stopDelivery = (delivery_id) => {
+
+}
+
+
 
 onMounted(() => {
     fetchData();

@@ -21,7 +21,7 @@ class DeliveryService
             'target_date' => $data->delivery['delivery_date'],
             'next_delivery_date' => $nextDeliveryDate,
             'price' => 0, // add total price
-            'total_qty' => $data['round_qty'] + $data['slim_qty'],
+            'total_qty' => $data->delivery['round_qty'] + $data->delivery['slim_qty'],
             'created_by' => auth()->id(),
         ]);
     }

@@ -11,7 +11,7 @@
                 <ul>
                     <li v-for="item in sidebarItems" class="my-8">
                       <template v-if="item.route === 'none'">
-                        <div class="overflow-hidden opacity-0 group-hover:opacity-100 font-medium text-xl dark:text-white light:text-black ml-5 -mb-4">
+                        <div class="overflow-hidden opacity-0 group-hover:opacity-100 font-medium text-xl dark:text-white light:text-black ml-5 mt-8 -mb-4">
                           {{ item.label }}
                         </div>
                       </template>

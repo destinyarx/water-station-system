@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, defineProps, onMounted } from 'vue';
 import { Head } from "@inertiajs/vue3";
 import axios from 'axios';
 import moment from 'moment';

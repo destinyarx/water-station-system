@@ -16,7 +16,12 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Delivery/Delivery');
+        return Inertia::render('Delivery/Delivery',
+            [
+                'frequency' => config('options.frequency'),
+                'frequency_value' => config('options.frequency_value')
+            ]
+        );
     }
 
     /**
@@ -79,7 +84,6 @@ class DeliveryController extends Controller
                 'd.next_delivery_date',
                 'd.total_qty',
                 'd.price',
-                'd.total_qty',
                 'c.name',
                 DB::raw("CONCAT(a.description, ' ', a.unit_number, ' ', a.street, ' St. Brgy.', a.barangay, ' ', a.municipality, ', ', a.province) as full_address")
             )

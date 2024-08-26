@@ -17,9 +17,6 @@
                 paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
                     <Column v-for="col of headers" class="dark:text-zinc-50"
                     :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable" :style="{ width: col.width }">
-                        <template v-if="col.field === 'frequency_type'" #body="slotProps">
-                            {{ slotProps.data.frequency_type }}
-                        </template>
 
                         <template v-if="col.field === 'order_quantity'" #body="slotProps">
                             <div>
@@ -43,7 +40,8 @@
                         </template>
 
                         <template v-if="col.field === 'created_at'" #body="slotProps">
-                            <div>{{ moment(slotProps.data.created_at).format('MMMM D, YYYY hh:mm:a') }}</div>
+                            <div>{{ moment(slotProps.data.created_at).format('MMMM D, YYYY') }}</div>
+                            <div>{{ moment(slotProps.data.created_at).format('hh:mm:a') }}</div>
                         </template>
 
                         <template v-if="col.header === 'Action'" #body="slotProps">
@@ -58,7 +56,7 @@
     <Dialog v-model:visible="visible" modal header="Update Delivery Schedule" :style="{ width: '60rem'}">
         <Card>
             <template #content>
-                <DeliveryScheduleForm :form="form" :hideSkip="true">
+                <DeliveryScheduleForm :form="form" :frequency="frequency" :hideSkip="true">
                     <template #actions>
                         <div class="flex justify-end gap-2">
                             <Button @click="closeForm" label="Cancel" icon="pi pi-cross" iconPos="right" severity="danger"/>
@@ -105,8 +103,8 @@ const headers = [
     { field: 'full_address', header: 'Address', width: '20%' },
     { field: 'frequency_type', header: 'Schedule', width: '15%' },
     { field: 'order_quantity', header: 'Order Quantity', width: '10%' },
-    { field: 'created_at', header: 'Date Added', sortable: true, width: '15%' },
     { field: 'notes', header: 'Remarks' },
+    { field: 'created_at', header: 'Date Added', sortable: true, width: '15%' },
     { field: '', header: 'Action', width: '7%' },
 ]
 
