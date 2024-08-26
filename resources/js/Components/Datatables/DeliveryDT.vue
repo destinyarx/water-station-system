@@ -30,13 +30,13 @@ const props = defineProps({
 
 // table data
 const headers = [
-    { field: 'name', header: 'Name', width: '17%', sortable: false },
-    { field: 'full_address', header: 'Address', width: '20%', sortable: false },
+    { field: 'name', header: 'Name', width: '17%' },
+    { field: 'full_address', header: 'Address', width: '20%' },
     { field: 'target_date', header: 'Delivery Date', width: '20%', sortable: true },
     { field: 'total_qty', header: 'Quantity', sortable: true },
     { field: 'price', header: 'Total Price', sortable: true },
-    { field: 'status', header: 'Status', sortable: false },
-    { field: '', header: 'Action' },
+    { field: 'status', header: 'Status' },
+    { field: '', header: 'Action', width: '7%' },
 ]
 
 // datatable data

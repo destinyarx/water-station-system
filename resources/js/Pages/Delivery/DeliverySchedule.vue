@@ -107,7 +107,7 @@ const headers = [
     { field: 'order_quantity', header: 'Order Quantity', width: '10%' },
     { field: 'created_at', header: 'Date Added', sortable: true, width: '15%' },
     { field: 'notes', header: 'Remarks' },
-    { field: '', header: 'Action' },
+    { field: '', header: 'Action', width: '7%' },
 ]
 
 // datatable data

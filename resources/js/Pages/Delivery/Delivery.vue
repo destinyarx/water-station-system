@@ -1,5 +1,5 @@
 <template>
-    <Head title="Today's Delivery" />
+    <Head title="Pending Deliveries" />
 
     <Layout>
         <Card>
@@ -25,4 +25,15 @@ import DeliveryDT from '@/Components/Datatables/DeliveryDT.vue'
 
 import { useToast } from 'primevue/usetoast';
 const toast = useToast();
+
+const filter = ref('');
+
+const filterOptions = [
+    { name: 'Today', value: 'today'},
+    { name: 'Tomorrow', value: 'tomorrow'},
+    { name: 'Two days from today', value: '2D'},
+    { name: 'Three days from today', value: '3D'},
+    { name: 'This week', value: 'week'},
+]
+
 </script>

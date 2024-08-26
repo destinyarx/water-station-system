@@ -8,31 +8,31 @@
             
             <div class="grid grid-cols-2 mb-4">
                 <div>
-                    <div class="mb-1">Frequency</div>
+                    <div class="mb-1 font-semibold">Frequency</div>
                     <Dropdown v-model="form.frequency" :options="frequency" optionLabel="name" placeholder="Select Delivery Frequency" class="mt-1 w-full"/>
                 </div>
                 <div class="ml-2">
-                    <div class="mb-1">{{ form.frequency['name'] === 'Once' ? 'Date' : 'Starting Date:'}}</div>
+                    <div class="mb-1 font-semibold">{{ form.frequency['name'] === 'Once' ? 'Date' : 'Starting Date:'}}</div>
                     <Calendar v-model="form.delivery_date" :minDate="new Date(Date.now())" dateFormat="MM d, yy" showIcon :showOnFocus="true" variant="filled" inputId="buttondisplay" class="w-full"/>
                 </div>
             </div>
     
             <div class="grid grid-cols-3 gap-5 my-4">
                 <div class="w-full">
-                    <div class="mb-1">Slim Quantity</div>
+                    <div class="mb-1 font-semibold">Slim Quantity</div>
                     <InputNumber v-model="form.slim_qty" class="w-full"/>
                 </div>
                 <div class="w-full">
-                    <div class="mb-1">Round Quantity</div>
+                    <div class="mb-1 font-semibold">Round Quantity</div>
                     <InputNumber v-model="form.round_qty" class="w-full"/>
                 </div>
                 <div class="w-full">
-                    <div class="mb-1">Total Quantity</div>
-                    <InputNumber v-model="totalQuantity" disabled class="w-full"/>
+                    <div class="mb-1 font-semibold">Total Quantity</div>
+                    <InputNumber v-model="totalQuantity" class="w-full" readonly/>
                 </div>
             </div>
     
-            <div class="mb-1">Remarks</div>
+            <div class="mb-1 font-semibold">Remarks</div>
             <Textarea v-model="form.remarks"autoResize  rows="3" class="w-full"/>
         </template>
     </div>

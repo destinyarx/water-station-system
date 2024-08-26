@@ -78,11 +78,11 @@ const props = defineProps({
 let loading = ref(false)
 let customers = ref([])
 const customerHeaders = [
-    { field: 'name', header: 'Name', sortable: true }, 
-    { field: 'address.full_address', header: 'Address', sortable: true }, 
+    { field: 'name', header: 'Name', width: '20%', sortable: true }, 
+    { field: 'address.full_address', header: 'Address', width: '20%', sortable: true }, 
     { field: 'cellphone_number', header: 'Contact Number' }, 
-    { field: 'email', header: 'Email' }, 
-    { field: 'action', header: 'Action', sortable: true }, 
+    { field: 'email', header: 'Email', width: '10%' }, 
+    { field: 'action', header: 'Action', width: '5%', sortable: true }, 
 ]
 
 const actions = (data: any) => {
