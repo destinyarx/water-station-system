@@ -24,6 +24,7 @@ return new class extends Migration
             $table->smallInteger('price')->unsigned()->nullable(); 
             $table->smallInteger('total_qty')->unsigned(); 
             $table->enum('status', ['0', '1'])->nullable();
+            $table->string('remarks', 100)->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });
