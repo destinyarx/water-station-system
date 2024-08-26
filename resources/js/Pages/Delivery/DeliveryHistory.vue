@@ -2,12 +2,12 @@
     <Head title="Delivery History" />
 
     <Layout>
-        <Card class="w-full">
+        <Card>
             <template #title>
                 Delivery History
             </template>
             <template #content>
-                --- Enter Delivery History Here ---
+                <DeliveryHistoryDT :filter="filter" />
             </template>
         </Card>
     </Layout>
@@ -20,8 +20,11 @@ import axios from 'axios';
 import moment from 'moment';
 
 import Layout from '@/Layouts/Layout.vue';
+import DeliveryHistoryDT from '@/Components/Datatables/DeliveryHistoryDT.vue';
 
 import { useToast } from 'primevue/usetoast';
 const toast = useToast();
+
+const filter = ref('');
 
 </script>

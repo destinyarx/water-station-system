@@ -30,13 +30,12 @@ const props = defineProps({
 
 // table data
 const headers = [
-    { field: 'name', header: 'Name', width: '17%' },
-    { field: 'full_address', header: 'Address', width: '20%' },
-    { field: 'target_date', header: 'Delivery Date', width: '20%', sortable: true },
-    { field: 'total_qty', header: 'Quantity', sortable: true },
-    { field: 'price', header: 'Total Price', sortable: true },
-    { field: 'status', header: 'Status' },
-    { field: '', header: 'Action', width: '7%' },
+    { field: 'name', header: 'Name', width: '25%' },
+    { field: 'full_address', header: 'Address', width: '35%' },
+    { field: 'target_date', header: 'Delivery Date', width: '10%', sortable: true },
+    { field: 'total_qty', header: 'Quantity',width: '10%', sortable: true },
+    { field: 'price', header: 'Total Price',width: '10%', sortable: true },
+    { field: '', header: 'Action', width: '10%' },
 ]
 
 // datatable data
@@ -59,26 +58,33 @@ const fetchData = () => {
         })
 }
 
-const actions = (data: any) => {
+const actions = (data: object[]) => {
     let actions = [
         {
             label: 'Mark as Delivered',
             command: () => {
-                deliveryStatus(true, 'delivery_id', 'nextDeliveryDate');
+                console.log(data);
+                data.status = 'success';
+                completeDelivery(data);
+                stopDelivery(data.id);
                 console.log('Success Delivery');
             },
         },
         {
             label: 'Mark as Failed',
             command: () => {
-                deliveryStatus(false, 'delivery_id', 'nextDeliveryDate');
+                data.status = 'failed';
+                completeDelivery(data);
+                stopDelivery(data.id);
                 console.log('Failed Delivery');
             }
         },
         {
-            label: 'Stop Delivery',
+            label: 'Stop Daily Delivery',
             command: () => {
-                stopDelivery('id');
+                data.status = 'stop';
+                completeDelivery(data);
+                stopDelivery(data.id);
                 console.log('Delivery Stop');
             }
         },
@@ -87,12 +93,30 @@ const actions = (data: any) => {
     return actions;
 }
 
-const deliveryStatus = (status, delivery_id, nextDeliveryDate) => {
-
+// set status for the delivery order and add next delivery record
+const completeDelivery = (data: any) => {
+    axios.post(route('delivery.complete', data))
+        .then(response => {
+            fetchData();
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.log('Error when changing delivery status');
+            console.log(error);
+        })
 }
 
-const stopDelivery = (delivery_id) => {
-
+// stop daily delivery
+const stopDelivery = (delivery_id: number) => {
+    axios.put(route('delivery.update-status', delivery_id))
+        .then(response => {
+            fetchData();
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.log('Error when changing delivery status');
+            console.log(error);
+        })
 }
 
 

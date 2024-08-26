@@ -25,4 +25,20 @@ class DeliveryService
             'created_by' => auth()->id(),
         ]);
     }
+
+    public function buildDeliveryData($data) {
+        return (object)[
+            'customer_id' => $data->customer_id,
+            'schedule_id' => $data->schedule_id,
+            'delivery' => [
+                'delivery_date' => $data->next_delivery_date,
+                'round_qty' => $data->round_qty,
+                'slim_qty' => $data->slim_qty,
+                'frequency' => [
+                    'code' => $data->frequency_type,
+                ],
+            ],
+        ];
+    }
+    
 }
