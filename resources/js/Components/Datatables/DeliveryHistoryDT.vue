@@ -36,13 +36,11 @@ const loading = ref(false);
 const deliveryHistory = ref([]);
 
 const fetchData = () => {
-    console.log('Fetching data');
-
     loading.value = true;
 
-    axios.get(route('delivery.fetch'))
+    axios.get(route('delivery-history.fetch'))
         .then(response => {
-            // deliveryHistory.value = response.data;
+            deliveryHistory.value = response.data;
             loading.value = false;
         })
         .catch(error => {

@@ -30,7 +30,13 @@ class DeliveryHistoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return DeliveryHistory::create([
+                'customer_id' => $request->customer_id,
+                'schedule_id' => $request->schedule_id,
+                'status' => $request->status,
+                'notes' =>  null, //$request->notes,
+                'created_by' => auth()->id(),    
+            ]);
     }
 
     /**

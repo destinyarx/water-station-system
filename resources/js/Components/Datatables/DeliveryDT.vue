@@ -97,6 +97,7 @@ const actions = (data: object[]) => {
 const completeDelivery = (data: any) => {
     axios.post(route('delivery.complete', data))
         .then(response => {
+            addDeliveryHistory(data);
             fetchData();
             console.log(response.data);
         })
@@ -110,7 +111,6 @@ const completeDelivery = (data: any) => {
 const stopDelivery = (delivery_id: number) => {
     axios.put(route('delivery.update-status', delivery_id))
         .then(response => {
-            fetchData();
             console.log(response.data);
         })
         .catch(error => {
@@ -119,6 +119,22 @@ const stopDelivery = (delivery_id: number) => {
         })
 }
 
+const addDeliveryHistory = async (data: any) => {
+    let historyData = {
+        customer_id: data.customer_id,
+        schedule_id: data.schedule_id,
+        status: data.status
+    };
+
+    axios.post(route('delivery-history.store'), historyData)
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.log('Error when adding delivery history.')
+            console.log(error);
+        })
+}
 
 
 onMounted(() => {

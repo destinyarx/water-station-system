@@ -18,7 +18,7 @@ return new class extends Migration
             $table->smallInteger('schedule_id')->unsigned(); 
             $table->foreign('schedule_id')->references('id')->on('delivery_schedules')->onDelete('cascade'); 
             $table->enum('status', ['success', 'failed', 'stop']);
-            $table->string('notes', 35);
+            $table->string('notes', 35)->nullable();
             $table->smallInteger('created_by')->unsigned(); 
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade'); 
             $table->index('customer_id');
