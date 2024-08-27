@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('notes', 35);
             $table->smallInteger('created_by')->unsigned(); 
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade'); 
+            $table->index('customer_id');
+            $table->index('schedule_id');
+            $table->index('created_by');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();        
             $table->timestamp('deleted_at')->nullable(); 

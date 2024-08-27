@@ -19,6 +19,9 @@ return new class extends Migration
             $table->foreign('schedule_id')->references('id')->on('deliveries')->onDelete('cascade');
             $table->smallInteger('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->index('customer_id');
+            $table->index('schedule_id');
+            $table->index('created_by');
             $table->date('target_date')->nullable();
             $table->date('next_delivery_date')->nullable();
             $table->smallInteger('price')->unsigned()->nullable(); 
