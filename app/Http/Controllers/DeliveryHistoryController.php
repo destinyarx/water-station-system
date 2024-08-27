@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\DeliveryHistory;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class DeliveryHistoryController extends Controller
@@ -69,5 +70,23 @@ class DeliveryHistoryController extends Controller
     public function destroy(DeliveryHistory $deliveryHistory)
     {
         //
+    }
+
+    public function fetchData() {
+        return DB::table('delivery_history as dh')
+            ->leftJoin('customers as c', 'dh.customer_id', 'c.id')
+            ->leftJoin('address as a', 'dh.customer_id', 'a.customer_id')
+            ->leftJoin('users as u', 'dh.created_by', 'u.id')
+            ->where('dh.created_by', auth()->id())
+            ->select(
+                'c.name',
+                'u.name as created_by_name',
+                'dh.status',
+                'dh.notes',
+                'dh.created_at',
+                DB::raw("CONCAT(a.description, ' ', a.unit_number, ' ', a.street, ' St. Brgy.', a.barangay, ' ', a.municipality, ', ', a.province) as full_address")
+            )
+            ->get();
+
     }
 }

@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(DeliveryHistoryController::class)->prefix('delivery-history')->group(function () {
         Route::get('/', 'index')->name('delivery-history.index');
         Route::post('/store', 'store')->name('delivery-history.store');
-        Route::get('/fetch-data', 'index')->name('delivery-history.fetch');
+        Route::get('/fetch-data', 'fetchData')->name('delivery-history.fetch');
     });
 
     Route::controller(DeliveryController::class)->prefix('delivery')->group(function () {

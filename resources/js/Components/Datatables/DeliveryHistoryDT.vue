@@ -4,8 +4,14 @@
     paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
         <Column v-for="col of headers" class="dark:text-zinc-50"
         :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable" :style="{ width: col.width }">
+            <template v-if="col.field === 'status'" #body="slotProps">
+                <Badge v-if="slotProps.data.status === 'success'" value="Delivered Successfully" severity="success"></Badge>
+                <Badge v-else-if="slotProps.data.status === 'failed'" value="Failed Delivery" severity="danger"></Badge>
+                <Badge v-else value="Daily Delivery Ended" severity="secondary"></Badge>
+            </template>
+
             <template v-if="col.field === 'created_at'" #body="slotProps">
-                {{ moment(slotProps.data.created_at).format('MMMM D, YYYY') }}
+                {{ moment(slotProps.data.created_at).format('MMMM D, YYYY hh:mm:a') }}
             </template>
         </Column>
     </DataTable>
@@ -25,10 +31,11 @@ const props = defineProps({
 
 // table data
 const headers = [
-    { field: 'name', header: 'Name', width: '35%' },
-    { field: 'status', header: 'Status', width: '15%' },
-    { field: 'notes', header: 'Remarks', width: '35%', sortable: true },
-    { field: 'created_at', header: 'Date',width: '15%', sortable: true }
+    { field: 'name', header: 'Name', width: '20%' },
+    { field: 'full_address', header: 'Address', width: '35%' },
+    { field: 'status', header: 'Status', width: '12%' },
+    { field: 'notes', header: 'Remarks', width: '13%', sortable: true },
+    { field: 'created_at', header: 'Date',width: '10%', sortable: true }
 ]
 
 // datatable data
