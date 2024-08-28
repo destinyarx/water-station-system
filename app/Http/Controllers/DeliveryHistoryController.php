@@ -72,12 +72,17 @@ class DeliveryHistoryController extends Controller
         //
     }
 
-    public function fetchData() {
+    public function fetchData(Request $request) {
+        $filterStatus = $request->filterStatus['code'] ?? null;
+
         return DB::table('delivery_history as dh')
             ->leftJoin('customers as c', 'dh.customer_id', 'c.id')
             ->leftJoin('address as a', 'dh.customer_id', 'a.customer_id')
             ->leftJoin('users as u', 'dh.created_by', 'u.id')
             ->where('dh.created_by', auth()->id())
+            ->when($filterStatus, function($query) use ($filterStatus) {
+                $query->where('dh.status', $filterStatus);
+            })
             ->select(
                 'c.name',
                 'u.name as created_by_name',

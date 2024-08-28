@@ -6,8 +6,8 @@
             <template #title>
                 <div class="flex justify-between">
                     <div>Delivery History</div>
-                    <div class="text-sm">
-                        <Dropdown v-model="filter" :options="filterOptions" optionLabel="name" placeholder="Select a filter" class="md:w-14rem" />
+                    <div class="text-lg">
+                        <Dropdown v-model="filter" :options="filterOptions" optionLabel="name" placeholder="Filter by Status" class="md:w-14rem" />
                     </div>
                 </div>
             </template>
@@ -30,7 +30,7 @@ import DeliveryHistoryDT from '@/Components/Datatables/DeliveryHistoryDT.vue';
 import { useToast } from 'primevue/usetoast';
 const toast = useToast();
 
-const filter = ref('');
+const filter = ref();
 
 const filterOptions = [
     { 'name': 'Failed', code: 'failed'},

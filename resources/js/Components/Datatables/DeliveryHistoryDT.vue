@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, defineProps } from 'vue';
+import { ref, onMounted, defineProps, watch } from 'vue';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -26,7 +26,7 @@ import { useToast } from 'primevue/usetoast';
 const toast = useToast();
 
 const props = defineProps({
-    filter: { type: String }
+    filter: { type: Object }
 })
 
 // table data
@@ -45,7 +45,7 @@ const deliveryHistory = ref([]);
 const fetchData = () => {
     loading.value = true;
 
-    axios.get(route('delivery-history.fetch'))
+    axios.get(route('delivery-history.fetch', { filterStatus: props.filter}))
         .then(response => {
             deliveryHistory.value = response.data;
             loading.value = false;
@@ -56,6 +56,10 @@ const fetchData = () => {
             console.log(error);
         })
 }
+
+watch(() => props.filter, (newValue, oldValue) => {
+    fetchData();
+})
 
 onMounted(() => {
     fetchData();
