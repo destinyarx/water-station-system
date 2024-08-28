@@ -57,7 +57,7 @@ const fetchData = () => {
         })
 }
 
-watch(() => props.filter, (newValue, oldValue) => {
+watch(() => props.filter, () => {
     fetchData();
 })
 

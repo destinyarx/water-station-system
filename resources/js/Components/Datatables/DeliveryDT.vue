@@ -5,6 +5,10 @@
         <Column v-for="col of headers" class="dark:text-zinc-50"
         :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable" :style="{ width: col.width }">
             <template v-if="col.field === 'target_date'" #body="slotProps">
+                <Badge v-if="getDateStatus(slotProps.data.target_date) === 'today'" value="Today" severity="warning"></Badge>
+                <Badge v-else-if="getDateStatus(slotProps.data.target_date) === 'overdue'" value="Overdue" severity="danger"></Badge>
+                <Badge v-else-if="getDateStatus(slotProps.data.target_date) === 'tomorrow'" value="Tomorrow" severity="info"></Badge>
+                <Badge v-else-if="getDateStatus(slotProps.data.target_date) === 'upcoming'" value="Upcoming" severity="secondary"></Badge>
                 {{ moment(slotProps.data.target_date).format('MMMM D, YYYY') }}
             </template>
 
@@ -31,8 +35,8 @@ const props = defineProps({
 // table data
 const headers = [
     { field: 'name', header: 'Name', width: '25%' },
-    { field: 'full_address', header: 'Address', width: '35%' },
-    { field: 'target_date', header: 'Delivery Date', width: '10%', sortable: true },
+    { field: 'full_address', header: 'Address', width: '30%' },
+    { field: 'target_date', header: 'Delivery Date', width: '15%', sortable: true },
     { field: 'total_qty', header: 'Quantity',width: '10%', sortable: true },
     { field: 'price', header: 'Total Price',width: '10%', sortable: true },
     { field: '', header: 'Action', width: '10%' },
@@ -137,8 +141,24 @@ const addDeliveryHistory = async (data: any) => {
         })
 }
 
+const getDateStatus = (date: Date) => {
+    const targetDate = moment(date).startOf('day'); 
+    const today = moment().startOf('day');
+    const tomorrow = moment().add(1, 'day').startOf('day');
 
-watch(() => props.filter, (newValue, oldValue) => {
+    if (targetDate.isSame(today, 'day')) {
+        return 'today';
+    } else if (targetDate.isSame(tomorrow, 'day')) {
+        return 'tomorrow';
+    } else if (targetDate.isBefore(today, 'day')) {
+        return 'overdue';
+    } else {
+        return 'upcoming';
+    }
+}
+
+
+watch(() => props.filter, () => {
   fetchData();
 })
 
