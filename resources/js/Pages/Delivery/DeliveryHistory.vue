@@ -4,7 +4,12 @@
     <Layout>
         <Card>
             <template #title>
-                Delivery History
+                <div class="flex justify-between">
+                    <div>Delivery History</div>
+                    <div class="text-sm">
+                        <Dropdown v-model="filter" :options="filterOptions" optionLabel="name" placeholder="Select a filter" class="md:w-14rem" />
+                    </div>
+                </div>
             </template>
             <template #content>
                 <DeliveryHistoryDT :filter="filter" />
@@ -26,5 +31,11 @@ import { useToast } from 'primevue/usetoast';
 const toast = useToast();
 
 const filter = ref('');
+
+const filterOptions = [
+    { 'name': 'Failed', code: 'failed'},
+    { 'name': 'Success', code: 'success'},
+    { 'name': 'Stop', code: 'stop'},
+];
 
 </script>

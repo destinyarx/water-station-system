@@ -90,14 +90,42 @@ class DeliveryController extends Controller
             $this->delivery->addDelivery($request->customer_id, $request->schedule_id, $data);
     }
 
-    public function fetchData() {
+    public function fetchData(Request $request) {
+
+        $filterCode = $request->filter['code'] ?? null;
+
         return DB::table('deliveries as d')
             ->leftJoin('customers as c', 'd.customer_id', 'c.id')
             ->leftJoin('address as a', 'c.id', 'a.customer_id')
             ->leftJoin('delivery_schedules as ds', 'c.id', 'ds.customer_id')
             ->where('d.created_by', auth()->id())
             ->whereNull('d.status')
-            ->orderBy('d.created_at', 'asc')
+
+            ->when($filterCode === 'today', function ($query) {
+                $query->whereDate('d.target_date', Carbon::today());
+            })
+            
+            ->when($filterCode === 'tomorrow', function ($query) {
+                $query->whereDate('d.target_date', Carbon::tomorrow());
+            })
+
+            ->when($filterCode === 'overdue', function ($query) {
+                $query->whereDate('d.target_date', '<', Carbon::today());
+            })
+
+            ->when($filterCode === 'upcoming', function ($query) {
+                $query->whereDate('d.target_date', '>', Carbon::today());
+            })
+
+            ->when($filterCode === 'day_after_tomorrow', function ($query) {
+                $query->whereDate('d.target_date', Carbon::tomorrow()->addDay());
+            })
+
+            ->when($filterCode === 'this_week', function ($query) {
+                $query->whereDate('d.target_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+            })
+
+            ->orderBy('d.target_date', 'asc')
             ->select(
                 'd.id',
                 'd.customer_id',
@@ -117,5 +145,3 @@ class DeliveryController extends Controller
 
     
 }
-
-
