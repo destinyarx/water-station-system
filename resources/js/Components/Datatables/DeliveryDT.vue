@@ -63,7 +63,7 @@ const fetchData = () => {
         })
 }
 
-const actions = (data: object[]) => {
+const actions = (data: any) => {
     let actions = [
         {
             label: 'Mark as Delivered',

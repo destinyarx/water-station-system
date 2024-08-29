@@ -7,7 +7,7 @@
                 <div class="flex justify-between">
                     <div>Pending Deliveries</div>
                     <div class="text-lg">
-                        <Dropdown v-model="filter" :options="filterOptions" optionLabel="name" placeholder="Filter by Date" class="md:w-14rem" />
+                        <Dropdown v-model="filter" :options="filterOptions" showClear optionLabel="name" placeholder="Filter by Date" class="md:w-14rem" />
                     </div>
                 </div>
             </template>

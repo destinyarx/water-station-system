@@ -91,7 +91,6 @@ class DeliveryController extends Controller
     }
 
     public function fetchData(Request $request) {
-
         $filterCode = $request->filter['code'] ?? null;
 
         return DB::table('deliveries as d')
