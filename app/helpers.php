@@ -7,7 +7,7 @@ function calculate_next_date($startDate, $gap) {
 
     $nextDate = $date->addDays($gap);
 
-    // Handle month-end issues by adjusting the day to the last day of the month if necessary
+    // If nextDate is schedule next month
     if ($date->day > $nextDate->day && $date->month !== $nextDate->month) {
         $nextDate->day = $nextDate->daysInMonth;
     }
