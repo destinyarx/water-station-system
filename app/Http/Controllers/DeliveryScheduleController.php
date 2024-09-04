@@ -5,20 +5,30 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\DeliverySchedule;
+use App\Models\Products;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Services\ProductService;
+
 
 class DeliveryScheduleController extends Controller
 {
+    public function __construct(
+        protected ProductService $product,
+    ) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $prices = $this->product->getContainerPrices();
+
         return Inertia::render('Delivery/DeliverySchedule', [
             'title' => 'Delivery Schedule',
             'frequency' => config('options.frequency'),
-            'frequency_value' => config('options.frequency_value')
+            'frequency_value' => config('options.frequency_value'),
+            'prices' => $prices
         ]);
     }
 

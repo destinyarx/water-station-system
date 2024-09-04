@@ -84,4 +84,11 @@ class ProductsController extends Controller
 
         return Products::with('created_by')->orderBy('created_at', 'desc')->get();
     }
+
+    public function getContainerPrices() {
+
+        return Products::where('created_by', auth()->id())
+            ->whereIn('title', ['Slim Container', 'Round Container'])
+            ->get();
+    }
 }

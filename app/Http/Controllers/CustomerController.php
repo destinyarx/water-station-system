@@ -10,11 +10,12 @@ use App\Models\DeliverySchedule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Services\DeliveryService;
+use App\Services\ProductService;
 
 class CustomerController extends Controller
 {
     public function __construct(
-        protected DeliveryService $delivery,
+        protected DeliveryService $delivery, protected ProductService $product
     ) {}
 
     /**
@@ -125,7 +126,7 @@ class CustomerController extends Controller
     }
 
     public function addCustomer(Request $request) {
-
+        $prices = $this->product->getContainerPrices();
         DB::beginTransaction();
         
         try {
@@ -136,7 +137,11 @@ class CustomerController extends Controller
                 $deliverySchedule = $this->insertDeliverySchedule($customer->id, $request->delivery);
 
             if ($deliverySchedule->id) {
-                $this->delivery->addDelivery($customer->id, $deliverySchedule->id, $request);
+                $totalPrice = $request->delivery['slim_qty'] ? $prices['slim_qty'] * $request->delivery['slim_qty'] : 0;
+                $totalPrice += $request->delivery['round_qty'] ? $prices['round_qty'] * $request->delivery['round_qty'] : 0;
+                
+
+                $this->delivery->addDelivery($customer->id, $deliverySchedule->id, $request, $totalPrice);
             }
             
             DB::commit();

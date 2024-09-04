@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/add', 'store')->name('products.add');
         Route::put('/update', 'update')->name('products.update');
         Route::get('/get/{filter}', 'fetchProducts')->name('products.get');
+        Route::get('/container-prices', 'getContainerPrices')->name('products.get-container-prices');
     });
     
     Route::controller(SalesController::class)->prefix('sales')->group(function () {

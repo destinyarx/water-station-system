@@ -51,6 +51,10 @@ const props = defineProps({
         type: Array,
         required: true
     },
+    prices: {
+        type: Array,
+        required: true
+    },
     hideSkip: {
         type: Boolean,
         required: false 

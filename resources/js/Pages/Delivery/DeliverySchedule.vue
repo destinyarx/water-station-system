@@ -28,6 +28,9 @@
                             <div>
                                 Total: {{ slotProps.data.slim_qty + slotProps.data.round_qty}}
                             </div>
+                            <div>
+                                Total Price: {{ computeTotalPrice(slotProps.data.slim_qty, slotProps.data.round_qty) }}
+                            </div>
                         </template>
                         
                         <template v-if="col.field === 'frequency_type'" #body="slotProps">
@@ -56,7 +59,7 @@
     <Dialog v-model:visible="visible" modal header="Update Delivery Schedule" :style="{ width: '60rem'}">
         <Card>
             <template #content>
-                <DeliveryScheduleForm :form="form" :frequency="frequency" :hideSkip="true">
+                <DeliveryScheduleForm :form="form" :frequency="frequency" :prices="prices" :hideSkip="true">
                     <template #actions>
                         <div class="flex justify-end gap-2">
                             <Button @click="closeForm" label="Cancel" icon="pi pi-cross" iconPos="right" severity="danger"/>
@@ -86,7 +89,8 @@ const toast = useToast();
 const props = defineProps({
     title: { type: String },
     frequency: { type: Array },
-    frequency_value: { type: Object }
+    frequency_value: { type: Object },
+    prices: { type: Array }
 });
 
 type Schedule = {
@@ -233,6 +237,16 @@ const deleteDeliverySchedule = (id: number) => {
         .catch(error => {
             console.log(error);
         })
+}
+
+let slimTotal;
+let roundTotal;
+const computeTotalPrice = (slimQty: number, roundQty: number) => {
+    // console.log(productStore)
+    slimTotal = slimQty * props.prices['slim_qty'];
+    roundTotal = roundQty * props.prices['round_qty'];
+    
+    return slimTotal + roundTotal;
 }
 
 const showSuccess = () => {

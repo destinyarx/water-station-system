@@ -10,7 +10,7 @@ use App\Models\DeliveryHistory;
 
 class DeliveryService
 {
-    public function addDelivery($customer_id, $schedule_id, $data) {
+    public function addDelivery($customer_id, $schedule_id, $data, $totalPrice) {
         $frequencyGap = config('options.frequency_gap');
 
         $nextDeliveryDate = $data->delivery['frequency']['code'] !== 'O' ? calculate_next_date($data->delivery['delivery_date'], $frequencyGap[$data->delivery['frequency']['code']]) : null;
@@ -20,7 +20,7 @@ class DeliveryService
             'schedule_id' => $schedule_id,
             'target_date' => $data->delivery['delivery_date'],
             'next_delivery_date' => $nextDeliveryDate,
-            'price' => 0, // add total price
+            'price' => $totalPrice, 
             'total_qty' => $data->delivery['round_qty'] + $data->delivery['slim_qty'],
             'created_by' => auth()->id(),
         ]);
