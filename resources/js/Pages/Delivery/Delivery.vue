@@ -16,7 +16,6 @@
             </template>
         </Card>
     </Layout>
-    
 </template>
 
 <script setup lang="ts">

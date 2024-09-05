@@ -87,7 +87,7 @@ class DeliveryController extends Controller
 
         // Add new pending delivery based on the next delivery date
         if ($request->status !== 'stop')
-            $this->delivery->addDelivery($request->customer_id, $request->schedule_id, $data);
+            $this->delivery->addDelivery($request->customer_id, $request->schedule_id, $data, $request->price);
     }
 
     public function fetchData(Request $request) {

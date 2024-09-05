@@ -18,14 +18,14 @@
 
                         <Link v-else-if="item.route !== 'none'" :href="item.route">
                           <div class="w-full flex items-center">
-                            <i :class="item.icon" class="self-center ml-6 mr-2" style="font-size: 1.5rem"></i>
+                            <i :class="item.icon" class="self-center ml-7 mr-2" style="font-size: 1.5rem"></i>
                             <span class="whitespace-nowrap inline-block overflow-hidden hidden group-hover:inline-block ml-2">
                               {{ item.label }}
                             </span>
                           </div>
                         </Link>
 
-                        <br v-if="item.label === 'Delivery History'">
+                        <br v-if="['Sales History', 'Delivery History'].includes(item.label)">
                     </li>
                 </ul>
             </div>
@@ -52,10 +52,19 @@ const sidebarItems = ref([
       icon: 'pi pi-user',
       route: '/customers'
     },
-    { 
+    {
       label: 'Sales',
+      route: 'none',
+    },
+    { 
+      label: 'Sales Summary',
       icon: 'pi pi-dollar',
       route: '/sales'
+    },
+    { 
+      label: 'Sales History',
+      icon: 'pi pi-book',
+      route: '/sales/history'
     },
     { 
       label: 'Expenses',

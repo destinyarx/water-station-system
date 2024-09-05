@@ -6,17 +6,22 @@ use Inertia\Inertia;
 use App\Models\Sales;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller
 {
+    
+    public function index()
+    {
+        return Inertia::render('Sales/Summary');
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function history()
     {
-        return Inertia::render('Sales', [
-            'page' => 'Sales Page',
-        ]);
+        return Inertia::render('Sales/History');
     }
 
     /**
@@ -32,7 +37,13 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Sales::create([
+            'customer_id' => $request->customer_id,
+            'deliver_history_id' => $request->deliver_history_id,
+            'qty' => $request->quantity,
+            'total' => $request->totalPrice,
+            'created_by' => auth()->id(),
+        ]);
     }
 
     /**
@@ -65,5 +76,18 @@ class SalesController extends Controller
     public function destroy(Sales $sales)
     {
         //
+    }
+
+    public function fetchData() {
+        return DB::table('sales as s')
+            ->LeftJoin('customers as c', 's.customer_id', 'c.id')
+            ->LeftJoin('delivery_history as dh', 's.deliver_history_id', 'dh.id')
+            ->select(
+                'c.name',
+                's.qty',
+                's.total',
+                'dh.created_at',
+            )
+            ->get();
     }
 }

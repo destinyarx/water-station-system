@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
     
     Route::controller(SalesController::class)->prefix('sales')->group(function () {
         Route::get('/', 'index')->name('sales.index');
+        Route::get('/history', 'history')->name('sales.index');
+        Route::post('/add', 'store')->name('sales.add');
+        Route::get('/fetch-data', 'fetchData')->name('sales.data');
     });
     
     Route::controller(DeliveryScheduleController::class)->prefix('delivery-schedules')->group(function () {
@@ -60,7 +63,7 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(DeliveryHistoryController::class)->prefix('delivery-history')->group(function () {
         Route::get('/', 'index')->name('delivery-history.index');
-        Route::post('/store', 'store')->name('delivery-history.store');
+        Route::post('/add', 'store')->name('delivery-history.store');
         Route::get('/fetch-data', 'fetchData')->name('delivery-history.fetch');
     });
 

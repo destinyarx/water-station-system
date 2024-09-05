@@ -49,7 +49,6 @@ const deliveries = ref([]);
 // table method
 const fetchData = () => {
     loading.value = true;
-    console.log(props.filter);
 
     axios.get(route('delivery.fetch', { filter: props.filter }))
         .then(response => {
@@ -68,11 +67,9 @@ const actions = (data: any) => {
         {
             label: 'Mark as Delivered',
             command: () => {
-                console.log(data);
                 data.status = 'success';
                 completeDelivery(data);
                 stopDelivery(data.id);
-                console.log('Success Delivery');
             },
         },
         {
@@ -81,7 +78,6 @@ const actions = (data: any) => {
                 data.status = 'failed';
                 completeDelivery(data);
                 stopDelivery(data.id);
-                console.log('Failed Delivery');
             }
         },
         {
@@ -90,7 +86,6 @@ const actions = (data: any) => {
                 data.status = 'stop';
                 completeDelivery(data);
                 stopDelivery(data.id);
-                console.log('Delivery Stop');
             }
         },
     ]
@@ -99,18 +94,18 @@ const actions = (data: any) => {
 }
 
 // set status for the delivery order and add next delivery record
-const completeDelivery = (data: any) => {
-    axios.post(route('delivery.complete', data))
-        .then(response => {
-            addDeliveryHistory(data);
-            fetchData();
-            console.log(response.data);
-        })
-        .catch(error => {
-            console.log('Error when changing delivery status');
-            console.log(error);
-        })
-}
+const completeDelivery = async (data: any) => {
+    try {
+        const response = await axios.post(route('delivery.complete', data));
+        const deliveryHistory = await addDeliveryHistory(data);
+        await addSalesHistory(data.customer_id, deliveryHistory['id'], data.total_qty, data.price);
+        fetchData();
+    } catch (error) {
+        console.log('Error when changing delivery status');
+        console.log(error);
+    }
+};
+
 
 // stop daily delivery
 const stopDelivery = (delivery_id: number) => {
@@ -131,13 +126,31 @@ const addDeliveryHistory = async (data: any) => {
         status: data.status
     };
 
-    axios.post(route('delivery-history.store'), historyData)
+    try {
+        const response = await axios.post(route('delivery-history.store'), historyData);
+        console.log(response.data)
+        return response.data;
+    } catch (error) {
+        console.log('Error when adding delivery history.');
+        console.log(error);
+        throw error;
+    }
+}
+
+const addSalesHistory = (customer_id: number, deliver_history_id: number, quantity: number, totalPrice: number) => {
+    const data = {
+        customer_id, 
+        deliver_history_id, 
+        quantity, 
+        totalPrice
+    }
+
+    axios.post(route('sales.add'), data)
         .then(response => {
-            console.log(response.data);
+            console.log(response)
         })
         .catch(error => {
-            console.log('Error when adding delivery history.')
-            console.log(error);
+            console.log(error)
         })
 }
 
