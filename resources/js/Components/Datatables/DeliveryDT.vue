@@ -18,6 +18,8 @@
             </template>
         </Column>
     </DataTable>
+
+    <Notification />
 </template>
 
 <script setup lang="ts">
@@ -25,6 +27,8 @@ import { ref, onMounted, defineProps, watch } from 'vue';
 import axios from 'axios';
 import moment from 'moment';
 
+import Notification from '@/Components/Toast/Notification.vue';
+import { showSuccessMesage } from '@/Composables/useNotification';
 import { useToast } from 'primevue/usetoast';
 const toast = useToast();
 
@@ -99,6 +103,7 @@ const completeDelivery = async (data: any) => {
         const response = await axios.post(route('delivery.complete', data));
         const deliveryHistory = await addDeliveryHistory(data);
         await addSalesHistory(data.customer_id, deliveryHistory['id'], data.total_qty, data.price);
+        showSuccessMesage(toast, 'Success!', 'Delivery Completed.');
         fetchData();
     } catch (error) {
         console.log('Error when changing delivery status');
@@ -169,7 +174,6 @@ const getDateStatus = (date: Date) => {
         return 'upcoming';
     }
 }
-
 
 watch(() => props.filter, () => {
   fetchData();

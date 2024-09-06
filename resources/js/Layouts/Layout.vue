@@ -4,11 +4,14 @@
 
         <div class="w-full flex flex-row">
             <div class="fixed top-0 left-0 z-50 h-full w-[5.1rem] group text-white bg-gray-800 transition-all duration-300 ease-in-out hover:w-[15.2rem]">
-                <div class="w-full flex items-center mt-5 mb-10">
-                    <i class="pi pi-amazon text-cyan-300 ml-6" style="font-size: 2.5rem"></i>
-                    <span class="whitespace-nowrap inline-block overflow-hidden hidden group-hover:inline-block text-xl text-zinc-50 ml-2">Amazon</span>
+                <div class="w-full flex items-center mb-10">
+                    <Image src="/image/mountain-logo.png" alt="logo" class="min-w-24 max-w-24" />
+
+                    <span class="whitespace-nowrap inline-block overflow-hidden hidden group-hover:inline-block text-2xl text-cyan-500 -ml-2">
+                      Hydro
+                    </span>
                 </div>
-                <ul>
+                <ul class="mt-8">
                     <li v-for="item in sidebarItems" class="my-8">
                       <template v-if="item.route === 'none'">
                         <div class="overflow-hidden opacity-0 group-hover:opacity-100 font-medium text-xl dark:text-white light:text-black ml-5 mt-8 -mb-4">
