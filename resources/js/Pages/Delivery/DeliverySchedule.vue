@@ -12,9 +12,8 @@
                     <Button @click="showForm('store')" type="button" label="Add" icon="pi pi-plus" />
                 </div> -->
 
-                <DataTable :value="deliverySchedules" :loading="loading"
-                stripedRows tableStyle="min-width: 50rem" size="small" class="w-full text-sm"
-                paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
+                <DataTable :value="deliverySchedules.data" :loading="loading" :from="deliverySchedules.from" :rows="deliverySchedules.per_page" :totalRecords="deliverySchedules.total"
+                stripedRows tableStyle="min-width: 50rem" size="small" class="w-full text-sm">
                     <Column v-for="col of headers" class="dark:text-zinc-50"
                     :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable" :style="{ width: col.width }">
 
@@ -51,6 +50,16 @@
                             <SplitButton label="Actions" :model="actionItems(slotProps.data)" severity="info" rounded class="p-0"/>
                         </template>
                     </Column>
+
+                    <template v-slot:footer>
+                        <div class="flex flex-row justify-center gap-4 font-normal">
+                            <i v-if="deliverySchedules.first_page_url" @click="fetchData(deliverySchedules.first_page_url)" class="pi pi-angle-double-left" style="font-size: 1rem"></i>
+                            <i v-if="deliverySchedules.prev_page_url" @click="fetchData(deliverySchedules.prev_page_url)" class="pi pi-angle-left" style="font-size: 1rem"></i>
+                            <span>Page &nbsp; {{ deliverySchedules.current_page }} &nbsp; of &nbsp; {{ deliverySchedules.last_page }}</span>
+                            <i v-if="deliverySchedules.next_page_url" @click="fetchData(deliverySchedules.next_page_url)" class="pi pi-angle-right" style="font-size: 1rem"></i>
+                            <i v-if="deliverySchedules.last_page_url" @click="fetchData(deliverySchedules.last_page_url)" class="pi pi-angle-double-right" style="font-size: 1rem"></i>
+                        </div>
+                    </template>
                 </DataTable>
             </template>
         </Card>
