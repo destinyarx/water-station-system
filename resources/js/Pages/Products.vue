@@ -58,14 +58,21 @@
             </ProductForm>
         </form>
     </Dialog>
+
+    <Notification />
 </template>
 
 <script setup>
-import { ref, defineProps, onMounted } from 'vue'
-import { Head, useForm, Link, usePage } from "@inertiajs/vue3";
+import { ref, onMounted } from 'vue'
+import { Head, useForm } from "@inertiajs/vue3";
 
 import Layout from '../Layouts/Layout.vue';
 import ProductForm from '../Components/Forms/ProductForm.vue'
+
+import Notification from '@/Components/Toast/Notification.vue';
+import { alert } from '@/Composables/useNotification';
+import { useToast } from 'primevue/usetoast';
+const toast = useToast();
 
 let filter = {
     search: 'Search Value',
@@ -88,15 +95,9 @@ const productForm = useForm({
 
 // form methods
 const submit = () => {
-    console.log('form submitted');
-
-    if (action.value === 'store') {
-        addProduct()
-        console.log('New Record Inserted: ' + productForm['title']);
-    } else {
-        updateProduct()
-        console.log('Record Updated: ' + productForm['title']);
-    }
+    if (action.value === 'store') addProduct()
+    
+    updateProduct()
 }
 
 const showAddProductForm = () => {
@@ -108,29 +109,32 @@ const showAddProductForm = () => {
 const addProduct = () => {
     axios.post(route('products.add'), productForm)
         .then(response => {
-            console.log(response);
+            alert(toast, 'success', 'Success!', 'Product successfully added.');
             fetchProducts();
+        })
+        .catch(error => {
+            alert(toast, 'error', 'Error!', 'Something went wrong. The product could not be added.');
         })
 }
 
 const showUpdateProductForm = (index) => {
     action.value = 'update';
-    console.log(index)
     productForm['title'] = products.value[index]['title'];
     productForm['description'] = products.value[index]['description'];
     productForm['price'] = products.value[index]['price'];
     productForm['qty'] = products.value[index]['qty'];
     productForm['id'] = products.value[index]['id'];
     visible.value = true;
-
-    updateProduct(products.value[index]['id']);
 }
 
 const updateProduct = () => {
     axios.put('/products/update/', productForm)
         .then(response => {
-            console.log(response);
+            alert(toast, 'success', 'Success!', 'Product successfully updated.');
             fetchProducts();
+        })
+        .catch(error => {
+            alert(toast, 'error', 'Error!', 'Something went wrong. The product could not be updated.');
         })
 }
 
@@ -149,14 +153,14 @@ const fetchProducts = async () => {
     axios.get('/products/get/' + JSON.stringify(filter))
         .then(response =>{
             products.value = response.data;
-            console.log(products.value)
+        })
+        .catch(error => {
+            alert(toast, 'error', 'Error!', 'Error: Unable to fetch the product list.');
         })
 }
 
 
 onMounted(() => {
-    console.log('Components umounted!');
-
     fetchProducts();
 })
 

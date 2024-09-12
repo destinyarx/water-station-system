@@ -55,6 +55,16 @@ const sidebarItems = ref([
       icon: 'pi pi-user',
       route: '/customers'
     },
+    { 
+      label: 'Expenses',
+      icon: 'pi pi-wallet',
+      route: '/expenses'
+    },
+    { 
+      label: 'Products',
+      icon: 'pi pi-shopping-bag',
+      route: '/products'
+    },
     {
       label: 'Sales',
       route: 'none',
@@ -68,16 +78,6 @@ const sidebarItems = ref([
       label: 'Sales History',
       icon: 'pi pi-book',
       route: '/sales/history'
-    },
-    { 
-      label: 'Expenses',
-      icon: 'pi pi-wallet',
-      route: '/expenses'
-    },
-    { 
-      label: 'Products',
-      icon: 'pi pi-shopping-bag',
-      route: '/products'
     },
     {
       label: 'Delivery',

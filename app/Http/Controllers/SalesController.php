@@ -78,7 +78,8 @@ class SalesController extends Controller
         //
     }
 
-    public function fetchData() {
+    public function fetchData(Request $request) {
+        
         return DB::table('sales as s')
             ->LeftJoin('customers as c', 's.customer_id', 'c.id')
             ->LeftJoin('delivery_history as dh', 's.deliver_history_id', 'dh.id')
@@ -88,6 +89,6 @@ class SalesController extends Controller
                 's.total',
                 'dh.created_at',
             )
-            ->get();
+            ->paginate($request->rowsNumber ?? 10);
     }
 }
