@@ -1,7 +1,6 @@
 <template>
-    <DataTable :value="deliveries" :loading="loading"
-    stripedRows tableStyle="min-width: 50rem" size="small" class="w-full text-sm"
-    paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
+    <DataTable :value="deliveries.data" :loading="loading" :from="deliveries.from" :rows="deliveries.per_page" :totalRecords="deliveries.total"
+    stripedRows tableStyle="min-width: 50rem" size="small" class="w-full text-sm">
         <Column v-for="col of headers" class="dark:text-zinc-50"
         :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable" :style="{ width: col.width }">
             <template v-if="col.field === 'target_date'" #body="slotProps">
@@ -17,6 +16,16 @@
                 <SplitButton label="Actions" :model="actions(slotProps.data)" severity="info" rounded class="p-0"/>
             </template>
         </Column>
+
+        <template v-slot:footer>
+            <div class="flex flex-row justify-center gap-4 font-normal">
+                <i v-if="deliveries.first_page_url" @click="fetchData(deliveries.first_page_url)" class="pi pi-angle-double-left" style="font-size: 1rem"></i>
+                <i v-if="deliveries.prev_page_url" @click="fetchData(deliveries.prev_page_url)" class="pi pi-angle-left" style="font-size: 1rem"></i>
+                <span>Page &nbsp; {{ deliveries.current_page }} &nbsp; of &nbsp; {{ deliveries.last_page }}</span>
+                <i v-if="deliveries.next_page_url" @click="fetchData(deliveries.next_page_url)" class="pi pi-angle-right" style="font-size: 1rem"></i>
+                <i v-if="deliveries.last_page_url" @click="fetchData(deliveries.last_page_url)" class="pi pi-angle-double-right" style="font-size: 1rem"></i>
+            </div>
+        </template>
     </DataTable>
 
     <Notification />
@@ -49,21 +58,23 @@ const headers = [
 // datatable data
 const loading = ref(false);
 const deliveries = ref([]);
+const rows = ref(10);
 
 // table method
-const fetchData = () => {
+const fetchData = async (url: string|null = null) => {
+    let response = null;
     loading.value = true;
 
-    axios.get(route('delivery.fetch', { filter: props.filter }))
-        .then(response => {
-            deliveries.value = response.data;
-            loading.value = false;
-        })
-        .catch(error => {
-            loading.value = false;
-            console.log('Error when fetching datatable data.');
-            console.log(error);
-        })
+    if (!url) {
+        response = await axios.get(route('delivery.fetch'), {
+            params: { rowsNumber: rows.value }
+        }); 
+    } else {
+        response = await axios.get(url);
+    }
+
+    deliveries.value = response.data;
+    loading.value = false;
 }
 
 const actions = (data: any) => {
@@ -101,8 +112,8 @@ const actions = (data: any) => {
 const completeDelivery = async (data: any) => {
     try {
         const response = await axios.post(route('delivery.complete', data));
-        const deliveryHistory = await addDeliveryHistory(data);
-        await addSalesHistory(data.customer_id, deliveryHistory['id'], data.total_qty, data.price);
+        const deliveries = await adddeliveries(data);
+        await addSalesHistory(data.customer_id, deliveries['id'], data.total_qty, data.price);
         alert(toast, 'success', 'Success!', 'Delivery Completed!');
         fetchData();
     } catch (error) {
@@ -125,7 +136,7 @@ const stopDelivery = (delivery_id: number) => {
         })
 }
 
-const addDeliveryHistory = async (data: any) => {
+const adddeliveries = async (data: any) => {
     let historyData = {
         customer_id: data.customer_id,
         schedule_id: data.schedule_id,
@@ -177,7 +188,7 @@ const getDateStatus = (date: Date) => {
 }
 
 watch(() => props.filter, () => {
-  fetchData();
+    fetchData();
 })
 
 

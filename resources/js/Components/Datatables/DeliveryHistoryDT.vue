@@ -16,11 +16,11 @@
 
         <template v-slot:footer>
             <div class="flex flex-row justify-center gap-4 font-normal">
-                <i @click="fetchData(deliveryHistory.first_page_url)" :disabled="!deliveryHistory.first_page_url" class="pi pi-angle-double-left" style="font-size: 1rem"></i>
-                <i @click="fetchData(deliveryHistory.prev_page_url)" :disabled="!deliveryHistory.prev_page_url" class="pi pi-angle-left" style="font-size: 1rem"></i>
+                <i v-if="deliveryHistory.first_page_url" @click="fetchData(deliveryHistory.first_page_url)" class="pi pi-angle-double-left" style="font-size: 1rem"></i>
+                <i v-if="deliveryHistory.prev_page_url" @click="fetchData(deliveryHistory.prev_page_url)" class="pi pi-angle-left" style="font-size: 1rem"></i>
                 <span>Page &nbsp; {{ deliveryHistory.current_page }} &nbsp; of &nbsp; {{ deliveryHistory.last_page }}</span>
-                <i @click="fetchData(deliveryHistory.next_page_url)" :disabled="!deliveryHistory.next_page_url" class="pi pi-angle-right" style="font-size: 1rem"></i>
-                <i @click="fetchData(deliveryHistory.last_page_url)" :disabled="!deliveryHistory.last_page_url" class="pi pi-angle-double-right" style="font-size: 1rem"></i>
+                <i v-if="deliveryHistory.next_page_url" @click="fetchData(deliveryHistory.next_page_url)" class="pi pi-angle-right" style="font-size: 1rem"></i>
+                <i v-if="deliveryHistory.last_page_url" @click="fetchData(deliveryHistory.last_page_url)" class="pi pi-angle-double-right" style="font-size: 1rem"></i>
             </div>
         </template>
     </DataTable>
@@ -60,10 +60,9 @@ const fetchData = async (url: string|null = null) => {
         response = await axios.get(route('delivery-history.fetch'), {
             params: { rowsNumber: rows.value }
         }); 
-    }
-    else {
+    } else {
         response = await axios.get(url);
-    } 
+    }
 
     deliveryHistory.value = response.data;
     loading.value = false;

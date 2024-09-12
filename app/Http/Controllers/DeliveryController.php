@@ -139,7 +139,7 @@ class DeliveryController extends Controller
                 'c.name',
                 DB::raw("CONCAT(a.description, ' ', a.unit_number, ' ', a.street, ' St. Brgy.', a.barangay, ' ', a.municipality, ', ', a.province) as full_address")
             )
-            ->get();
+            ->paginate(10);
     }
 
     

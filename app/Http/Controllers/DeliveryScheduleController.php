@@ -107,6 +107,6 @@ class DeliveryScheduleController extends Controller
                 DB::raw("CONCAT(a.description, ' ', a.unit_number, ' ', a.street, ' St. Brgy.', a.barangay, ' ', a.municipality, ', ', a.province) as full_address")
             )
             ->orderBy('d.created_at', 'desc')
-            ->get();
+            ->paginate(10);
     }
 }
