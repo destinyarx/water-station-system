@@ -2,6 +2,7 @@ import Ripple from 'primevue/ripple';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
 import DataTable from 'primevue/datatable';
+import Paginator from 'primevue/paginator';
 import Column from 'primevue/column';
 import Badge from 'primevue/badge';
 import Menubar from 'primevue/menubar';
@@ -26,6 +27,7 @@ export default function registerPrimeVueComponents(app: any) {
     app.component('Button', Button);
     app.component('Card', Card);
     app.component('DataTable', DataTable);
+    app.component('Paginator', Paginator);
     app.component('Column', Column);
     app.component('Badge', Badge);
     app.component('Menubar', Menubar);
