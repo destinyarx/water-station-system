@@ -1,6 +1,5 @@
 <template>
     <DataTable ref="salesTableRef" :value="sales.data" :loading="loading" :from="sales.from" :rows="sales.per_page" :totalRecords="sales.total" 
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
     stripedRows tableStyle="min-width: 50rem" size="small" class="w-full text-sm">
         <Column v-for="col of headers" :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable" 
         class="dark:text-zinc-50" :style="{ width: col.width }">

@@ -1,7 +1,6 @@
 <template>
-    <DataTable :value="deliveryHistory" :loading="loading"
-    stripedRows tableStyle="min-width: 50rem" size="small" class="w-full text-sm"
-    paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
+    <DataTable :value="deliveryHistory.data" :loading="loading" :from="deliveryHistory.from" :rows="deliveryHistory.per_page" :totalRecords="deliveryHistory.total"
+    stripedRows tableStyle="min-width: 50rem" size="small" class="w-full text-sm">
         <Column v-for="col of headers" class="dark:text-zinc-50"
         :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable" :style="{ width: col.width }">
             <template v-if="col.field === 'status'" #body="slotProps">
@@ -11,9 +10,19 @@
             </template>
 
             <template v-if="col.field === 'created_at'" #body="slotProps">
-                {{ moment(slotProps.data.created_at).format('MMMM D, YYYY hh:mm:a') }}
+                {{ moment(slotProps.data.created_at).format('MMM D, YYYY hh:mm:a') }}
             </template>
         </Column>
+
+        <template v-slot:footer>
+            <div class="flex flex-row justify-center gap-4 font-normal">
+                <i @click="fetchData(deliveryHistory.first_page_url)" :disabled="!deliveryHistory.first_page_url" class="pi pi-angle-double-left" style="font-size: 1rem"></i>
+                <i @click="fetchData(deliveryHistory.prev_page_url)" :disabled="!deliveryHistory.prev_page_url" class="pi pi-angle-left" style="font-size: 1rem"></i>
+                <span>Page &nbsp; {{ deliveryHistory.current_page }} &nbsp; of &nbsp; {{ deliveryHistory.last_page }}</span>
+                <i @click="fetchData(deliveryHistory.next_page_url)" :disabled="!deliveryHistory.next_page_url" class="pi pi-angle-right" style="font-size: 1rem"></i>
+                <i @click="fetchData(deliveryHistory.last_page_url)" :disabled="!deliveryHistory.last_page_url" class="pi pi-angle-double-right" style="font-size: 1rem"></i>
+            </div>
+        </template>
     </DataTable>
 </template>
 
@@ -41,20 +50,23 @@ const headers = [
 // datatable data
 const loading = ref(false);
 const deliveryHistory = ref([]);
+const rows = ref(10);
 
-const fetchData = () => {
+const fetchData = async (url: string|null = null) => {
+    let response = null;
     loading.value = true;
 
-    axios.get(route('delivery-history.fetch', { filterStatus: props.filter}))
-        .then(response => {
-            deliveryHistory.value = response.data;
-            loading.value = false;
-        })
-        .catch(error => {
-            loading.value = false;
-            console.log('Error when fetching datatable data.');
-            console.log(error);
-        })
+    if (!url) {
+        response = await axios.get(route('delivery-history.fetch'), {
+            params: { rowsNumber: rows.value }
+        }); 
+    }
+    else {
+        response = await axios.get(url);
+    } 
+
+    deliveryHistory.value = response.data;
+    loading.value = false;
 }
 
 watch(() => props.filter, () => {
