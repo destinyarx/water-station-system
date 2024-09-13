@@ -6,6 +6,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import { createPinia } from 'pinia';
+import SvgIcon from '@jamescoyle/vue-icon'
 import PrimeVue from 'primevue/config';
 import Lara from '@/Presets/lara';
 
@@ -31,6 +32,8 @@ createInertiaApp({
 
         // Register all PrimeVue components using the module
         registerPrimeVueComponents(app);
+
+        app.component('SvgIcon', SvgIcon);
 
         app.mount(el);
     },

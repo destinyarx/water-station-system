@@ -11,6 +11,7 @@
                       Hydro
                     </span>
                 </div>
+
                 <ul class="mt-8">
                     <li v-for="item in sidebarItems" class="my-8">
                       <template v-if="item.route === 'none'">
@@ -21,7 +22,8 @@
 
                         <Link v-else-if="item.route !== 'none'" :href="item.route">
                           <div class="w-full flex items-center">
-                            <i :class="item.icon" class="self-center ml-7 mr-2" style="font-size: 1.5rem"></i>
+                            <!-- <i :class="item.icon" class="self-center ml-7 mr-2" style="font-size: 1.5rem"></i> -->
+                            <svg-icon type="mdi" :path="item.icon" class="self-center w-9 h-9 ml-7 mr-2"></svg-icon>
                             <span class="whitespace-nowrap inline-block overflow-hidden hidden group-hover:inline-block ml-2">
                               {{ item.label }}
                             </span>
@@ -44,25 +46,37 @@ import { ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import Header from '@/Layouts/Header.vue';
 
+import { 
+  mdiMonitorDashboard, 
+  mdiAccountGroupOutline,
+  mdiCashMultiple,
+  mdiShoppingOutline,
+  mdiCashFast,
+  mdiCashClock,
+  mdiTruckDeliveryOutline,
+  mdiTruckFastOutline,
+  mdiTruckAlertOutline,
+} from '@mdi/js';
+
 const sidebarItems = ref([
     { 
       label: 'Dashboard',
-      icon: 'pi pi-home',
+      icon: mdiMonitorDashboard,
       route: '/dashboard'
     },
     { 
       label: 'Customer',
-      icon: 'pi pi-user',
+      icon: mdiAccountGroupOutline,
       route: '/customers'
     },
     { 
       label: 'Expenses',
-      icon: 'pi pi-wallet',
+      icon: mdiCashMultiple,
       route: '/expenses'
     },
     { 
       label: 'Products',
-      icon: 'pi pi-shopping-bag',
+      icon: mdiShoppingOutline,
       route: '/products'
     },
     {
@@ -71,12 +85,12 @@ const sidebarItems = ref([
     },
     { 
       label: 'Sales Summary',
-      icon: 'pi pi-dollar',
+      icon: mdiCashFast,
       route: '/sales'
     },
     { 
       label: 'Sales History',
-      icon: 'pi pi-book',
+      icon: mdiCashClock,
       route: '/sales/history'
     },
     {
@@ -85,19 +99,19 @@ const sidebarItems = ref([
     },
     { 
       label: 'Daily Delivery',
-      icon: 'pi pi-send',
+      icon: mdiTruckDeliveryOutline,
       route: '/delivery',
       group: 'delivery'
     },
     { 
       label: 'Delivery Schedule',
-      icon: 'pi pi-calendar',
+      icon: mdiTruckAlertOutline,
       route: '/delivery-schedules',
       group: 'delivery'
     },
     { 
       label: 'Delivery History',
-      icon: 'pi pi-history',
+      icon: mdiTruckFastOutline,
       route: '/delivery-history',
       group: 'delivery'
     },
