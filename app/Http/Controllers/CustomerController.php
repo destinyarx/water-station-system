@@ -88,7 +88,7 @@ class CustomerController extends Controller
             ->whereNull('deleted_at')
             ->where('created_by', auth()->id())
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
     }
 
     public function insertCustomer($form) {

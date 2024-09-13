@@ -19,9 +19,8 @@
             </template>
             <template #content>
                 <div class="card">
-                    <DataTable :value="customers" class="w-auto" :loading="loading"
-                        stripedRows size="small" tableStyle="min-width: 50rem"
-                        paginator :rows="10" :rowsPerPageOptions="[5, 10, 20, 50]">
+                    <DataTable :value="customers.data"  :loading="loading" :from="customers.from" :rows="customers.per_page" :totalRecords="customers.total"
+                        stripedRows size="small" tableStyle="min-width: 50rem">
                         <Column v-for="col of customerHeaders" class="dark:text-zinc-50 text-sm"
                             :key="col.field" :field="col.field" :header="col.header" :sortable="col.sortable">
 
@@ -29,11 +28,18 @@
                                 <SplitButton label="Actions" :model="actions(slotProps.data)" severity="info" rounded/>
                             </template>
 
-                            <!-- <template v-if="col.field === 'status'" #body="slotProps">
-                                <Badge v-if="slotProps.data.status === '1'" value="ACTIVE" severity="success"></Badge>
-                                <Badge v-else value="INACTIVE" severity="danger"></Badge>
-                            </template> -->
+                            
                         </Column>
+
+                        <template v-slot:footer>
+                            <div class="flex flex-row justify-center gap-4 font-normal">
+                                <i v-if="customers.first_page_url" @click="fetchData(customers.first_page_url)" class="pi pi-angle-double-left" style="font-size: 1rem"></i>
+                                <i v-if="customers.prev_page_url" @click="fetchData(customers.prev_page_url)" class="pi pi-angle-left" style="font-size: 1rem"></i>
+                                <span>Page &nbsp; {{ customers.current_page }} &nbsp; of &nbsp; {{ customers.last_page }}</span>
+                                <i v-if="customers.next_page_url" @click="fetchData(customers.next_page_url)" class="pi pi-angle-right" style="font-size: 1rem"></i>
+                                <i v-if="customers.last_page_url" @click="fetchData(customers.last_page_url)" class="pi pi-angle-double-right" style="font-size: 1rem"></i>
+                            </div>
+                        </template>
                     </DataTable>
                 </div>
             </template>
@@ -121,7 +127,8 @@ const showError = () => {
     toast.add({ severity: 'error', summary: 'An error occurred while saving customer details', life: 3000 });
 };
 
-const fetchCustomer = async () => {
+const fetchData = async (url: string|null = null) => {
+    let response = null;
     loading.value = true
 
     const filter = {
@@ -129,14 +136,13 @@ const fetchCustomer = async () => {
         deliver_schedule: 'today',
     }
 
-    axios.get("/customers/get/" + JSON.stringify(filter))
-        .then(response => {
-            customers.value = response.data
-            loading.value = false
-        })
-        .catch(exception => {
-            console.error(exception)
-        });
+    if (!url)
+        response = await axios.get(route('customers.get', filter)); 
+    else    
+        response = await axios.get(url);
+    
+    customers.value = response.data
+    loading.value = false;
 }
 
 // customer form
@@ -220,7 +226,7 @@ const submitForm = () => {
     axios.post(route('customers.add'), customerForm)
         .then(response => {
             showSuccess();
-            fetchCustomer();
+            fetchData();
         })
         .catch(error => {
             showError();
@@ -237,7 +243,7 @@ watch(visible, (newValue, oldValue) => {
 })
 
 onMounted(() => {
-    fetchCustomer()
+    fetchData()
 })
 
 </script>
