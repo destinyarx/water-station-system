@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('delivery_products', function (Blueprint $table) {
             $table->id();
             $table->string('title', 50);
-            $table->string('description', 50);
+            $table->string('description', 50)->nullable();
             $table->string('product_code', 20);
             $table->smallInteger('price')->unsigned(); 
-            $table->smallInteger('quantity')->unsigned(); 
+            $table->smallInteger('quantity')->unsigned()->nullable(); 
             $table->boolean('unlimited_stock');
             $table->smallInteger('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
