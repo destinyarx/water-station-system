@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use App\Models\DeliveryProducts;
 use App\Http\Controllers\Controller;
 
 class ProductsController extends Controller
@@ -87,7 +88,7 @@ class ProductsController extends Controller
 
     public function getContainerPrices() {
 
-        return Products::where('created_by', auth()->id())
+        return DeliveryProducts::where('created_by', auth()->id())
             ->whereIn('title', ['Slim Container', 'Round Container'])
             ->get();
     }
