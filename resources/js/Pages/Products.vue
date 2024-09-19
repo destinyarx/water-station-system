@@ -3,14 +3,8 @@
 
     <Layout>
         <Card class="dark:bg-slate-700 light:bg-gray-100">
-            <template #title>
-                <div class="flex justify-end mt-5 text-sm">
-                    <Button @click="showAddProductForm(activeTab)" type="button" :label="activeTab ? 'Add Delivery Product' : 'Add Shop Product'" icon="pi pi-plus" class="text-xl" />
-                </div>
-            </template>
-            
             <template #content>
-                <div class="flex justify-center w-full text-2xl mb-7">
+                <div class="flex justify-center w-full text-2xl">
                     <div @click="activeTab = 0" :class="!activeTab ? 'border-b-2 border-indigo-500 text-indigo-300' : 'text-gray-500' " 
                         class="flex justify-center w-full max-w-2xl px-14 py-2">
                         Shop Products
@@ -19,6 +13,10 @@
                         class="flex justify-center w-full max-w-2xl px-14 py-2">
                         Delivery Products
                     </div>
+                </div>
+
+                <div class="flex justify-end text-md mt-2 mb-5">
+                    <Button @click="showAddProductForm()" type="button" :label="activeTab ? 'Add Delivery Product' : 'Add Shop Product'" icon="pi pi-plus" />
                 </div>
 
                 <div class="flex justify-center max-w-full px-10 ml-14">
@@ -34,11 +32,13 @@
                         </div>
 
 
-                        <div v-else-if="!productLoading && products" class="flex flex-wrap">
-                            <template v-for="product in products" :key="product.id">
-                                <ProductCard :product="product" @update="showUpdateProductForm" class="mx-4"/>
-                            </template>
-                        </div>
+                        <template v-else-if="!productLoading && products">
+                            <div class="flex flex-wrap">
+                                <template v-for="product in products" :key="product.id">
+                                    <ProductCard :product="product" @update="showUpdateProductForm" class="mx-4"/>
+                                </template>
+                            </div>
+                        </template>
                     </template>
                     <template v-else-if="activeTab">
                         <div v-if="deliveryLoading" class="flex flex-wrap gap-7">
@@ -116,11 +116,13 @@ const productForm = useForm({
 // form methods
 const submit = () => {
     if (action.value === 'store') addProduct()
-    
-    updateProduct()
+
+    if (!activeTab) updateProduct()
+
+    updateDeliveryProduct()
 }
 
-const showAddProductForm = (activeTab) => {
+const showAddProductForm = () => {    
     resetForm();
     action.value = 'store';
     visible.value = true;
@@ -148,10 +150,21 @@ const showUpdateProductForm = (product) => {
 }
 
 const updateProduct = () => {
-    axios.put('/products/update/', productForm)
+    axios.put(route('products.update', productForm))
         .then(response => {
             alert(toast, 'success', 'Success!', 'Product successfully updated.');
             fetchProducts();
+        })
+        .catch(error => {
+            alert(toast, 'error', 'Error!', 'Something went wrong. The product could not be updated.');
+        })
+}
+
+const updateDeliveryProduct = () => {
+    axios.put(route('delivery-products.update', productForm))
+        .then(response => {
+            alert(toast, 'success', 'Success!', 'Product successfully updated.');
+            fetchDeliveryProducts();
         })
         .catch(error => {
             alert(toast, 'error', 'Error!', 'Something went wrong. The product could not be updated.');
@@ -170,9 +183,6 @@ const resetForm = () => {
 const fetchProducts = async () => {
     productLoading.value = true;
     filter['search'] = 'John Doe';
-
-    setTimeout(() => {}, 100);
-
     
     axios.get('/products/get/' + JSON.stringify(filter))
         .then(response =>{

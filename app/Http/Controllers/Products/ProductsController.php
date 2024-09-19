@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Products;
 
 use Inertia\Inertia;
 use App\Models\Products;
@@ -61,7 +61,6 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Products $products)
     {
-        // dd((int) $request->id);
         return Products::where('id', (int) $request->id)
             ->update([
                 'title' => $request->title,

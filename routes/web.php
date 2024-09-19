@@ -8,9 +8,9 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DeliveryController;
-use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DeliveryHistoryController;
 use App\Http\Controllers\DeliveryScheduleController;
+use App\Http\Controllers\Products\ProductsController;
 use App\Http\Controllers\Products\DeliveryProductsController;
 
 Route::get('/', function () {
@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(DeliveryProductsController::class)->prefix('delivery-products')->group(function () {
         Route::get('/', 'fetchData')->name('delivery-products.fetch');
+        Route::put('/update', 'update')->name('delivery-products.update');
     });
     
     Route::controller(SalesController::class)->prefix('sales')->group(function () {
