@@ -21,16 +21,37 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center w-full px-10 ml-10">
+                <div class="flex justify-center max-w-full px-10 ml-14">
                     <template v-if="!activeTab">
-                        <div v-if="products" class="flex flex-wrap">
+                        <div v-if="productLoading" class="flex flex-wrap gap-7">
+                            <div v-for="n in 8" :key="n" class="flex flex-col w-1/5">
+                                <Skeleton width="17rem" height="17rem" borderRadius="16px"></Skeleton>
+                                <div class="flex flex-row mt-1">
+                                    <Skeleton shape="circle" size="2.5rem" class="mr-2"></Skeleton>
+                                    <Skeleton width="13.5rem" height="2rem" class="mt-1"></Skeleton>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div v-else-if="!productLoading && products" class="flex flex-wrap">
                             <template v-for="product in products" :key="product.id">
                                 <ProductCard :product="product" @update="showUpdateProductForm" class="mx-4"/>
                             </template>
                         </div>
                     </template>
-                    <template v-if="activeTab">
-                        <div v-if="deliveryProducts" class="flex flex-wrap">
+                    <template v-else-if="activeTab">
+                        <div v-if="deliveryLoading" class="flex flex-wrap gap-7">
+                            <div v-for="n in 8" :key="n" class="flex flex-col w-1/5">
+                                <Skeleton width="17rem" height="17rem" borderRadius="16px"></Skeleton>
+                                <div class="flex flex-row mt-1">
+                                    <Skeleton shape="circle" size="2.5rem" class="mr-2"></Skeleton>
+                                    <Skeleton width="13.5rem" height="2rem" class="mt-1"></Skeleton>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-else-if="!deliveryLoading && deliveryProducts" class="flex flex-wrap">
                             <template v-for="deliveryProduct in deliveryProducts" :key="deliveryProduct.id">
                                 <ProductCard :product="deliveryProduct" @update="showUpdateProductForm" class="mx-4"/>
                             </template>
@@ -78,6 +99,8 @@ let filter = {
 const products = ref([]);
 const deliveryProducts = ref([]);
 const activeTab = ref(0);
+const productLoading = ref(false);
+const deliveryLoading = ref(false);
 
 // forms variable
 const visible = ref(false);
@@ -145,18 +168,28 @@ const resetForm = () => {
 
 
 const fetchProducts = async () => {
+    productLoading.value = true;
     filter['search'] = 'John Doe';
 
+    setTimeout(() => {}, 100);
+
+    
     axios.get('/products/get/' + JSON.stringify(filter))
         .then(response =>{
             products.value = response.data;
         })
         .catch(error => {
+            console.log(error)
             alert(toast, 'error', 'Error!', 'Error: Unable to fetch the product list.');
+        })
+        .finally(() => {
+            productLoading.value = false;
         })
 }
 
 const fetchDeliveryProducts = async () => {
+    deliveryLoading.value = true;
+
     axios.get(route('delivery-products.fetch'))
         .then(response => {
             deliveryProducts.value = response.data;
@@ -164,6 +197,9 @@ const fetchDeliveryProducts = async () => {
         .catch(error => {
             console.log('Error when fetching delivery products');
             console.log(error);
+        })
+        .finally(() => {
+            deliveryLoading.value = false;
         })
 }
 

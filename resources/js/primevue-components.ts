@@ -24,6 +24,8 @@ import ToastService from 'primevue/toastservice';
 import SplitButton from 'primevue/splitbutton';
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
+import Skeleton from 'primevue/skeleton';
+
 
 
 export default function registerPrimeVueComponents(app: any) {
@@ -51,6 +53,7 @@ export default function registerPrimeVueComponents(app: any) {
     app.component('SplitButton', SplitButton);
     app.component('TabView', TabView);
     app.component('TabPanel', TabPanel);
+    app.component('Skeleton', Skeleton);
 
     app.directive('ripple', Ripple);
     
