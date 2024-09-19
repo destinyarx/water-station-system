@@ -22,6 +22,9 @@ import Calendar from 'primevue/calendar';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import SplitButton from 'primevue/splitbutton';
+import TabView from 'primevue/tabview';
+import TabPanel from 'primevue/tabpanel';
+
 
 export default function registerPrimeVueComponents(app: any) {
     app.component('Button', Button);
@@ -46,6 +49,8 @@ export default function registerPrimeVueComponents(app: any) {
     app.component('Calendar', Calendar);
     app.component('Toast', Toast);
     app.component('SplitButton', SplitButton);
+    app.component('TabView', TabView);
+    app.component('TabPanel', TabPanel);
 
     app.directive('ripple', Ripple);
     

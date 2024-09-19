@@ -18,7 +18,7 @@
         </Column>
 
         <template v-slot:footer>
-            <div class="flex flex-row justify-center gap-4 font-normal">
+            <div v-if="!loading" class="flex flex-row justify-center gap-4 font-normal">
                 <i v-if="deliveries.first_page_url" @click="fetchData(deliveries.first_page_url)" class="pi pi-angle-double-left" style="font-size: 1rem"></i>
                 <i v-if="deliveries.prev_page_url" @click="fetchData(deliveries.prev_page_url)" class="pi pi-angle-left" style="font-size: 1rem"></i>
                 <span>Page &nbsp; {{ deliveries.current_page }} &nbsp; of &nbsp; {{ deliveries.last_page }}</span>
