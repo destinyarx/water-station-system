@@ -11,6 +11,7 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DeliveryHistoryController;
 use App\Http\Controllers\DeliveryScheduleController;
+use App\Http\Controllers\Products\DeliveryProductsController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -45,6 +46,10 @@ Route::middleware('auth')->group(function () {
         Route::put('/update', 'update')->name('products.update');
         Route::get('/get/{filter}', 'fetchProducts')->name('products.get');
         Route::get('/container-prices', 'getContainerPrices')->name('products.get-container-prices');
+    });
+
+    Route::controller(DeliveryProductsController::class)->prefix('delivery-products')->group(function () {
+        Route::get('/', 'fetchData')->name('delivery-products.fetch');
     });
     
     Route::controller(SalesController::class)->prefix('sales')->group(function () {

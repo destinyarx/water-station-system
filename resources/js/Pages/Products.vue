@@ -10,7 +10,7 @@
             </template>
             
             <template #content>
-                <div class="flex justify-center w-full text-2xl mb-5">
+                <div class="flex justify-center w-full text-2xl mb-7">
                     <div @click="activeTab = 0" :class="!activeTab ? 'border-b-2 border-indigo-500 text-indigo-300' : 'text-gray-500' " 
                         class="flex justify-center w-full max-w-2xl px-14 py-2">
                         Shop Products
@@ -30,9 +30,9 @@
                         </div>
                     </template>
                     <template v-if="activeTab">
-                        <div v-if="products" class="flex flex-wrap">
-                            <template v-for="product in products" :key="product.id">
-                                <ProductCard :product="product" @update="showUpdateProductForm" class="mx-4"/>
+                        <div v-if="deliveryProducts" class="flex flex-wrap">
+                            <template v-for="deliveryProduct in deliveryProducts" :key="deliveryProduct.id">
+                                <ProductCard :product="deliveryProduct" @update="showUpdateProductForm" class="mx-4"/>
                             </template>
                         </div>
                     </template>
@@ -76,6 +76,7 @@ let filter = {
 
 // products
 const products = ref([]);
+const deliveryProducts = ref([]);
 const activeTab = ref(0);
 
 // forms variable
@@ -155,9 +156,21 @@ const fetchProducts = async () => {
         })
 }
 
+const fetchDeliveryProducts = async () => {
+    axios.get(route('delivery-products.fetch'))
+        .then(response => {
+            deliveryProducts.value = response.data;
+        })
+        .catch(error => {
+            console.log('Error when fetching delivery products');
+            console.log(error);
+        })
+}
+
 
 onMounted(() => {
     fetchProducts();
+    fetchDeliveryProducts();
 })
 
 </script>
