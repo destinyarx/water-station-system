@@ -67,7 +67,7 @@
         <form @submit.prevent="submit">
             <ProductForm :form="productForm" :action="action">
                 <div class="flex justify-end gap-2">
-                    <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
+                    <Button type="button" label="Cancel" severity="danger" @click="visible = false"></Button>
                     <Button type="submit" label="Save" @click="visible = false"></Button>
                 </div>
             </ProductForm>
@@ -116,10 +116,8 @@ const productForm = useForm({
 // form methods
 const submit = () => {
     if (action.value === 'store') addProduct()
-
-    if (!activeTab) updateProduct()
-
-    updateDeliveryProduct()
+    else if (activeTab.value) updateDeliveryProduct()
+    else updateProduct()
 }
 
 const showAddProductForm = () => {    

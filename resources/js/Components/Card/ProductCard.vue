@@ -1,31 +1,37 @@
 <template>
-    <Card class="w-full md:w-1/2 lg:w-1/5 dark:bg-gray-500 dark:text-zinc-50 px-4 mb-4 mx-1 p-4">
+    <Card class="w-full md:w-1/2 lg:w-1/5 px-4 mb-4 mx-1 p-4 dark:bg-slate-800 dark:text-zinc-50">
         <template #header>
-            <div class="text-2xl font-medium">
-                {{ product.description }} 
+            <div class="flex items-center justify-center min-h-16 text-2xl font-medium">
+                <div class="text-center">
+                    {{ product.title }}
+                </div> 
             </div>                       
         </template>
-        <template #title>
-            <!-- <div>{{ product.title }}</div> -->
-            <Image src="/image/round_gallon.jpg" alt="Image" width="auto" />
-        </template>
-        <!-- <template #subtitle>
-            {{ product.description }}
-        </template> -->
+        
         <template #content>
-            <div class="bg-green-500 h-full flex flex-col justify-between">
-                <div>
-                    <div>
-                        Quantity: {{ product.quantity }}
-                    </div>
-                    <div>
-                        Price: {{ product.price }}
-                    </div>
+            <div class="flex flex-col min-h-96 min-w-full gap-y-3 rounded-md bg-slate-300 px-4 py-2">
+                <div class="flex justify-center">
+                    <Image src="/image/round_gallon.jpg" alt="Image" width="auto" class="p-fluid rounded-lg" />
                 </div>
 
-                <div class="flex justify-center">
-                    <Button type="button" @click="updateProduct(product)" label="Update" icon="pi pi-pen-to-squares" class="self-end"/>
+                <div>
+                    <strong> Description: </strong> 
+                    {{ product.description }}
                 </div>
+                <div>
+                    <strong>Quantity:</strong> 
+                    {{ product.quantity ?? 0 }}
+                </div>
+                <div>
+                    <strong>Price:</strong> 
+                    ₱ {{ product.price ?? 0 }}.00
+                </div>
+            </div>
+        </template>
+
+        <template #footer>
+            <div class="flex justify-center">
+                <Button type="button" @click="updateProduct(product)" label="Update" icon="pi pi-pen-to-squares" />
             </div>
         </template>
     </Card>

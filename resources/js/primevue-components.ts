@@ -25,6 +25,7 @@ import SplitButton from 'primevue/splitbutton';
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
 import Skeleton from 'primevue/skeleton';
+import Avatar from 'primevue/avatar';
 
 
 
@@ -54,6 +55,7 @@ export default function registerPrimeVueComponents(app: any) {
     app.component('TabView', TabView);
     app.component('TabPanel', TabPanel);
     app.component('Skeleton', Skeleton);
+    app.component('Avatar', Avatar);
 
     app.directive('ripple', Ripple);
     
