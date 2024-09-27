@@ -1,5 +1,5 @@
 <template>
-    <Card class="w-full md:w-1/2 lg:w-1/5 px-4 mb-4 mx-1 p-4 dark:bg-slate-800 dark:text-zinc-50">
+    <Card class="w-full md:w-1/2 lg:w-1/5 px-4 mb-4 mx-1 p-4 dark:bg-gray-600 dark:text-zinc-50">
         <template #header>
             <div class="flex items-center justify-center min-h-16 text-2xl font-medium">
                 <div class="text-center">
@@ -9,7 +9,7 @@
         </template>
         
         <template #content>
-            <div class="flex flex-col min-h-96 min-w-full gap-y-3 rounded-md bg-slate-300 px-4 py-2">
+            <div class="flex flex-col min-h-96 min-w-full gap-y-3 rounded-md dark:bg-slate-500 px-4 py-2">
                 <div class="flex justify-center">
                     <Image src="/image/round_gallon.jpg" alt="Image" width="auto" class="p-fluid rounded-lg" />
                 </div>

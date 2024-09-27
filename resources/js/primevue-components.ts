@@ -26,6 +26,8 @@ import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
 import Skeleton from 'primevue/skeleton';
 import Avatar from 'primevue/avatar';
+import Chart from 'primevue/chart';
+
 
 
 
@@ -56,6 +58,7 @@ export default function registerPrimeVueComponents(app: any) {
     app.component('TabPanel', TabPanel);
     app.component('Skeleton', Skeleton);
     app.component('Avatar', Avatar);
+    app.component('Chart', Chart);
 
     app.directive('ripple', Ripple);
     

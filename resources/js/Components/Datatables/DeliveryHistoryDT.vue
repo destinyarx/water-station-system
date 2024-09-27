@@ -58,7 +58,10 @@ const fetchData = async (url: string|null = null) => {
 
     if (!url) {
         response = await axios.get(route('delivery-history.fetch'), {
-            params: { rowsNumber: rows.value }
+            params: { 
+                rowsNumber: rows.value,
+                filter:  props.filter,
+            }
         }); 
     } else {
         response = await axios.get(url);
