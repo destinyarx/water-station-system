@@ -13,7 +13,7 @@
                 </div>
 
                 <ul class="mt-8">
-                    <li v-for="item in sidebarItems" class="my-8">
+                    <li v-for="item in sidebarItems" class="my-6">
                       <template v-if="item.route === 'none'">
                         <div class="overflow-hidden opacity-0 group-hover:opacity-100 font-medium text-xl dark:text-white light:text-black ml-5 mt-8 -mb-4">
                           {{ item.label }}

@@ -39,7 +39,7 @@ const loading = ref(false);
 const headers = [
     { field: 'name', header: 'Customer Name', width: '30%' },
     { field: 'created_at', header: 'Transaction Date', sortable: true },
-    { field: 'qty', header: 'Container Quantity', sortable: true },
+    { field: 'qty', header: 'Quantity', sortable: true },
     { field: 'total', header: 'Price', sortable: true },
 ]
 
@@ -51,7 +51,9 @@ const fetchData = async (url: string|null = null) => {
 
     if (!url) {
         response = await axios.get(route('sales.data'), {
-            params: { rowsNumber: rows.value }
+            params: { 
+                rowsNumber: rows.value,
+            }
         }); 
     }
     else {
