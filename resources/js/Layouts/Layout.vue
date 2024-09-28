@@ -56,6 +56,8 @@ import {
   mdiTruckDeliveryOutline,
   mdiTruckFastOutline,
   mdiTruckAlertOutline,
+  mdiInvoiceTextFastOutline,
+  mdiClipboardTextClockOutline,
 } from '@mdi/js';
 
 const sidebarItems = ref([
@@ -84,12 +86,12 @@ const sidebarItems = ref([
       route: 'none',
     },
     { 
-      label: 'Sales Summary',
+      label: 'Summary',
       icon: mdiCashFast,
       route: '/sales'
     },
     { 
-      label: 'Sales History',
+      label: 'History',
       icon: mdiCashClock,
       route: '/sales/history'
     },
@@ -104,16 +106,32 @@ const sidebarItems = ref([
       group: 'delivery'
     },
     { 
-      label: 'Delivery Schedule',
+      label: 'Schedule',
       icon: mdiTruckAlertOutline,
       route: '/delivery-schedules',
       group: 'delivery'
     },
     { 
-      label: 'Delivery History',
+      label: 'History',
       icon: mdiTruckFastOutline,
       route: '/delivery-history',
       group: 'delivery'
+    },
+    {
+      label: 'Expenses',
+      route: 'none',
+    },
+    { 
+      label: 'Summary',
+      icon: mdiInvoiceTextFastOutline,
+      route: '/expenses',
+      group: 'expenses'
+    },
+    { 
+      label: 'History',
+      icon: mdiClipboardTextClockOutline,
+      route: '/expenses/history',
+      group: 'expenses'
     },
   ]);
 </script>

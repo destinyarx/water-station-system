@@ -8,6 +8,7 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\DeliveryHistoryController;
 use App\Http\Controllers\DeliveryScheduleController;
 use App\Http\Controllers\Products\ProductsController;
@@ -79,6 +80,11 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete', 'destroy')->name('delivery.delete');
         Route::put('/update-status/{id}', 'updateStatus')->name('delivery.update-status');
         Route::post('/complete-delivery', 'completeDelivery')->name('delivery.complete');
+    });
+
+    Route::controller(ExpensesController::class)->prefix('expenses')->group(function () {
+        Route::get('/', 'index');
+        Route::get('/history', 'history');
     });
 });
 
