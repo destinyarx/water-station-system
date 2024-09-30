@@ -31,6 +31,7 @@ import Chart from 'primevue/chart';
 
 
 
+
 export default function registerPrimeVueComponents(app: any) {
     app.component('Button', Button);
     app.component('Card', Card);
@@ -59,6 +60,7 @@ export default function registerPrimeVueComponents(app: any) {
     app.component('Skeleton', Skeleton);
     app.component('Avatar', Avatar);
     app.component('Chart', Chart);
+    
 
     app.directive('ripple', Ripple);
     

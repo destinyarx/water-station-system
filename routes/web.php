@@ -85,6 +85,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(ExpensesController::class)->prefix('expenses')->group(function () {
         Route::get('/', 'index');
         Route::get('/history', 'history');
+        Route::post('/add', 'store')->name('expenses.add');
+        Route::get('/fetch', 'fetchData')->name('expenses.fetch');
     });
 });
 

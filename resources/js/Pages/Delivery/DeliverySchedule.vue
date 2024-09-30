@@ -180,7 +180,7 @@ const closeForm = () => {
     visible.value = false;
 }
 
-const handleSubmit = ()=> {
+const handleSubmit = () => {
     if (form['action'] === 'update') {
         updateDeliverySchedule();
     } else if (form['action'] === 'delete') {
@@ -259,7 +259,7 @@ const computeTotalPrice = (slimQty: number, roundQty: number) => {
 }
 
 const showSuccess = () => {
-    toast.add({ severity: 'success', summary: 'Customer saved succesfully!', life: 3000 });
+    toast.add({ severity: 'success', summary: 'Delivery saved succesfully!', life: 3000 });
 };
 
 onMounted(() => {

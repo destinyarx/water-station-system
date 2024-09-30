@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
             $table->string('category', 50);
+            $table->string('category_other', 100)->nullable();
             $table->date('expense_date')->index();
             $table->string('description', 100)->nullable();
+            $table->smallInteger('price')->unsigned();
             $table->smallInteger('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();

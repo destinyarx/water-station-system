@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
-use App\Models\expenses;
+use App\Models\Expenses;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -35,7 +35,13 @@ class ExpensesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Expenses::create([
+            'category' => $request->category['code'],
+            'expense_date' => $request->expense_date,
+            'description' => $request->description,
+            'price' => $request->price,
+            'created_by' => auth()->id(),
+        ]);
     }
 
     /**
@@ -68,5 +74,9 @@ class ExpensesController extends Controller
     public function destroy(expenses $expenses)
     {
         //
+    }
+
+    public function fetchData() {
+
     }
 }
