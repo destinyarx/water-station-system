@@ -14,12 +14,22 @@ class ExpensesController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Expenses/Summary');
+        return Inertia::render('Expenses/Summary', 
+            [
+                'expenseCategory' => config('options.expense_category'),
+                'expenseCategoryValue' => config('options.expense_category_value')
+            ]
+        );
     }
 
     public function history()
     {
-        return Inertia::render('Expenses/Expenses');
+        return Inertia::render('Expenses/Expenses',
+            [
+                'expenseCategory' => config('options.expense_category'),
+                'expenseCategoryValue' => config('options.expense_category_value')
+            ]
+        );
     }
 
     /**
@@ -76,7 +86,16 @@ class ExpensesController extends Controller
         //
     }
 
-    public function fetchData() {
+    public function fetchData(Request $request) {
+        $filter = $request->filter['code'] ?? null;
+
+        return Expenses::where('created_by', auth()->id())
+            ->whereNull('deleted_at')
+            ->when($filter, function($query) use ($filter) {
+                $query->where('category', $filter);
+            })
+            ->select('*')
+            ->paginate(10);
 
     }
 }

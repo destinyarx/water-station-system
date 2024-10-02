@@ -30,4 +30,32 @@ return [
         '2WK' => 14    // Every two weeks
     ],
 
+    'expense_category' => [
+        ['name' => 'Once', 'code' => 'O'],
+        ['name' => 'Electric Bill', 'code' => 'electric'],
+        ['name' => 'Water Bill', 'code' => 'water'],
+        ['name' => 'Manpower', 'code' => 'manpower'],
+        ['name' => 'Rent', 'code' => 'rent'],
+        ['name' => 'Packaging', 'code' => 'packaging'],
+        ['name' => 'Supplies', 'code' => 'supplies'],
+        ['name' => 'Maintenance and Repair', 'code' => 'maintenance'],
+        ['name' => 'Fuel and Transportation', 'code' => 'transpo'],
+        ['name' => 'Licensing and Permits', 'code' => 'permits'],
+        ['name' => 'Other', 'code' => 'other']
+    ],
+
+    'expense_category_value' => [
+        'O' => 'Once',
+        'electric' => 'Electric Bill',
+        'water' => 'Water Bill',
+        'manpower' => 'Manpower',
+        'rent' => 'Rent',
+        'packaging' => 'Packaging',
+        'supplies' => 'Supplies',
+        'maintenance' => 'Maintenance and Repair',
+        'transpo' => 'Fuel and Transportation',
+        'permits' => 'Licensing and Permits',
+        'other' => 'Other'
+    ],
+
 ];

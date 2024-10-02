@@ -10,6 +10,8 @@
                 <div class="flex justify-end">
                     <Button @click="showForm('add')" type="button" label="Add" icon="pi pi-plus" />
                 </div>
+                
+                <ExpensesDT :filter="filter" :category-value="expenseCategoryValue"/>
             </template>
         </Card>
     </Layout>
@@ -17,12 +19,12 @@
     <Dialog v-model:visible="visible" modal header="Add Expenses" :style="{ width: '60rem'}">
         <Card>
             <template #content>
-                <ExpensesForm :form="form">
+                <ExpensesForm :form="form" :category="expenseCategory">
                     <div class="flex justify-end gap-2">
                         <Button type="button" label="Cancel" severity="danger" @click="visible = false"></Button>
                         <Button type="submit" label="Save" @click="submit"></Button>
                     </div>
-                </ExpensesForm>
+                </ExpensesForm :filter="filter">
             </template>
         </Card>
     </Dialog>
@@ -31,29 +33,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, defineProps } from 'vue';
 import { useForm, Head } from "@inertiajs/vue3";
 import axios from 'axios';
 
 import Layout from '@/Layouts/Layout.vue';
 import ExpensesForm from '@/Components/Forms/ExpensesForm.vue'
+import ExpensesDT from '@/Components/Datatables/ExpensesDT.vue';
 
 import Notification from '@/Components/Toast/Notification.vue';
 import { alert } from '@/Composables/useNotification';
 import { useToast } from 'primevue/usetoast';
 const toast = useToast();
 
-const fetchData = () => {
-    console.log('Fetch Data');
+const props = defineProps({
+    expenseCategory: { type: Array },
+    expenseCategoryValue: { type: Object }
+})
 
-    // axios.get(route('expenses.fetch'))
-    //     .then(response => {
-
-    //     })
-    //     .catch(error => {
-
-    //     })
-}
+const filter = ref();
 
 // Form data
 const visible = ref(false);
@@ -79,12 +77,12 @@ const resetForm = () => {
 }
 
 const addExpenses = () => {
+    visible.value = false;
+
     axios.post(route('expenses.add'), form)
         .then(response => {
             alert(toast, 'success', 'Success!', 'Expenses successfully updated.');
-            visible.value = false;
             resetForm();
-            fetchData();
         })
         .catch(error => {
             console.log(error)
