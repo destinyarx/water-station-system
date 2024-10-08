@@ -7,7 +7,7 @@
                 <div>Expenses History</div>
             </template>
             <template #content>
-                <div class="flex justify-end">
+                <div class="flex justify-end mb-4">
                     <Button @click="showForm('add')" type="button" label="Add" icon="pi pi-plus" />
                 </div>
                 

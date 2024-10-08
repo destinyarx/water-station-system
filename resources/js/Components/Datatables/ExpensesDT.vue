@@ -39,7 +39,7 @@ const props = defineProps({
 })
 
 const headers = [
-    { field: 'expense_date', header: 'Date', sortable: true },
+    { field: 'expense_date', header: 'Expense Date', sortable: true },
     { field: 'category', header: 'Category', width: '25%' },
     { field: 'price', header: 'Price', sortable: true },
     { field: 'description', header: 'Description', width: '35%' },
@@ -47,8 +47,6 @@ const headers = [
 
 const expenses = ref([]);
 const loading = ref(false);
-
-
 
 const fetchData = async (url: string|null = null) => {
     let response = null;

@@ -7,7 +7,7 @@
                 <div>Expenses Summary</div>
             </template>
             <template #content>
-                Add Content Here..
+                <ExpensePieChart />
             </template>
         </Card>
     </Layout>
@@ -16,6 +16,7 @@
 <script setup lang="ts">
 import { Head } from "@inertiajs/vue3";
 
+import ExpensePieChart from "@/Components/Charts/ExpensePieChart.vue";
 import Layout from '@/Layouts/Layout.vue';
 
 import { useToast } from 'primevue/usetoast';
