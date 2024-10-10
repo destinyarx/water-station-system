@@ -23,6 +23,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/orig', function (){
+    return Inertia::render('Dashboard_2');
+})->middleware(['auth', 'verified']);
+
 Route::get('/', function () {
     return Inertia::render('Dashboard');
     // return Inertia::render('Dashboard_2');
