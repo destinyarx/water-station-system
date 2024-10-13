@@ -29,6 +29,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        
+
+        if (!$this->isActivated($request->username)) {
+            return redirect('/contact-admin');
+        }
+
         $request->authenticate();
 
         $request->session()->regenerate();
@@ -48,5 +54,13 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function isActivated($username) {
+        return true;
+    }
+
+    public function contactAdminPage() {
+        return Inertia::render('Auth/ContactAdminPage');
     }
 }
