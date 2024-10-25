@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('description', 50);
             $table->smallInteger('price')->unsigned(); 
             $table->smallInteger('qty')->unsigned(); 
+            $table->boolean('is_delivery')->default(false);
+            $table->boolean('is_unlimited_stock')->default(false);
             $table->smallInteger('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->index('created_by');

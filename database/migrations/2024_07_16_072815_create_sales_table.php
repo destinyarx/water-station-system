@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->string('customer_name', 100)->nullable();
             $table->smallInteger('customer_id')->unsigned()->nullable(); 
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->smallInteger('deliver_history_id')->unsigned()->nullable(); 
@@ -23,7 +24,8 @@ return new class extends Migration
             $table->index('deliver_history_id');
             $table->index('created_by');
             $table->smallInteger('total')->unsigned(); 
-            $table->smallInteger('qty')->unsigned(); 
+            $table->smallInteger('qty')->unsigned();
+            $table->string('remarks', 100)->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();        
             $table->timestamp('deleted_at')->nullable(); 

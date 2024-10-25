@@ -1,28 +1,3 @@
-<script setup lang="ts">
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-
-const form = useForm({
-    name: '',
-    email: '',
-    username: '',
-    password: '',
-    password_confirmation: '',
-});
-
-const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => {
-            form.reset('password', 'password_confirmation');
-        },
-    });
-};
-</script>
-
 <template>
     <GuestLayout class="dark:bg-slate-700">
         <Head title="Register" />
@@ -45,18 +20,46 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Username" />
+                <InputLabel for="username" value="Username" />
 
                 <TextInput
                     id="email"
-                    type="email"
+                    type="text"
                     class="mt-1 block w-full"
                     v-model="form.username"
                     required
                     autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.username" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="email" value="Contact Number" />
+
+                <TextInput
+                    id="email"
+                    type="number"
+                    class="mt-1 block w-full"
+                    v-model="form.contact_number"
+                    required
+                    autocomplete="username"
+                />
+
+                <InputError class="mt-2" :message="form.errors.contact_number" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="email" value="Facebook" />
+
+                <TextInput
+                    id="email"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.socmed_link"
+                />
+
+                <InputError class="mt-2" :message="form.errors.socmed_link" />
             </div>
 
             <div class="mt-4">
@@ -68,7 +71,7 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.email"
                     required
-                    autocomplete="username"
+                    autocomplete="email"
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
@@ -119,3 +122,30 @@ const submit = () => {
         </form>
     </GuestLayout>
 </template>
+
+<script setup lang="ts">
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+
+const form = useForm({
+    name: '',
+    email: '',
+    username: '',
+    contact_number: '',
+    socmed_link: '',
+    password: '',
+    password_confirmation: '',
+});
+
+const submit = () => {
+    form.post(route('register'), {
+        onFinish: () => {
+            form.reset('password', 'password_confirmation');
+        },
+    });
+};
+</script>

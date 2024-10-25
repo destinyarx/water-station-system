@@ -10,7 +10,7 @@ import SvgIcon from '@jamescoyle/vue-icon';
 import PrimeVue from 'primevue/config';
 import Lara from '@/Presets/lara';
 
-import registerPrimeVueComponents from './primevue-components'; // Import the module
+import registerPrimeVueComponents from './primevue-components';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const pinia = createPinia();
@@ -30,7 +30,7 @@ createInertiaApp({
                 ripple: true,
             });
 
-        // Register all PrimeVue components using the module
+        // Register primevue components
         registerPrimeVueComponents(app);
 
         app.component('SvgIcon', SvgIcon);
