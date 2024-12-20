@@ -12,9 +12,16 @@
             <label class="font-semibold w-24">Price</label>
             <InputNumber v-model="form.price" inputId="integeronly" mode="currency" currency="PHP" class="w-full ml-4" />
         </div>
+
         <div class="flex items-center gap-4 mb-4">
             <label class="font-semibold w-24">Quantity</label>
             <InputNumber v-model="form.qty" inputId="integeronly" class="w-full ml-4" />
+        </div>
+
+        <div class="flex items-center gap-4 mb-4">
+            <label class="font-semibold w-24">Is delivery product?</label>
+            <InputSwitch v-model="checked" />
+            Check: {{ checked }}
         </div>
         
         <slot></slot>
@@ -23,6 +30,8 @@
 
 <script setup>
 import { ref, defineProps } from 'vue'
+
+const checked = ref();
 
 defineProps({
     form: {
@@ -34,9 +43,4 @@ defineProps({
         required: true
     },
 })
-
 </script>
-
-<style lang="scss" scoped>
-
-</style>

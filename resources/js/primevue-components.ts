@@ -27,12 +27,13 @@ import TabPanel from 'primevue/tabpanel';
 import Skeleton from 'primevue/skeleton';
 import Avatar from 'primevue/avatar';
 import Chart from 'primevue/chart';
-
-
+import InputSwitch from 'primevue/inputswitch';
+import AutoComplete from 'primevue/autocomplete';
 
 
 
 export default function registerPrimeVueComponents(app: any) {
+    app.component('AutoComplete', AutoComplete);
     app.component('Button', Button);
     app.component('Card', Card);
     app.component('DataTable', DataTable);
@@ -60,6 +61,7 @@ export default function registerPrimeVueComponents(app: any) {
     app.component('Skeleton', Skeleton);
     app.component('Avatar', Avatar);
     app.component('Chart', Chart);
+    app.component('InputSwitch', InputSwitch);
     
 
     app.directive('ripple', Ripple);
